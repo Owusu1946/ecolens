@@ -17,7 +17,8 @@ export type InstitutionKey =
   | "wrc"
   | "rcc"
   | "phvma"
-  | "tnma";
+  | "tnma"
+  | "evaluation";
 
 export const INSTITUTIONS: Record<
   InstitutionKey,
@@ -31,7 +32,8 @@ export const INSTITUTIONS: Record<
       | "minerals_commission"
       | "water_resources_commission"
       | "regional_council"
-      | "district_assembly";
+      | "district_assembly"
+      | "research";
   }
 > = {
   platform: { name: "Ecolens Platform Team", shortName: "Ecolens", kind: "platform" },
@@ -62,6 +64,12 @@ export const INSTITUTIONS: Record<
     shortName: "TNMA",
     kind: "district_assembly",
   },
+  // Illustrative: the steering group appoints the real evaluator.
+  evaluation: {
+    name: "Independent Evaluation Team (illustrative)",
+    shortName: "Evaluation",
+    kind: "research",
+  },
 };
 
 // --- Demo people: one per role, covering all eight dashboards ----------------
@@ -79,7 +87,8 @@ export type PersonKey =
   | "wrcRegulator"
   | "phvmaResponder"
   | "tnmaResponder"
-  | "rccViewer";
+  | "rccViewer"
+  | "evaluator";
 
 export const PEOPLE: Record<
   PersonKey,
@@ -96,7 +105,8 @@ export const PEOPLE: Record<
       | "analyst"
       | "field_officer"
       | "responder"
-      | "viewer";
+      | "viewer"
+      | "evaluator";
   }
 > = {
   admin: person("Kofi", "Asante", "admin", "platform", "admin"),
@@ -110,6 +120,7 @@ export const PEOPLE: Record<
   phvmaResponder: person("Nana", "Agyeman", "phvma.responder", "phvma", "responder"),
   tnmaResponder: person("Adwoa", "Frimpong", "tnma.responder", "tnma", "responder"),
   rccViewer: person("Kwesi", "Arthur", "wrcc.viewer", "rcc", "viewer"),
+  evaluator: person("Ama", "Sarpong", "evaluator", "evaluation", "evaluator"),
 };
 
 function person<R extends (typeof PEOPLE)[PersonKey]["role"]>(

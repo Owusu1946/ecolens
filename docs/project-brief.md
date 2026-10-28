@@ -132,6 +132,7 @@ These come straight from the concept note's principles, safeguards and governanc
 | Operational validation | Technical officers & field teams review alerts before escalation | Analyst, Field officer |
 | Response coordination | Named institutions receive incidents & record action | Responder (per institution) |
 | Platform management | Integrations, security, uptime | Admin |
+| Independent evaluation | Assess detection performance, adoption, response speed and unintended risks | Evaluator |
 
 ## 9. Success measures (MEL)
 
@@ -173,7 +174,7 @@ _Choices made for this build where the concept note is silent. Update as they ar
 | Audience | **Partner/funder demo** (EPA, Minerals Commission, WRC, funders). Storytelling and polish come first, but the workflow must be real and work end to end, not just a mock-up. | 2026-10-28 |
 | UI standard | **Modern, sleek, uncluttered, smooth.** Government-grade polish: calm layouts, generous whitespace, one primary action per view, motion that clarifies rather than decorates. Built on Tailwind v4 + shadcn/ui + Motion (no new UI libraries). | 2026-10-28 |
 | API versioning | **Every endpoint lives under a version prefix (`/v1/...`).** A published version is frozen; breaking changes ship as a new version (`/v2`) while older versions keep working until formally retired, so a working deployment is never disrupted. | 2026-10-28 |
-| Roles & permissions | **Defined in code** (`packages/api/src/auth/roles.ts`), not in the Clerk dashboard, so every change to access rules is reviewed and versioned. Clerk supplies the user, the active organization (= institution) and a role key `org:<role>`. Roles: admin, leadership, regulator, data_steward, analyst, field_officer, responder, viewer. | 2026-10-28 |
+| Roles & permissions | **Defined in code** (`packages/api/src/auth/roles.ts`), not in the Clerk dashboard, so every change to access rules is reviewed and versioned. Clerk supplies the user, the active organization (= institution) and a role key `org:<role>`. Roles: admin, leadership, regulator, data_steward, analyst, field_officer, responder, viewer, evaluator. | 2026-10-28 |
 | Dashboard selection | A user's dashboard is picked from **(institution, role)**: e.g. a regulator at EPA, the Minerals Commission or the WRC each gets their institution's dashboard. | 2026-10-28 |
 | Audit trail | `audit_events` is **append-only, enforced by the database** (a trigger rejects UPDATE, DELETE and TRUNCATE). Corrections are new events. | 2026-10-28 |
 | Seed data | Fictional demo people (one per role); **real institution names** (the pilot partners) for the demo; concession and reserve outlines **illustrative and labelled non-authoritative**, with invented holders, so no real operator is implicated. Every seeded row has `is_simulated = true`. | 2026-10-28 |
@@ -185,7 +186,16 @@ _Choices made for this build where the concept note is silent. Update as they ar
 | Map basemap | Until the Protomaps basemap is on R2: **EOX Sentinel-2 cloudless 2024** imagery with an OSM label overlay, and EOX **Terrain Light** (about half the data) as the default in low-bandwidth mode. EOX licenses the 2018+ cloudless mosaics for **non-commercial use** (CC BY-NC-SA 4.0), which fits the public-sector pilot; recheck before any commercial or production use. Viewed tiles are cached on the device (up to ~20 MB, 30 days). | 2026-10-28 |
 | Map content | Alerts are coloured by **where they are in the workflow** (needs review, in review, confirmed, unresolved, rejected), not by alarm level, and sized by confidence. Rejected alerts are hidden by default. Every layer shows its sources (steward, live/prepared/simulated, update frequency, resolution, limitations); sensitive locations are **withheld for roles without `sensitive_location:read`**, and the map says how many. The whole view (projection, basemap, layers, camera, selected alert) is in the URL, so it can be shared. | 2026-10-28 |
 | deck.gl | Not loaded yet: the pilot's layers (tens of features) render fine as native MapLibre layers. Add deck.gl when a layer needs it (e.g. turbidity-coloured river segments from imagery, heatmaps). | 2026-10-28 |
+| Concept-note check | The build was checked against the full concept note (17 pp.). No deviations; omissions from this brief are recorded below and in section 12. | 2026-10-28 |
+| Evaluator role | A ninth role, **`evaluator`**, for the note's independent-evaluation function: read-only access to alerts, incidents, field reports, reports, the success measures and the audit trail; no sensitive locations unless the steering group grants them. Sees the leadership dashboard. Demo person at an illustrative "Independent Evaluation Team". | 2026-10-28 |
+| Sensitive locations | Withheld from roles without `sensitive_location:read` (built). The note also allows "appropriate aggregation": showing such locations approximately (e.g. district-level counts) is **planned, pending a steering-group decision**. | 2026-10-28 |
+| How alerts are reviewed | A short public page explaining how alerts are generated and reviewed (note: "document how alerts are reviewed"), to address institutional and community mistrust. Planned. | 2026-10-28 |
 
 ## 12. Open questions
 
-_None currently. Add new ones here as they come up._
+| Question | Why it matters | Decided by | Needed before |
+|---|---|---|---|
+| **Multi-factor sign-in** for roles that validate, escalate or manage access | The note asks for "strong authentication". Email-code sign-in is passwordless but relies on the security of each user's mailbox. Clerk MFA needs a paid Clerk plan, so it is a budget item. | Pilot security review | Real pilot data or real officials on the system |
+| **Community feedback channel** | The note's safeguard against mistrust: "provide feedback channels". Who receives feedback and how it is moderated is a partner decision. | Steering group | Field testing with communities |
+| **Retention and publication rules** | The note's governance layer. Until agreed: keep everything, publish nothing publicly, role rules as built; the audit trail is already append-only. | Steering group with data stewards | Real pilot data |
+| **Per-source permitted uses and access conditions** | Each institution "agrees permitted uses, update frequency, access conditions and publication rules" for its data; not yet modelled on data sources. | Data stewards | Connecting any partner dataset |

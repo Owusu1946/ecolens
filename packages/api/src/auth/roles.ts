@@ -16,6 +16,7 @@ export const ROLES = [
   "field_officer",
   "responder",
   "viewer",
+  "evaluator",
 ] as const;
 export type Role = (typeof ROLES)[number];
 
@@ -28,6 +29,7 @@ export const ROLE_LABELS: Record<Role, string> = {
   field_officer: "Field officer",
   responder: "Responder",
   viewer: "Viewer",
+  evaluator: "Independent evaluator",
 };
 
 export const PERMISSIONS = [
@@ -101,6 +103,11 @@ export const ROLE_PERMISSIONS: Record<Role, readonly Permission[]> = {
   ],
   responder: ["alert:read", "incident:read", "incident:act", "field_report:read", "report:read"],
   viewer: READ_ONLY,
+  // Independent evaluation (concept note, "Partnership and Governance"): reads
+  // decisions, outcomes and the audit trail to assess detection performance,
+  // response speed and unintended risks. Changes nothing; no sensitive
+  // locations unless the steering group grants them.
+  evaluator: [...READ_ONLY, "field_report:read", "audit:read"],
 };
 
 // Clerk role keys are namespaced ("org:analyst"); ours are bare.
@@ -165,6 +172,7 @@ export function dashboardFor(role: Role, institution: InstitutionKind | null): D
       return (institution && INSTITUTION_DASHBOARD[institution]) ?? "leadership";
     case "leadership":
     case "viewer":
+    case "evaluator":
       return "leadership";
   }
 }
