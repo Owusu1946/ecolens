@@ -26,6 +26,7 @@ Rule: **the web app never talks to the database directly.** All data goes throug
 |---|---|---|
 | Web hosting | **Vercel**, function region `fra1` | Full Next.js feature support, preview deploys for demos, simplest DX. Heavy, latency-sensitive traffic (API, tiles, realtime) stays on Cloudflare's Accra edge. |
 | API | **Hono + oRPC on Cloudflare Workers** | Edge-served from Accra; end-to-end types with the web app. |
+| API versioning | **URL prefix per version:** `/v1/rpc/*` (typed RPC for the web app), `/v1/*` (REST via OpenAPI), docs at `/v1`, spec at `/v1/spec.json` | Each version is its own router in `packages/api/src/routers/<version>/`. Additive changes (new procedures, new optional fields) stay in the current version; breaking changes go into a new version. Retired versions get `Deprecation`/`Sunset` headers before removal. |
 | Database | **Neon Postgres + PostGIS**, region **eu-central-1** (move from us-east-2) | Spatial queries (within concession, distance to river, per-basin aggregates). Frankfurt is the closest Neon region to Ghana. |
 | DB connection | **Cloudflare Hyperdrive** | Pooled connections and query caching from Workers. |
 | ORM | **Drizzle** (PostGIS geometry types) | Already in the scaffold; typed schema and migrations. |
@@ -86,6 +87,10 @@ A dedicated local-first sync engine (e.g. PowerSync or ElectricSQL) is **not** i
 - [x] Switch `packages/db` from neon-http to a TCP driver (`pg`) through the `HYPERDRIVE` binding; verified locally against PostGIS 3.6, done 2026-10-28
 - [x] Create the Hyperdrive config `ecolens-db` (`eb30370c5d834056b1b10aaae393d3da`, Neon direct endpoint) and bind it as `HYPERDRIVE` in `apps/server/wrangler.jsonc`, done 2026-10-28
 - [x] Create R2 buckets (`ecolens-photos`, `ecolens-tiles`, `ecolens-reports`, WEUR), KV `ecolens-cache`, Queues `ecolens-ingest` + `ecolens-ingest-dlq`, and bind them in `apps/server/wrangler.jsonc` (queue producer only), done 2026-10-28
+- [x] Data model (Drizzle + PostGIS, GeoJSON geometry columns) and migrations in `packages/db/src/migrations`; verified on a temporary Neon branch, done 2026-10-28
+- [ ] Apply the migrations to the main Neon branch (after the data-model PR is merged)
+- [ ] Clerk: enable Organizations, turn on "force organization selection", and create the role keys `org:admin`, `org:leadership`, `org:regulator`, `org:data_steward`, `org:analyst`, `org:field_officer`, `org:responder`, `org:viewer` (dashboard → Roles & Permissions); raise the per-organization membership limit
+- [ ] Clerk: switch sign-up from public to restricted/invite-only for the pilot
 - [ ] Add the ingest queue consumer (with the DLQ) alongside the Worker's `queue()` handler
 - [ ] Add the realtime Durable Object binding and migration alongside the Durable Object class
 - [ ] Create the Vercel project (root `apps/web`, region fra1); set `NEXT_PUBLIC_SERVER_URL` and the Clerk keys

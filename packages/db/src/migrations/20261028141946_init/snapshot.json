@@ -1,0 +1,5632 @@
+{
+  "type": "base",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "fd8c26ea-582b-4a01-be32-f09ae3267cac",
+  "prevIds": [
+    "00000000-0000-0000-0000-000000000000"
+  ],
+  "footprints": [
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "alert_status"
+      ],
+      "writes": [
+        "s|enum|public.alert_status",
+        "n|enum|public.alert_status",
+        "e|enum|public.alert_status",
+        "n|type|public.alert_status"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "boundary_kind"
+      ],
+      "writes": [
+        "s|enum|public.boundary_kind",
+        "n|enum|public.boundary_kind",
+        "e|enum|public.boundary_kind",
+        "n|type|public.boundary_kind"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "confidence"
+      ],
+      "writes": [
+        "s|enum|public.confidence",
+        "n|enum|public.confidence",
+        "e|enum|public.confidence",
+        "n|type|public.confidence"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "data_mode"
+      ],
+      "writes": [
+        "s|enum|public.data_mode",
+        "n|enum|public.data_mode",
+        "e|enum|public.data_mode",
+        "n|type|public.data_mode"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "evidence_kind"
+      ],
+      "writes": [
+        "s|enum|public.evidence_kind",
+        "n|enum|public.evidence_kind",
+        "e|enum|public.evidence_kind",
+        "n|type|public.evidence_kind"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "field_assessment"
+      ],
+      "writes": [
+        "s|enum|public.field_assessment",
+        "n|enum|public.field_assessment",
+        "e|enum|public.field_assessment",
+        "n|type|public.field_assessment"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "incident_action_kind"
+      ],
+      "writes": [
+        "s|enum|public.incident_action_kind",
+        "n|enum|public.incident_action_kind",
+        "e|enum|public.incident_action_kind",
+        "n|type|public.incident_action_kind"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "incident_status"
+      ],
+      "writes": [
+        "s|enum|public.incident_status",
+        "n|enum|public.incident_status",
+        "e|enum|public.incident_status",
+        "n|type|public.incident_status"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "institution_kind"
+      ],
+      "writes": [
+        "s|enum|public.institution_kind",
+        "n|enum|public.institution_kind",
+        "e|enum|public.institution_kind",
+        "n|type|public.institution_kind"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "lens"
+      ],
+      "writes": [
+        "s|enum|public.lens",
+        "n|enum|public.lens",
+        "e|enum|public.lens",
+        "n|type|public.lens"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "report_kind"
+      ],
+      "writes": [
+        "s|enum|public.report_kind",
+        "n|enum|public.report_kind",
+        "e|enum|public.report_kind",
+        "n|type|public.report_kind"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "severity"
+      ],
+      "writes": [
+        "s|enum|public.severity",
+        "n|enum|public.severity",
+        "e|enum|public.severity",
+        "n|type|public.severity"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "source_kind"
+      ],
+      "writes": [
+        "s|enum|public.source_kind",
+        "n|enum|public.source_kind",
+        "e|enum|public.source_kind",
+        "n|type|public.source_kind"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "validation_outcome"
+      ],
+      "writes": [
+        "s|enum|public.validation_outcome",
+        "n|enum|public.validation_outcome",
+        "e|enum|public.validation_outcome",
+        "n|type|public.validation_outcome"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "audit_events"
+      ],
+      "writes": [
+        "s|tbl|public.audit_events",
+        "n|tbl|public.audit_events",
+        "e|tbl|public.audit_events",
+        "n|rel|public.audit_events",
+        "n|type|public.audit_events",
+        "n|rel|public.audit_events_pkey",
+        "n|rel|public.audit_events_client_mutation_id_key"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "observations"
+      ],
+      "writes": [
+        "s|tbl|public.observations",
+        "n|tbl|public.observations",
+        "e|tbl|public.observations",
+        "n|rel|public.observations",
+        "n|type|public.observations",
+        "n|rel|public.observations_pkey",
+        "n|rel|public.observations_source_id_external_id_unique"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.lens",
+        "n|enum|public.confidence"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "anomaly_rules"
+      ],
+      "writes": [
+        "s|tbl|public.anomaly_rules",
+        "n|tbl|public.anomaly_rules",
+        "e|tbl|public.anomaly_rules",
+        "n|rel|public.anomaly_rules",
+        "n|type|public.anomaly_rules",
+        "n|rel|public.anomaly_rules_pkey",
+        "n|rel|public.anomaly_rules_key_version_unique"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.lens"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "boundaries"
+      ],
+      "writes": [
+        "s|tbl|public.boundaries",
+        "n|tbl|public.boundaries",
+        "e|tbl|public.boundaries",
+        "n|rel|public.boundaries",
+        "n|type|public.boundaries",
+        "n|rel|public.boundaries_pkey"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.boundary_kind"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "data_sources"
+      ],
+      "writes": [
+        "s|tbl|public.data_sources",
+        "n|tbl|public.data_sources",
+        "e|tbl|public.data_sources",
+        "n|rel|public.data_sources",
+        "n|type|public.data_sources",
+        "n|rel|public.data_sources_pkey",
+        "n|rel|public.data_sources_key_key"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.source_kind",
+        "n|enum|public.data_mode"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "institutions"
+      ],
+      "writes": [
+        "s|tbl|public.institutions",
+        "n|tbl|public.institutions",
+        "e|tbl|public.institutions",
+        "n|rel|public.institutions",
+        "n|type|public.institutions",
+        "n|rel|public.institutions_pkey",
+        "n|rel|public.institutions_clerk_org_id_key"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.institution_kind"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "river_reaches"
+      ],
+      "writes": [
+        "s|tbl|public.river_reaches",
+        "n|tbl|public.river_reaches",
+        "e|tbl|public.river_reaches",
+        "n|rel|public.river_reaches",
+        "n|type|public.river_reaches",
+        "n|rel|public.river_reaches_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "sites"
+      ],
+      "writes": [
+        "s|tbl|public.sites",
+        "n|tbl|public.sites",
+        "e|tbl|public.sites",
+        "n|rel|public.sites",
+        "n|type|public.sites",
+        "n|rel|public.sites_pkey"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.lens"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "reports"
+      ],
+      "writes": [
+        "s|tbl|public.reports",
+        "n|tbl|public.reports",
+        "e|tbl|public.reports",
+        "n|rel|public.reports",
+        "n|type|public.reports",
+        "n|rel|public.reports_pkey"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.report_kind"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "alert_evidence"
+      ],
+      "writes": [
+        "s|tbl|public.alert_evidence",
+        "n|tbl|public.alert_evidence",
+        "e|tbl|public.alert_evidence",
+        "n|rel|public.alert_evidence",
+        "n|type|public.alert_evidence",
+        "n|rel|public.alert_evidence_pkey"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.evidence_kind"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "alerts"
+      ],
+      "writes": [
+        "s|tbl|public.alerts",
+        "n|tbl|public.alerts",
+        "e|tbl|public.alerts",
+        "n|rel|public.alerts",
+        "n|type|public.alerts",
+        "n|rel|public.alerts_pkey",
+        "n|rel|public.alerts_number_key"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.lens",
+        "n|enum|public.confidence",
+        "n|enum|public.alert_status"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "field_report_photos"
+      ],
+      "writes": [
+        "s|tbl|public.field_report_photos",
+        "n|tbl|public.field_report_photos",
+        "e|tbl|public.field_report_photos",
+        "n|rel|public.field_report_photos",
+        "n|type|public.field_report_photos",
+        "n|rel|public.field_report_photos_pkey",
+        "n|rel|public.field_report_photos_object_key_key"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "field_reports"
+      ],
+      "writes": [
+        "s|tbl|public.field_reports",
+        "n|tbl|public.field_reports",
+        "e|tbl|public.field_reports",
+        "n|rel|public.field_reports",
+        "n|type|public.field_reports",
+        "n|rel|public.field_reports_pkey"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.field_assessment"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "incident_actions"
+      ],
+      "writes": [
+        "s|tbl|public.incident_actions",
+        "n|tbl|public.incident_actions",
+        "e|tbl|public.incident_actions",
+        "n|rel|public.incident_actions",
+        "n|type|public.incident_actions",
+        "n|rel|public.incident_actions_pkey"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.incident_action_kind"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "incident_assignments"
+      ],
+      "writes": [
+        "s|tbl|public.incident_assignments",
+        "n|tbl|public.incident_assignments",
+        "e|tbl|public.incident_assignments",
+        "n|rel|public.incident_assignments",
+        "n|type|public.incident_assignments",
+        "n|rel|public.incident_assignments_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "incidents"
+      ],
+      "writes": [
+        "s|tbl|public.incidents",
+        "n|tbl|public.incidents",
+        "e|tbl|public.incidents",
+        "n|rel|public.incidents",
+        "n|type|public.incidents",
+        "n|rel|public.incidents_pkey",
+        "n|rel|public.incidents_number_key",
+        "n|rel|public.incidents_alert_id_key"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.severity",
+        "n|enum|public.incident_status"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "validations"
+      ],
+      "writes": [
+        "s|tbl|public.validations",
+        "n|tbl|public.validations",
+        "e|tbl|public.validations",
+        "n|rel|public.validations",
+        "n|type|public.validations",
+        "n|rel|public.validations_pkey"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.validation_outcome",
+        "n|enum|public.confidence"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "audit_events",
+        "audit_events_entity_type_entity_id_occurred_at_index"
+      ],
+      "writes": [
+        "s|idx|public.audit_events_entity_type_entity_id_occurred_at_index",
+        "n|idx|public.audit_events_entity_type_entity_id_occurred_at_index",
+        "e|idx|public.audit_events_entity_type_entity_id_occurred_at_index",
+        "n|rel|public.audit_events_entity_type_entity_id_occurred_at_index"
+      ],
+      "reads": [
+        "n|tbl|public.audit_events",
+        "n|sch|public",
+        "n|col|public.audit_events.entity_type",
+        "n|col|public.audit_events.entity_id",
+        "n|col|public.audit_events.occurred_at"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "audit_events",
+        "audit_events_occurred_at_index"
+      ],
+      "writes": [
+        "s|idx|public.audit_events_occurred_at_index",
+        "n|idx|public.audit_events_occurred_at_index",
+        "e|idx|public.audit_events_occurred_at_index",
+        "n|rel|public.audit_events_occurred_at_index"
+      ],
+      "reads": [
+        "n|tbl|public.audit_events",
+        "n|sch|public",
+        "n|col|public.audit_events.occurred_at"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "observations",
+        "observations_site_id_indicator_observed_at_index"
+      ],
+      "writes": [
+        "s|idx|public.observations_site_id_indicator_observed_at_index",
+        "n|idx|public.observations_site_id_indicator_observed_at_index",
+        "e|idx|public.observations_site_id_indicator_observed_at_index",
+        "n|rel|public.observations_site_id_indicator_observed_at_index"
+      ],
+      "reads": [
+        "n|tbl|public.observations",
+        "n|sch|public",
+        "n|col|public.observations.site_id",
+        "n|col|public.observations.indicator",
+        "n|col|public.observations.observed_at"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "observations",
+        "observations_observed_at_index"
+      ],
+      "writes": [
+        "s|idx|public.observations_observed_at_index",
+        "n|idx|public.observations_observed_at_index",
+        "e|idx|public.observations_observed_at_index",
+        "n|rel|public.observations_observed_at_index"
+      ],
+      "reads": [
+        "n|tbl|public.observations",
+        "n|sch|public",
+        "n|col|public.observations.observed_at"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "observations",
+        "observations_location_index"
+      ],
+      "writes": [
+        "s|idx|public.observations_location_index",
+        "n|idx|public.observations_location_index",
+        "e|idx|public.observations_location_index",
+        "n|rel|public.observations_location_index"
+      ],
+      "reads": [
+        "n|tbl|public.observations",
+        "n|sch|public",
+        "n|col|public.observations.location"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "boundaries",
+        "boundaries_area_index"
+      ],
+      "writes": [
+        "s|idx|public.boundaries_area_index",
+        "n|idx|public.boundaries_area_index",
+        "e|idx|public.boundaries_area_index",
+        "n|rel|public.boundaries_area_index"
+      ],
+      "reads": [
+        "n|tbl|public.boundaries",
+        "n|sch|public",
+        "n|col|public.boundaries.area"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "boundaries",
+        "boundaries_kind_index"
+      ],
+      "writes": [
+        "s|idx|public.boundaries_kind_index",
+        "n|idx|public.boundaries_kind_index",
+        "e|idx|public.boundaries_kind_index",
+        "n|rel|public.boundaries_kind_index"
+      ],
+      "reads": [
+        "n|tbl|public.boundaries",
+        "n|sch|public",
+        "n|col|public.boundaries.kind"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "river_reaches",
+        "river_reaches_course_index"
+      ],
+      "writes": [
+        "s|idx|public.river_reaches_course_index",
+        "n|idx|public.river_reaches_course_index",
+        "e|idx|public.river_reaches_course_index",
+        "n|rel|public.river_reaches_course_index"
+      ],
+      "reads": [
+        "n|tbl|public.river_reaches",
+        "n|sch|public",
+        "n|col|public.river_reaches.course"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "sites",
+        "sites_location_index"
+      ],
+      "writes": [
+        "s|idx|public.sites_location_index",
+        "n|idx|public.sites_location_index",
+        "e|idx|public.sites_location_index",
+        "n|rel|public.sites_location_index"
+      ],
+      "reads": [
+        "n|tbl|public.sites",
+        "n|sch|public",
+        "n|col|public.sites.location"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "reports",
+        "reports_incident_id_index"
+      ],
+      "writes": [
+        "s|idx|public.reports_incident_id_index",
+        "n|idx|public.reports_incident_id_index",
+        "e|idx|public.reports_incident_id_index",
+        "n|rel|public.reports_incident_id_index"
+      ],
+      "reads": [
+        "n|tbl|public.reports",
+        "n|sch|public",
+        "n|col|public.reports.incident_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "reports",
+        "reports_generated_at_index"
+      ],
+      "writes": [
+        "s|idx|public.reports_generated_at_index",
+        "n|idx|public.reports_generated_at_index",
+        "e|idx|public.reports_generated_at_index",
+        "n|rel|public.reports_generated_at_index"
+      ],
+      "reads": [
+        "n|tbl|public.reports",
+        "n|sch|public",
+        "n|col|public.reports.generated_at"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "alert_evidence",
+        "alert_evidence_alert_id_index"
+      ],
+      "writes": [
+        "s|idx|public.alert_evidence_alert_id_index",
+        "n|idx|public.alert_evidence_alert_id_index",
+        "e|idx|public.alert_evidence_alert_id_index",
+        "n|rel|public.alert_evidence_alert_id_index"
+      ],
+      "reads": [
+        "n|tbl|public.alert_evidence",
+        "n|sch|public",
+        "n|col|public.alert_evidence.alert_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "alerts",
+        "alerts_status_detected_at_index"
+      ],
+      "writes": [
+        "s|idx|public.alerts_status_detected_at_index",
+        "n|idx|public.alerts_status_detected_at_index",
+        "e|idx|public.alerts_status_detected_at_index",
+        "n|rel|public.alerts_status_detected_at_index"
+      ],
+      "reads": [
+        "n|tbl|public.alerts",
+        "n|sch|public",
+        "n|col|public.alerts.status",
+        "n|col|public.alerts.detected_at"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "alerts",
+        "alerts_site_id_index"
+      ],
+      "writes": [
+        "s|idx|public.alerts_site_id_index",
+        "n|idx|public.alerts_site_id_index",
+        "e|idx|public.alerts_site_id_index",
+        "n|rel|public.alerts_site_id_index"
+      ],
+      "reads": [
+        "n|tbl|public.alerts",
+        "n|sch|public",
+        "n|col|public.alerts.site_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "alerts",
+        "alerts_location_index"
+      ],
+      "writes": [
+        "s|idx|public.alerts_location_index",
+        "n|idx|public.alerts_location_index",
+        "e|idx|public.alerts_location_index",
+        "n|rel|public.alerts_location_index"
+      ],
+      "reads": [
+        "n|tbl|public.alerts",
+        "n|sch|public",
+        "n|col|public.alerts.location"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "field_report_photos",
+        "field_report_photos_field_report_id_index"
+      ],
+      "writes": [
+        "s|idx|public.field_report_photos_field_report_id_index",
+        "n|idx|public.field_report_photos_field_report_id_index",
+        "e|idx|public.field_report_photos_field_report_id_index",
+        "n|rel|public.field_report_photos_field_report_id_index"
+      ],
+      "reads": [
+        "n|tbl|public.field_report_photos",
+        "n|sch|public",
+        "n|col|public.field_report_photos.field_report_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "field_reports",
+        "field_reports_alert_id_index"
+      ],
+      "writes": [
+        "s|idx|public.field_reports_alert_id_index",
+        "n|idx|public.field_reports_alert_id_index",
+        "e|idx|public.field_reports_alert_id_index",
+        "n|rel|public.field_reports_alert_id_index"
+      ],
+      "reads": [
+        "n|tbl|public.field_reports",
+        "n|sch|public",
+        "n|col|public.field_reports.alert_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "field_reports",
+        "field_reports_client_created_at_index"
+      ],
+      "writes": [
+        "s|idx|public.field_reports_client_created_at_index",
+        "n|idx|public.field_reports_client_created_at_index",
+        "e|idx|public.field_reports_client_created_at_index",
+        "n|rel|public.field_reports_client_created_at_index"
+      ],
+      "reads": [
+        "n|tbl|public.field_reports",
+        "n|sch|public",
+        "n|col|public.field_reports.client_created_at"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "field_reports",
+        "field_reports_location_index"
+      ],
+      "writes": [
+        "s|idx|public.field_reports_location_index",
+        "n|idx|public.field_reports_location_index",
+        "e|idx|public.field_reports_location_index",
+        "n|rel|public.field_reports_location_index"
+      ],
+      "reads": [
+        "n|tbl|public.field_reports",
+        "n|sch|public",
+        "n|col|public.field_reports.location"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "incident_actions",
+        "incident_actions_incident_id_taken_at_index"
+      ],
+      "writes": [
+        "s|idx|public.incident_actions_incident_id_taken_at_index",
+        "n|idx|public.incident_actions_incident_id_taken_at_index",
+        "e|idx|public.incident_actions_incident_id_taken_at_index",
+        "n|rel|public.incident_actions_incident_id_taken_at_index"
+      ],
+      "reads": [
+        "n|tbl|public.incident_actions",
+        "n|sch|public",
+        "n|col|public.incident_actions.incident_id",
+        "n|col|public.incident_actions.taken_at"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "incident_assignments",
+        "incident_assignments_incident_id_assigned_at_index"
+      ],
+      "writes": [
+        "s|idx|public.incident_assignments_incident_id_assigned_at_index",
+        "n|idx|public.incident_assignments_incident_id_assigned_at_index",
+        "e|idx|public.incident_assignments_incident_id_assigned_at_index",
+        "n|rel|public.incident_assignments_incident_id_assigned_at_index"
+      ],
+      "reads": [
+        "n|tbl|public.incident_assignments",
+        "n|sch|public",
+        "n|col|public.incident_assignments.incident_id",
+        "n|col|public.incident_assignments.assigned_at"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "incidents",
+        "incidents_status_opened_at_index"
+      ],
+      "writes": [
+        "s|idx|public.incidents_status_opened_at_index",
+        "n|idx|public.incidents_status_opened_at_index",
+        "e|idx|public.incidents_status_opened_at_index",
+        "n|rel|public.incidents_status_opened_at_index"
+      ],
+      "reads": [
+        "n|tbl|public.incidents",
+        "n|sch|public",
+        "n|col|public.incidents.status",
+        "n|col|public.incidents.opened_at"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "incidents",
+        "incidents_responsible_institution_id_index"
+      ],
+      "writes": [
+        "s|idx|public.incidents_responsible_institution_id_index",
+        "n|idx|public.incidents_responsible_institution_id_index",
+        "e|idx|public.incidents_responsible_institution_id_index",
+        "n|rel|public.incidents_responsible_institution_id_index"
+      ],
+      "reads": [
+        "n|tbl|public.incidents",
+        "n|sch|public",
+        "n|col|public.incidents.responsible_institution_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "validations",
+        "validations_alert_id_decided_at_index"
+      ],
+      "writes": [
+        "s|idx|public.validations_alert_id_decided_at_index",
+        "n|idx|public.validations_alert_id_decided_at_index",
+        "e|idx|public.validations_alert_id_decided_at_index",
+        "n|rel|public.validations_alert_id_decided_at_index"
+      ],
+      "reads": [
+        "n|tbl|public.validations",
+        "n|sch|public",
+        "n|col|public.validations.alert_id",
+        "n|col|public.validations.decided_at"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "observations"
+      ],
+      "writes": [
+        "s|fk|public.observations.observations_source_id_data_sources_id_fkey",
+        "n|fk|public.observations.observations_source_id_data_sources_id_fkey",
+        "e|fk|public.observations.observations_source_id_data_sources_id_fkey",
+        "n|con|public.observations.observations_source_id_data_sources_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.observations",
+        "n|sch|public",
+        "n|tbl|public.data_sources",
+        "n|sch|public",
+        "n|col|public.observations.source_id",
+        "n|col|public.data_sources.id",
+        "e|uniqueness|public.data_sources.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "observations"
+      ],
+      "writes": [
+        "s|fk|public.observations.observations_site_id_sites_id_fkey",
+        "n|fk|public.observations.observations_site_id_sites_id_fkey",
+        "e|fk|public.observations.observations_site_id_sites_id_fkey",
+        "n|con|public.observations.observations_site_id_sites_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.observations",
+        "n|sch|public",
+        "n|tbl|public.sites",
+        "n|sch|public",
+        "n|col|public.observations.site_id",
+        "n|col|public.sites.id",
+        "e|uniqueness|public.sites.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "boundaries"
+      ],
+      "writes": [
+        "s|fk|public.boundaries.boundaries_source_id_data_sources_id_fkey",
+        "n|fk|public.boundaries.boundaries_source_id_data_sources_id_fkey",
+        "e|fk|public.boundaries.boundaries_source_id_data_sources_id_fkey",
+        "n|con|public.boundaries.boundaries_source_id_data_sources_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.boundaries",
+        "n|sch|public",
+        "n|tbl|public.data_sources",
+        "n|sch|public",
+        "n|col|public.boundaries.source_id",
+        "n|col|public.data_sources.id",
+        "e|uniqueness|public.data_sources.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "data_sources"
+      ],
+      "writes": [
+        "s|fk|public.data_sources.data_sources_steward_institution_id_institutions_id_fkey",
+        "n|fk|public.data_sources.data_sources_steward_institution_id_institutions_id_fkey",
+        "e|fk|public.data_sources.data_sources_steward_institution_id_institutions_id_fkey",
+        "n|con|public.data_sources.data_sources_steward_institution_id_institutions_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.data_sources",
+        "n|sch|public",
+        "n|tbl|public.institutions",
+        "n|sch|public",
+        "n|col|public.data_sources.steward_institution_id",
+        "n|col|public.institutions.id",
+        "e|uniqueness|public.institutions.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "river_reaches"
+      ],
+      "writes": [
+        "s|fk|public.river_reaches.river_reaches_source_id_data_sources_id_fkey",
+        "n|fk|public.river_reaches.river_reaches_source_id_data_sources_id_fkey",
+        "e|fk|public.river_reaches.river_reaches_source_id_data_sources_id_fkey",
+        "n|con|public.river_reaches.river_reaches_source_id_data_sources_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.river_reaches",
+        "n|sch|public",
+        "n|tbl|public.data_sources",
+        "n|sch|public",
+        "n|col|public.river_reaches.source_id",
+        "n|col|public.data_sources.id",
+        "e|uniqueness|public.data_sources.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "reports"
+      ],
+      "writes": [
+        "s|fk|public.reports.reports_alert_id_alerts_id_fkey",
+        "n|fk|public.reports.reports_alert_id_alerts_id_fkey",
+        "e|fk|public.reports.reports_alert_id_alerts_id_fkey",
+        "n|con|public.reports.reports_alert_id_alerts_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.reports",
+        "n|sch|public",
+        "n|tbl|public.alerts",
+        "n|sch|public",
+        "n|col|public.reports.alert_id",
+        "n|col|public.alerts.id",
+        "e|uniqueness|public.alerts.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "reports"
+      ],
+      "writes": [
+        "s|fk|public.reports.reports_incident_id_incidents_id_fkey",
+        "n|fk|public.reports.reports_incident_id_incidents_id_fkey",
+        "e|fk|public.reports.reports_incident_id_incidents_id_fkey",
+        "n|con|public.reports.reports_incident_id_incidents_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.reports",
+        "n|sch|public",
+        "n|tbl|public.incidents",
+        "n|sch|public",
+        "n|col|public.reports.incident_id",
+        "n|col|public.incidents.id",
+        "e|uniqueness|public.incidents.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "alert_evidence"
+      ],
+      "writes": [
+        "s|fk|public.alert_evidence.alert_evidence_alert_id_alerts_id_fkey",
+        "n|fk|public.alert_evidence.alert_evidence_alert_id_alerts_id_fkey",
+        "e|fk|public.alert_evidence.alert_evidence_alert_id_alerts_id_fkey",
+        "n|con|public.alert_evidence.alert_evidence_alert_id_alerts_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.alert_evidence",
+        "n|sch|public",
+        "n|tbl|public.alerts",
+        "n|sch|public",
+        "n|col|public.alert_evidence.alert_id",
+        "n|col|public.alerts.id",
+        "e|uniqueness|public.alerts.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "alert_evidence"
+      ],
+      "writes": [
+        "s|fk|public.alert_evidence.alert_evidence_observation_id_observations_id_fkey",
+        "n|fk|public.alert_evidence.alert_evidence_observation_id_observations_id_fkey",
+        "e|fk|public.alert_evidence.alert_evidence_observation_id_observations_id_fkey",
+        "n|con|public.alert_evidence.alert_evidence_observation_id_observations_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.alert_evidence",
+        "n|sch|public",
+        "n|tbl|public.observations",
+        "n|sch|public",
+        "n|col|public.alert_evidence.observation_id",
+        "n|col|public.observations.id",
+        "e|uniqueness|public.observations.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "alert_evidence"
+      ],
+      "writes": [
+        "s|fk|public.alert_evidence.alert_evidence_field_report_id_field_reports_id_fkey",
+        "n|fk|public.alert_evidence.alert_evidence_field_report_id_field_reports_id_fkey",
+        "e|fk|public.alert_evidence.alert_evidence_field_report_id_field_reports_id_fkey",
+        "n|con|public.alert_evidence.alert_evidence_field_report_id_field_reports_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.alert_evidence",
+        "n|sch|public",
+        "n|tbl|public.field_reports",
+        "n|sch|public",
+        "n|col|public.alert_evidence.field_report_id",
+        "n|col|public.field_reports.id",
+        "e|uniqueness|public.field_reports.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "alerts"
+      ],
+      "writes": [
+        "s|fk|public.alerts.alerts_rule_id_anomaly_rules_id_fkey",
+        "n|fk|public.alerts.alerts_rule_id_anomaly_rules_id_fkey",
+        "e|fk|public.alerts.alerts_rule_id_anomaly_rules_id_fkey",
+        "n|con|public.alerts.alerts_rule_id_anomaly_rules_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.alerts",
+        "n|sch|public",
+        "n|tbl|public.anomaly_rules",
+        "n|sch|public",
+        "n|col|public.alerts.rule_id",
+        "n|col|public.anomaly_rules.id",
+        "e|uniqueness|public.anomaly_rules.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "alerts"
+      ],
+      "writes": [
+        "s|fk|public.alerts.alerts_site_id_sites_id_fkey",
+        "n|fk|public.alerts.alerts_site_id_sites_id_fkey",
+        "e|fk|public.alerts.alerts_site_id_sites_id_fkey",
+        "n|con|public.alerts.alerts_site_id_sites_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.alerts",
+        "n|sch|public",
+        "n|tbl|public.sites",
+        "n|sch|public",
+        "n|col|public.alerts.site_id",
+        "n|col|public.sites.id",
+        "e|uniqueness|public.sites.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "field_report_photos"
+      ],
+      "writes": [
+        "s|fk|public.field_report_photos.field_report_photos_field_report_id_field_reports_id_fkey",
+        "n|fk|public.field_report_photos.field_report_photos_field_report_id_field_reports_id_fkey",
+        "e|fk|public.field_report_photos.field_report_photos_field_report_id_field_reports_id_fkey",
+        "n|con|public.field_report_photos.field_report_photos_field_report_id_field_reports_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.field_report_photos",
+        "n|sch|public",
+        "n|tbl|public.field_reports",
+        "n|sch|public",
+        "n|col|public.field_report_photos.field_report_id",
+        "n|col|public.field_reports.id",
+        "e|uniqueness|public.field_reports.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "field_reports"
+      ],
+      "writes": [
+        "s|fk|public.field_reports.field_reports_alert_id_alerts_id_fkey",
+        "n|fk|public.field_reports.field_reports_alert_id_alerts_id_fkey",
+        "e|fk|public.field_reports.field_reports_alert_id_alerts_id_fkey",
+        "n|con|public.field_reports.field_reports_alert_id_alerts_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.field_reports",
+        "n|sch|public",
+        "n|tbl|public.alerts",
+        "n|sch|public",
+        "n|col|public.field_reports.alert_id",
+        "n|col|public.alerts.id",
+        "e|uniqueness|public.alerts.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "field_reports"
+      ],
+      "writes": [
+        "s|fk|public.field_reports.field_reports_site_id_sites_id_fkey",
+        "n|fk|public.field_reports.field_reports_site_id_sites_id_fkey",
+        "e|fk|public.field_reports.field_reports_site_id_sites_id_fkey",
+        "n|con|public.field_reports.field_reports_site_id_sites_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.field_reports",
+        "n|sch|public",
+        "n|tbl|public.sites",
+        "n|sch|public",
+        "n|col|public.field_reports.site_id",
+        "n|col|public.sites.id",
+        "e|uniqueness|public.sites.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "incident_actions"
+      ],
+      "writes": [
+        "s|fk|public.incident_actions.incident_actions_incident_id_incidents_id_fkey",
+        "n|fk|public.incident_actions.incident_actions_incident_id_incidents_id_fkey",
+        "e|fk|public.incident_actions.incident_actions_incident_id_incidents_id_fkey",
+        "n|con|public.incident_actions.incident_actions_incident_id_incidents_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.incident_actions",
+        "n|sch|public",
+        "n|tbl|public.incidents",
+        "n|sch|public",
+        "n|col|public.incident_actions.incident_id",
+        "n|col|public.incidents.id",
+        "e|uniqueness|public.incidents.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "incident_assignments"
+      ],
+      "writes": [
+        "s|fk|public.incident_assignments.incident_assignments_incident_id_incidents_id_fkey",
+        "n|fk|public.incident_assignments.incident_assignments_incident_id_incidents_id_fkey",
+        "e|fk|public.incident_assignments.incident_assignments_incident_id_incidents_id_fkey",
+        "n|con|public.incident_assignments.incident_assignments_incident_id_incidents_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.incident_assignments",
+        "n|sch|public",
+        "n|tbl|public.incidents",
+        "n|sch|public",
+        "n|col|public.incident_assignments.incident_id",
+        "n|col|public.incidents.id",
+        "e|uniqueness|public.incidents.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "incident_assignments"
+      ],
+      "writes": [
+        "s|fk|public.incident_assignments.incident_assignments_institution_id_institutions_id_fkey",
+        "n|fk|public.incident_assignments.incident_assignments_institution_id_institutions_id_fkey",
+        "e|fk|public.incident_assignments.incident_assignments_institution_id_institutions_id_fkey",
+        "n|con|public.incident_assignments.incident_assignments_institution_id_institutions_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.incident_assignments",
+        "n|sch|public",
+        "n|tbl|public.institutions",
+        "n|sch|public",
+        "n|col|public.incident_assignments.institution_id",
+        "n|col|public.institutions.id",
+        "e|uniqueness|public.institutions.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "incidents"
+      ],
+      "writes": [
+        "s|fk|public.incidents.incidents_alert_id_alerts_id_fkey",
+        "n|fk|public.incidents.incidents_alert_id_alerts_id_fkey",
+        "e|fk|public.incidents.incidents_alert_id_alerts_id_fkey",
+        "n|con|public.incidents.incidents_alert_id_alerts_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.incidents",
+        "n|sch|public",
+        "n|tbl|public.alerts",
+        "n|sch|public",
+        "n|col|public.incidents.alert_id",
+        "n|col|public.alerts.id",
+        "e|uniqueness|public.alerts.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "incidents"
+      ],
+      "writes": [
+        "s|fk|public.incidents.incidents_responsible_institution_id_institutions_id_fkey",
+        "n|fk|public.incidents.incidents_responsible_institution_id_institutions_id_fkey",
+        "e|fk|public.incidents.incidents_responsible_institution_id_institutions_id_fkey",
+        "n|con|public.incidents.incidents_responsible_institution_id_institutions_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.incidents",
+        "n|sch|public",
+        "n|tbl|public.institutions",
+        "n|sch|public",
+        "n|col|public.incidents.responsible_institution_id",
+        "n|col|public.institutions.id",
+        "e|uniqueness|public.institutions.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "validations"
+      ],
+      "writes": [
+        "s|fk|public.validations.validations_alert_id_alerts_id_fkey",
+        "n|fk|public.validations.validations_alert_id_alerts_id_fkey",
+        "e|fk|public.validations.validations_alert_id_alerts_id_fkey",
+        "n|con|public.validations.validations_alert_id_alerts_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.validations",
+        "n|sch|public",
+        "n|tbl|public.alerts",
+        "n|sch|public",
+        "n|col|public.validations.alert_id",
+        "n|col|public.alerts.id",
+        "e|uniqueness|public.alerts.id"
+      ]
+    }
+  ],
+  "ddl": [
+    {
+      "schema": "public",
+      "name": "audit_events",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "observations",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "anomaly_rules",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "boundaries",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "data_sources",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "institutions",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "river_reaches",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "sites",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "reports",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "alert_evidence",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "alerts",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "field_report_photos",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "field_reports",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "incident_actions",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "incident_assignments",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "incidents",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "validations",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "alert_status",
+      "values": [
+        "new",
+        "in_review",
+        "confirmed",
+        "rejected",
+        "unresolved"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "boundary_kind",
+      "values": [
+        "basin",
+        "mining_concession",
+        "protected_area",
+        "forest_reserve",
+        "district",
+        "region"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "confidence",
+      "values": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "data_mode",
+      "values": [
+        "live",
+        "prepared",
+        "simulated"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "evidence_kind",
+      "values": [
+        "observation",
+        "field_report",
+        "imagery",
+        "document",
+        "note"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "field_assessment",
+      "values": [
+        "supports_alert",
+        "contradicts_alert",
+        "inconclusive"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "incident_action_kind",
+      "values": [
+        "site_inspection",
+        "sampling",
+        "enforcement_notice",
+        "suspension",
+        "arrest_or_seizure",
+        "remediation",
+        "public_notice",
+        "referral",
+        "decision_not_to_act",
+        "other"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "incident_status",
+      "values": [
+        "open",
+        "assigned",
+        "in_progress",
+        "action_recorded",
+        "closed"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "institution_kind",
+      "values": [
+        "platform",
+        "steering",
+        "epa",
+        "minerals_commission",
+        "water_resources_commission",
+        "district_assembly",
+        "regional_council",
+        "research",
+        "community",
+        "data_provider"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "lens",
+      "values": [
+        "water",
+        "forest_land",
+        "air"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "report_kind",
+      "values": [
+        "incident_assessment",
+        "alert_summary",
+        "period_summary"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "severity",
+      "values": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "source_kind",
+      "values": [
+        "satellite",
+        "sensor",
+        "agency_dataset",
+        "regulatory_record",
+        "field_observation",
+        "model"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "validation_outcome",
+      "values": [
+        "confirmed",
+        "rejected",
+        "unresolved"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "table": "audit_events",
+      "name": "id",
+      "type": "bigint",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "always",
+        "name": "audit_events_id_seq",
+        "increment": "1",
+        "startWith": "1",
+        "minValue": "1",
+        "maxValue": "9223372036854775807",
+        "cache": 1,
+        "cycle": false
+      },
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "audit_events",
+      "name": "occurred_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "audit_events",
+      "name": "actor_user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "audit_events",
+      "name": "actor_org_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "audit_events",
+      "name": "actor_role",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "audit_events",
+      "name": "action",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "audit_events",
+      "name": "entity_type",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "audit_events",
+      "name": "entity_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "audit_events",
+      "name": "from_status",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "audit_events",
+      "name": "to_status",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "audit_events",
+      "name": "reason",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "audit_events",
+      "name": "entity_version",
+      "type": "bigint",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "audit_events",
+      "name": "client_mutation_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "audit_events",
+      "name": "data",
+      "type": "jsonb",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "observations",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "observations",
+      "name": "source_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "observations",
+      "name": "site_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "observations",
+      "name": "lens",
+      "type": "lens",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "observations",
+      "name": "indicator",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "observations",
+      "name": "value",
+      "type": "double precision",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "observations",
+      "name": "unit",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "observations",
+      "name": "observed_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "observations",
+      "name": "ingested_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "observations",
+      "name": "location",
+      "type": "geometry(Geometry,4326)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "observations",
+      "name": "confidence",
+      "type": "confidence",
+      "typeSchema": "public",
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "observations",
+      "name": "quality_note",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "observations",
+      "name": "external_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "observations",
+      "name": "raw",
+      "type": "jsonb",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "observations",
+      "name": "is_simulated",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "anomaly_rules",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "anomaly_rules",
+      "name": "key",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "anomaly_rules",
+      "name": "version",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "1",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "anomaly_rules",
+      "name": "lens",
+      "type": "lens",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "anomaly_rules",
+      "name": "indicator",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "anomaly_rules",
+      "name": "name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "anomaly_rules",
+      "name": "description",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "anomaly_rules",
+      "name": "params",
+      "type": "jsonb",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "anomaly_rules",
+      "name": "is_active",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "true",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "anomaly_rules",
+      "name": "reviewed_by_user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "anomaly_rules",
+      "name": "reviewed_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "anomaly_rules",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "boundaries",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "boundaries",
+      "name": "kind",
+      "type": "boundary_kind",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "boundaries",
+      "name": "name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "boundaries",
+      "name": "reference",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "boundaries",
+      "name": "holder",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "boundaries",
+      "name": "legal_status",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "boundaries",
+      "name": "source_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "boundaries",
+      "name": "valid_from",
+      "type": "date",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "boundaries",
+      "name": "valid_to",
+      "type": "date",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "boundaries",
+      "name": "area",
+      "type": "geometry(MultiPolygon,4326)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "boundaries",
+      "name": "is_sensitive",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "boundaries",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "data_sources",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "data_sources",
+      "name": "key",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "data_sources",
+      "name": "name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "data_sources",
+      "name": "kind",
+      "type": "source_kind",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "data_sources",
+      "name": "mode",
+      "type": "data_mode",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "data_sources",
+      "name": "steward_institution_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "data_sources",
+      "name": "description",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "data_sources",
+      "name": "methodology",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "data_sources",
+      "name": "known_limitations",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "data_sources",
+      "name": "spatial_resolution",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "data_sources",
+      "name": "update_frequency",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "data_sources",
+      "name": "licence",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "data_sources",
+      "name": "url",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "data_sources",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "institutions",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "institutions",
+      "name": "clerk_org_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "institutions",
+      "name": "name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "institutions",
+      "name": "short_name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "institutions",
+      "name": "kind",
+      "type": "institution_kind",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "institutions",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "river_reaches",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "river_reaches",
+      "name": "river",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "river_reaches",
+      "name": "basin",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "river_reaches",
+      "name": "name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "river_reaches",
+      "name": "course",
+      "type": "geometry(LineString,4326)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "river_reaches",
+      "name": "source_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "river_reaches",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "sites",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "sites",
+      "name": "name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "sites",
+      "name": "lens",
+      "type": "lens",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "sites",
+      "name": "basin",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "sites",
+      "name": "district",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "sites",
+      "name": "description",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "sites",
+      "name": "location",
+      "type": "geometry(Point,4326)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "sites",
+      "name": "is_sensitive",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "sites",
+      "name": "is_simulated",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "sites",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "reports",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "reports",
+      "name": "kind",
+      "type": "report_kind",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "reports",
+      "name": "title",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "reports",
+      "name": "alert_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "reports",
+      "name": "incident_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "reports",
+      "name": "period_start",
+      "type": "date",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "reports",
+      "name": "period_end",
+      "type": "date",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "reports",
+      "name": "object_key",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "reports",
+      "name": "generated_by_user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "reports",
+      "name": "generated_by_org_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "reports",
+      "name": "generated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "reports",
+      "name": "is_published",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "reports",
+      "name": "published_by_user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "reports",
+      "name": "published_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alert_evidence",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alert_evidence",
+      "name": "alert_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alert_evidence",
+      "name": "kind",
+      "type": "evidence_kind",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alert_evidence",
+      "name": "observation_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alert_evidence",
+      "name": "field_report_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alert_evidence",
+      "name": "object_key",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alert_evidence",
+      "name": "caption",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alert_evidence",
+      "name": "added_by_user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alert_evidence",
+      "name": "added_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "number",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "always",
+        "name": "alerts_number_seq",
+        "increment": "1",
+        "startWith": "1",
+        "minValue": "1",
+        "maxValue": "2147483647",
+        "cache": 1,
+        "cycle": false
+      },
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "lens",
+      "type": "lens",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "indicator",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "title",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "summary",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "rule_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "site_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "location",
+      "type": "geometry(Geometry,4326)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "confidence",
+      "type": "confidence",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "status",
+      "type": "alert_status",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'new'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "coverage",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "limitations",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "first_observed_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "detected_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "validated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "is_sensitive",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "is_simulated",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "version",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "1",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_report_photos",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_report_photos",
+      "name": "field_report_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_report_photos",
+      "name": "object_key",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_report_photos",
+      "name": "content_type",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_report_photos",
+      "name": "bytes",
+      "type": "bigint",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_report_photos",
+      "name": "width",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_report_photos",
+      "name": "height",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_report_photos",
+      "name": "taken_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_report_photos",
+      "name": "location",
+      "type": "geometry(Point,4326)",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_report_photos",
+      "name": "uploaded_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_reports",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_reports",
+      "name": "alert_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_reports",
+      "name": "site_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_reports",
+      "name": "author_user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_reports",
+      "name": "author_org_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_reports",
+      "name": "location",
+      "type": "geometry(Point,4326)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_reports",
+      "name": "gps_accuracy_m",
+      "type": "double precision",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_reports",
+      "name": "observation",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_reports",
+      "name": "activity_types",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 1,
+      "default": "'{}'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_reports",
+      "name": "assessment",
+      "type": "field_assessment",
+      "typeSchema": "public",
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_reports",
+      "name": "client_created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_reports",
+      "name": "received_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_reports",
+      "name": "is_sensitive",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "true",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "field_reports",
+      "name": "is_simulated",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incident_actions",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incident_actions",
+      "name": "incident_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incident_actions",
+      "name": "kind",
+      "type": "incident_action_kind",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incident_actions",
+      "name": "description",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incident_actions",
+      "name": "taken_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incident_actions",
+      "name": "recorded_by_user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incident_actions",
+      "name": "recorded_by_org_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incident_actions",
+      "name": "recorded_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incident_assignments",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incident_assignments",
+      "name": "incident_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incident_assignments",
+      "name": "institution_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incident_assignments",
+      "name": "instructions",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incident_assignments",
+      "name": "due_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incident_assignments",
+      "name": "assigned_by_user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incident_assignments",
+      "name": "assigned_by_org_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incident_assignments",
+      "name": "assigned_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incidents",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incidents",
+      "name": "number",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "always",
+        "name": "incidents_number_seq",
+        "increment": "1",
+        "startWith": "1",
+        "minValue": "1",
+        "maxValue": "2147483647",
+        "cache": 1,
+        "cycle": false
+      },
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incidents",
+      "name": "alert_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incidents",
+      "name": "title",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incidents",
+      "name": "severity",
+      "type": "severity",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incidents",
+      "name": "status",
+      "type": "incident_status",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'open'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incidents",
+      "name": "responsible_institution_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incidents",
+      "name": "opened_by_user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incidents",
+      "name": "opened_by_org_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incidents",
+      "name": "opened_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incidents",
+      "name": "closed_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incidents",
+      "name": "closure_summary",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incidents",
+      "name": "is_sensitive",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incidents",
+      "name": "version",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "1",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "incidents",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "validations",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "validations",
+      "name": "alert_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "validations",
+      "name": "outcome",
+      "type": "validation_outcome",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "validations",
+      "name": "rationale",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "validations",
+      "name": "confidence",
+      "type": "confidence",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "validations",
+      "name": "decided_by_user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "validations",
+      "name": "decided_by_org_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "validations",
+      "name": "decided_by_role",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "validations",
+      "name": "decided_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "audit_events",
+      "name": "audit_events_entity_type_entity_id_occurred_at_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "entity_type",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "entity_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "occurred_at",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "audit_events",
+      "name": "audit_events_occurred_at_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "occurred_at",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "observations",
+      "name": "observations_site_id_indicator_observed_at_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "site_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "indicator",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "observed_at",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "observations",
+      "name": "observations_observed_at_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "observed_at",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "observations",
+      "name": "observations_location_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "location",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "gist",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "boundaries",
+      "name": "boundaries_area_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "area",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "gist",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "boundaries",
+      "name": "boundaries_kind_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "kind",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "river_reaches",
+      "name": "river_reaches_course_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "course",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "gist",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "sites",
+      "name": "sites_location_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "location",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "gist",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "reports",
+      "name": "reports_incident_id_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "incident_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "reports",
+      "name": "reports_generated_at_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "generated_at",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "alert_evidence",
+      "name": "alert_evidence_alert_id_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "alert_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "alerts_status_detected_at_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "status",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "detected_at",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "alerts_site_id_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "site_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "alerts_location_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "location",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "gist",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "field_report_photos",
+      "name": "field_report_photos_field_report_id_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "field_report_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "field_reports",
+      "name": "field_reports_alert_id_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "alert_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "field_reports",
+      "name": "field_reports_client_created_at_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "client_created_at",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "field_reports",
+      "name": "field_reports_location_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "location",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "gist",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "incident_actions",
+      "name": "incident_actions_incident_id_taken_at_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "incident_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "taken_at",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "incident_assignments",
+      "name": "incident_assignments_incident_id_assigned_at_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "incident_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "assigned_at",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "incidents",
+      "name": "incidents_status_opened_at_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "status",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "opened_at",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "incidents",
+      "name": "incidents_responsible_institution_id_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "responsible_institution_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "validations",
+      "name": "validations_alert_id_decided_at_index",
+      "nameExplicit": false,
+      "columns": [
+        {
+          "value": "alert_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "decided_at",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "observations",
+      "name": "observations_source_id_data_sources_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "source_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "data_sources",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "observations",
+      "name": "observations_site_id_sites_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "site_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "sites",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "boundaries",
+      "name": "boundaries_source_id_data_sources_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "source_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "data_sources",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "data_sources",
+      "name": "data_sources_steward_institution_id_institutions_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "steward_institution_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "institutions",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "river_reaches",
+      "name": "river_reaches_source_id_data_sources_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "source_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "data_sources",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "reports",
+      "name": "reports_alert_id_alerts_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "alert_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "alerts",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "reports",
+      "name": "reports_incident_id_incidents_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "incident_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "incidents",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "alert_evidence",
+      "name": "alert_evidence_alert_id_alerts_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "alert_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "alerts",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "alert_evidence",
+      "name": "alert_evidence_observation_id_observations_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "observation_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "observations",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "alert_evidence",
+      "name": "alert_evidence_field_report_id_field_reports_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "field_report_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "field_reports",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "alerts_rule_id_anomaly_rules_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "rule_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "anomaly_rules",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "alerts_site_id_sites_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "site_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "sites",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "field_report_photos",
+      "name": "field_report_photos_field_report_id_field_reports_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "field_report_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "field_reports",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "field_reports",
+      "name": "field_reports_alert_id_alerts_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "alert_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "alerts",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "field_reports",
+      "name": "field_reports_site_id_sites_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "site_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "sites",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "incident_actions",
+      "name": "incident_actions_incident_id_incidents_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "incident_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "incidents",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "incident_assignments",
+      "name": "incident_assignments_incident_id_incidents_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "incident_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "incidents",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "incident_assignments",
+      "name": "incident_assignments_institution_id_institutions_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "institution_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "institutions",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "incidents",
+      "name": "incidents_alert_id_alerts_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "alert_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "alerts",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "incidents",
+      "name": "incidents_responsible_institution_id_institutions_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "responsible_institution_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "institutions",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "validations",
+      "name": "validations_alert_id_alerts_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "alert_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "alerts",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "audit_events",
+      "name": "audit_events_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "observations",
+      "name": "observations_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "anomaly_rules",
+      "name": "anomaly_rules_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "boundaries",
+      "name": "boundaries_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "data_sources",
+      "name": "data_sources_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "institutions",
+      "name": "institutions_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "river_reaches",
+      "name": "river_reaches_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "sites",
+      "name": "sites_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "reports",
+      "name": "reports_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "alert_evidence",
+      "name": "alert_evidence_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "alerts_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "field_report_photos",
+      "name": "field_report_photos_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "field_reports",
+      "name": "field_reports_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "incident_actions",
+      "name": "incident_actions_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "incident_assignments",
+      "name": "incident_assignments_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "incidents",
+      "name": "incidents_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "validations",
+      "name": "validations_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "observations",
+      "name": "observations_source_id_external_id_unique",
+      "nameExplicit": false,
+      "columns": [
+        "source_id",
+        "external_id"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "anomaly_rules",
+      "name": "anomaly_rules_key_version_unique",
+      "nameExplicit": false,
+      "columns": [
+        "key",
+        "version"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "audit_events",
+      "name": "audit_events_client_mutation_id_key",
+      "nameExplicit": false,
+      "columns": [
+        "client_mutation_id"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "data_sources",
+      "name": "data_sources_key_key",
+      "nameExplicit": false,
+      "columns": [
+        "key"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "institutions",
+      "name": "institutions_clerk_org_id_key",
+      "nameExplicit": false,
+      "columns": [
+        "clerk_org_id"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "alerts",
+      "name": "alerts_number_key",
+      "nameExplicit": false,
+      "columns": [
+        "number"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "field_report_photos",
+      "name": "field_report_photos_object_key_key",
+      "nameExplicit": false,
+      "columns": [
+        "object_key"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "incidents",
+      "name": "incidents_number_key",
+      "nameExplicit": false,
+      "columns": [
+        "number"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "incidents",
+      "name": "incidents_alert_id_key",
+      "nameExplicit": false,
+      "columns": [
+        "alert_id"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "incidents",
+      "name": "incidents_closure_has_summary",
+      "value": "\"status\" <> 'closed' OR (\"closed_at\" IS NOT NULL AND \"closure_summary\" IS NOT NULL)",
+      "entityType": "checks"
+    }
+  ]
+}

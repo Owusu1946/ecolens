@@ -1,11 +1,11 @@
-import { appRouter } from "@ecolens/api/routers/index";
+import { routers } from "@ecolens/api/routers/index";
 import { OpenAPIHandler } from "@orpc/openapi/fetch";
 import { OpenAPIReferencePlugin } from "@orpc/openapi/plugins";
 import { onError } from "@orpc/server";
 import { RPCHandler } from "@orpc/server/fetch";
 import { ZodToJsonSchemaConverter } from "@orpc/zod/zod4";
 import { initLogger } from "evlog";
-import { evlog, type EvlogVariables } from "evlog/hono";
+import { type EvlogVariables, evlog } from "evlog/hono";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 
@@ -29,33 +29,42 @@ app.use(
   }),
 );
 
-export const apiHandler = new OpenAPIHandler(appRouter, {
-  plugins: [
-    new OpenAPIReferencePlugin({
-      schemaConverters: [new ZodToJsonSchemaConverter()],
-    }),
-  ],
-  interceptors: [
-    onError((error) => {
-      console.error(error);
-    }),
-  ],
-});
+const logError = (error: unknown) => {
+  console.error(error);
+};
 
-export const rpcHandler = new RPCHandler(appRouter, {
-  interceptors: [
-    onError((error) => {
-      console.error(error);
-    }),
-  ],
-});
+// One RPC handler (web app) and one OpenAPI handler (REST + docs) per API version.
+// /v1/rpc/*        typed RPC used by the web app
+// /v1/*            REST endpoints; reference docs at /v1, spec at /v1/spec.json
+const versions = Object.entries(routers).map(([version, router]) => ({
+  prefix: `/${version}` as const,
+  rpc: new RPCHandler(router, { interceptors: [onError(logError)] }),
+  openapi: new OpenAPIHandler(router, {
+    plugins: [
+      new OpenAPIReferencePlugin({
+        schemaConverters: [new ZodToJsonSchemaConverter()],
+        specGenerateOptions: {
+          info: { title: "Ecolens API", version },
+        },
+      }),
+    ],
+    interceptors: [onError(logError)],
+  }),
+}));
 
 app.use("/*", async (c, next) => {
+  const version = versions.find(
+    ({ prefix }) => c.req.path === prefix || c.req.path.startsWith(`${prefix}/`),
+  );
+  if (!version) {
+    return next();
+  }
+
   const context = await createContext({ context: c });
 
   try {
-    const rpcResult = await rpcHandler.handle(c.req.raw, {
-      prefix: "/rpc",
+    const rpcResult = await version.rpc.handle(c.req.raw, {
+      prefix: `${version.prefix}/rpc`,
       context: context,
     });
 
@@ -63,8 +72,8 @@ app.use("/*", async (c, next) => {
       return c.newResponse(rpcResult.response.body, rpcResult.response);
     }
 
-    const apiResult = await apiHandler.handle(c.req.raw, {
-      prefix: "/api-reference",
+    const apiResult = await version.openapi.handle(c.req.raw, {
+      prefix: version.prefix,
       context: context,
     });
 

@@ -1,4 +1,4 @@
-import type { AppRouterClient } from "@ecolens/api/routers/index";
+import type { V1RouterClient } from "@ecolens/api/routers/index";
 import { createORPCClient } from "@orpc/client";
 import { RPCLink } from "@orpc/client/fetch";
 import { createTanstackQueryUtils } from "@orpc/tanstack-query";
@@ -36,7 +36,7 @@ export function getQueryClient() {
 }
 
 export const link = new RPCLink({
-  url: `${process.env.NEXT_PUBLIC_SERVER_URL!.replace(/\/$/, "")}/rpc`,
+  url: `${process.env.NEXT_PUBLIC_SERVER_URL!.replace(/\/$/, "")}/v1/rpc`,
   headers: async () => {
     if (typeof window !== "undefined") {
       const token = await getClerkAuthToken();
@@ -51,6 +51,6 @@ export const link = new RPCLink({
   },
 });
 
-export const client: AppRouterClient = createORPCClient(link);
+export const client: V1RouterClient = createORPCClient(link);
 
 export const orpc = createTanstackQueryUtils(client);

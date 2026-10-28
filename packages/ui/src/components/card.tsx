@@ -1,5 +1,5 @@
 import { cn } from "@ecolens/ui/lib/utils";
-import * as React from "react";
+import type * as React from "react";
 
 function Card({
   className,
@@ -11,7 +11,7 @@ function Card({
       data-slot="card"
       data-size={size}
       className={cn(
-        "group/card flex flex-col gap-(--card-spacing) overflow-hidden rounded-none bg-card py-(--card-spacing) text-xs/relaxed text-card-foreground ring-1 ring-foreground/10 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-none *:[img:last-child]:rounded-none",
+        "group/card bg-card text-card-foreground ring-foreground/10 flex flex-col gap-(--card-spacing) overflow-hidden rounded-none py-(--card-spacing) text-xs/relaxed ring-1 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-none *:[img:last-child]:rounded-none",
         className,
       )}
       {...props}
@@ -49,7 +49,7 @@ function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-description"
-      className={cn("text-xs/relaxed text-muted-foreground", className)}
+      className={cn("text-muted-foreground text-xs/relaxed", className)}
       {...props}
     />
   );
@@ -81,4 +81,4 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
   );
 }
 
-export { Card, CardHeader, CardFooter, CardTitle, CardAction, CardDescription, CardContent };
+export { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle };

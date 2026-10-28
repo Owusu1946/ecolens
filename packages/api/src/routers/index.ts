@@ -1,17 +1,11 @@
-import type { RouterClient } from "@orpc/server";
+import { v1Router } from "./v1/index";
 
-import { protectedProcedure, publicProcedure } from "../index";
-
-export const appRouter = {
-  healthCheck: publicProcedure.handler(() => {
-    return "OK";
-  }),
-  privateData: protectedProcedure.handler(({ context }) => {
-    return {
-      message: "This is private",
-      userId: context.auth?.userId,
-    };
-  }),
+// Every published API version, mounted by the server at /<version>.
+// A version is frozen once clients depend on it: breaking changes go into a new
+// version (v2, ...) while older ones keep serving until they are retired.
+export const routers = {
+  v1: v1Router,
 };
-export type AppRouter = typeof appRouter;
-export type AppRouterClient = RouterClient<typeof appRouter>;
+export type ApiVersion = keyof typeof routers;
+
+export type { V1Router, V1RouterClient } from "./v1/index";

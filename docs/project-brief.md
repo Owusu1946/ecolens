@@ -171,6 +171,11 @@ _Choices made for this build where the concept note is silent. Update as they ar
 | Real-time | Alerts, status changes, field submissions and dashboards **update live** across users without refresh. | 2026-10-28 |
 | Quality bar | **Very fast, butter-smooth, best practices.** Performance and polish are core requirements, not extras. | 2026-10-28 |
 | Audience | **Partner/funder demo** (EPA, Minerals Commission, WRC, funders). Storytelling and polish come first, but the workflow must be real and work end to end, not just a mock-up. | 2026-10-28 |
+| UI standard | **Modern, sleek, uncluttered, smooth.** Government-grade polish: calm layouts, generous whitespace, one primary action per view, motion that clarifies rather than decorates. Built on Tailwind v4 + shadcn/ui + Motion (no new UI libraries). | 2026-10-28 |
+| API versioning | **Every endpoint lives under a version prefix (`/v1/...`).** A published version is frozen; breaking changes ship as a new version (`/v2`) while older versions keep working until formally retired, so a working deployment is never disrupted. | 2026-10-28 |
+| Roles & permissions | **Defined in code** (`packages/api/src/auth/roles.ts`), not in the Clerk dashboard, so every change to access rules is reviewed and versioned. Clerk supplies the user, the active organization (= institution) and a role key `org:<role>`. Roles: admin, leadership, regulator, data_steward, analyst, field_officer, responder, viewer. | 2026-10-28 |
+| Dashboard selection | A user's dashboard is picked from **(institution, role)**: e.g. a regulator at EPA, the Minerals Commission or the WRC each gets their institution's dashboard. | 2026-10-28 |
+| Audit trail | `audit_events` is **append-only, enforced by the database** (a trigger rejects UPDATE, DELETE and TRUNCATE). Corrections are new events. | 2026-10-28 |
 
 ## 12. Open questions
 

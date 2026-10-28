@@ -1,4 +1,4 @@
-import { type Database, createDb } from "@ecolens/db";
+import { createDb, type Database } from "@ecolens/db";
 
 import { ENV } from "./env.server";
 

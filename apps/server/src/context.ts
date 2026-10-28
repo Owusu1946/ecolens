@@ -1,10 +1,11 @@
 import type { Context as ApiContext } from "@ecolens/api/context";
 
 import { getDb } from "./services";
+
 type ClerkContextAuth = ApiContext["auth"];
 
 function toClerkContextAuth(auth: ClerkContextAuth): ClerkContextAuth {
-  return auth ? { userId: auth.userId } : null;
+  return auth ? { userId: auth.userId, orgId: auth.orgId, orgRole: auth.orgRole } : null;
 }
 
 import { createClerkClient } from "@clerk/backend";

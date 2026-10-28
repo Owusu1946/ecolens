@@ -1,5 +1,5 @@
 "use client";
-import { DocsLayout as Layout, type DocsLayoutProps } from "fumadocs-ui/layouts/docs";
+import { type DocsLayoutProps, DocsLayout as Layout } from "fumadocs-ui/layouts/docs";
 
 import { AIChat, AIChatPanel, AIChatTrigger, useAIChat } from "./search";
 
