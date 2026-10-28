@@ -64,7 +64,7 @@ const TabsContext = createContext<{
 
 export function Pre(props: ComponentProps<"pre">) {
   return (
-    <pre {...props} className={cn("min-w-full w-max *:flex *:flex-col", props.className)}>
+    <pre {...props} className={cn("w-max min-w-full *:flex *:flex-col", props.className)}>
       {props.children}
     </pre>
   );
@@ -92,15 +92,15 @@ export function CodeBlock({
       {...props}
       tabIndex={-1}
       className={cn(
-        inTab ? "bg-fd-secondary -mx-px -mb-px last:rounded-b-xl" : "my-4 bg-fd-card rounded-xl",
+        inTab ? "bg-fd-secondary -mx-px -mb-px last:rounded-b-xl" : "bg-fd-card my-4 rounded-xl",
         keepBackground && "bg-(--shiki-light-bg) dark:bg-(--shiki-dark-bg)",
 
-        "shiki relative border not-prose overflow-hidden text-sm",
+        "shiki not-prose relative overflow-hidden border text-sm",
         props.className,
       )}
     >
       {title ? (
-        <div className="flex text-fd-muted-foreground items-center gap-2 h-9.5 border-b px-4">
+        <div className="text-fd-muted-foreground flex h-9.5 items-center gap-2 border-b px-4">
           {typeof icon === "string" ? (
             <div
               className="[&_svg]:size-3.5"
@@ -130,7 +130,7 @@ export function CodeBlock({
         role="region"
         tabIndex={0}
         className={cn(
-          "text-[0.8125rem] py-3.5 overflow-auto max-h-[600px] fd-scroll-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-fd-ring",
+          "fd-scroll-container focus-visible:ring-fd-ring max-h-[600px] overflow-auto py-3.5 text-[0.8125rem] focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-inset",
           viewportProps.className,
         )}
         style={{
@@ -230,7 +230,7 @@ export function CodeBlockTabsList({ className, ...props }: ComponentProps<typeof
       {...props}
       className={(s) =>
         cn(
-          "flex flex-row px-2 overflow-x-auto text-fd-muted-foreground",
+          "text-fd-muted-foreground flex flex-row overflow-x-auto px-2",
           typeof className === "function" ? className(s) : className,
         )
       }
@@ -250,13 +250,13 @@ export function CodeBlockTabsTrigger({
       {...props}
       className={(s) =>
         cn(
-          "relative group inline-flex text-sm font-medium text-nowrap items-center transition-colors gap-2 px-2 py-1.5 [&_svg]:size-3.5",
+          "group relative inline-flex items-center gap-2 px-2 py-1.5 text-sm font-medium text-nowrap transition-colors [&_svg]:size-3.5",
           s.active ? "text-fd-primary" : "hover:text-fd-accent-foreground",
           typeof className === "function" ? className(s) : className,
         )
       }
     >
-      <div className="absolute inset-x-2 bottom-0 h-px group-data-active:bg-fd-primary" />
+      <div className="group-data-active:bg-fd-primary absolute inset-x-2 bottom-0 h-px" />
       {children}
     </TabsTrigger>
   );

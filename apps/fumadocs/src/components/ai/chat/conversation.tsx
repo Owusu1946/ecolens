@@ -88,7 +88,7 @@ export function Conversation({ className, children }: { className?: string; chil
         aria-label={t("Scroll to latest", { note: "aria-label" })}
         tabIndex={atEnd ? -1 : 0}
         data-hidden={atEnd}
-        className="absolute bottom-3 left-1/2 flex size-8 -translate-x-1/2 items-center justify-center rounded-full border bg-fd-popover text-fd-muted-foreground shadow-lg transition-[opacity,translate,color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-fd-popover-foreground data-[hidden=true]:pointer-events-none data-[hidden=true]:translate-y-2 data-[hidden=true]:opacity-0 motion-reduce:transition-none"
+        className="bg-fd-popover text-fd-muted-foreground hover:text-fd-popover-foreground absolute bottom-3 left-1/2 flex size-8 -translate-x-1/2 items-center justify-center rounded-full border shadow-lg transition-[opacity,translate,color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] data-[hidden=true]:pointer-events-none data-[hidden=true]:translate-y-2 data-[hidden=true]:opacity-0 motion-reduce:transition-none"
         onClick={context.pin}
       >
         <ArrowDownIcon className="size-4" />

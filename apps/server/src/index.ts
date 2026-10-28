@@ -5,7 +5,7 @@ import { onError } from "@orpc/server";
 import { RPCHandler } from "@orpc/server/fetch";
 import { ZodToJsonSchemaConverter } from "@orpc/zod/zod4";
 import { initLogger } from "evlog";
-import { evlog, type EvlogVariables } from "evlog/hono";
+import { type EvlogVariables, evlog } from "evlog/hono";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 

@@ -20,8 +20,8 @@ import {
 } from "lucide-react";
 import {
   type ComponentProps,
-  createContext,
   type CSSProperties,
+  createContext,
   Fragment,
   memo,
   type ReactNode,
@@ -155,7 +155,7 @@ export function AIChatHeader() {
     <div className="flex h-12 shrink-0 items-center gap-0.5 ps-3 pe-1.5">
       <p
         key={title}
-        className="flex-1 truncate text-sm text-fd-muted-foreground motion-safe:animate-fd-roll-in"
+        className="text-fd-muted-foreground motion-safe:animate-fd-roll-in flex-1 truncate text-sm"
       >
         {title}
       </p>
@@ -196,11 +196,11 @@ export function AIChatMessages({ className }: { className?: string }) {
     return (
       <Conversation className={className}>
         <div className="mt-auto flex flex-col">
-          <p className="text-lg font-medium tracking-tight motion-safe:animate-fd-roll-in">
+          <p className="motion-safe:animate-fd-roll-in text-lg font-medium tracking-tight">
             {t("What do you want to know?")}
           </p>
           <p
-            className="mt-1 text-sm text-fd-muted-foreground motion-safe:animate-fd-roll-in"
+            className="text-fd-muted-foreground motion-safe:animate-fd-roll-in mt-1 text-sm"
             style={stagger()}
           >
             {description ?? t("Answers come from the docs, AI can make mistakes.")}
@@ -219,7 +219,7 @@ export function AIChatMessages({ className }: { className?: string }) {
               <li key={question} className="motion-safe:animate-fd-roll-in" style={stagger(100)}>
                 <button
                   type="button"
-                  className="flex h-7 items-center rounded-lg border px-3 text-[13px] text-fd-muted-foreground transition-colors hover:bg-fd-accent hover:text-fd-accent-foreground"
+                  className="text-fd-muted-foreground hover:bg-fd-accent hover:text-fd-accent-foreground flex h-7 items-center rounded-lg border px-3 text-[13px] transition-colors"
                   onClick={() => {
                     send(question);
                     inputRef.current?.focus();
@@ -293,7 +293,7 @@ export function AIChatInput({ className }: { className?: string }) {
   return (
     <form
       className={cn(
-        "flex items-end gap-1 rounded-lg border bg-fd-popover p-1.5 text-fd-popover-foreground shadow-lg shadow-black/5 transition-[border-color,box-shadow] duration-200 focus-within:border-fd-ring/40 focus-within:ring-4 focus-within:ring-fd-primary/5",
+        "bg-fd-popover text-fd-popover-foreground focus-within:border-fd-ring/40 focus-within:ring-fd-primary/5 flex items-end gap-1 rounded-lg border p-1.5 shadow-lg shadow-black/5 transition-[border-color,box-shadow] duration-200 focus-within:ring-4",
         className,
       )}
       onSubmit={(e) => {
@@ -318,7 +318,7 @@ export function AIChatInput({ className }: { className?: string }) {
           placeholder={chat.messages.length > 0 ? t("Ask a follow-up") : t("Ask a question")}
           className={cn(
             field,
-            "resize-none bg-transparent placeholder:text-fd-muted-foreground focus-visible:outline-none",
+            "placeholder:text-fd-muted-foreground resize-none bg-transparent focus-visible:outline-none",
           )}
           onChange={(e) => update(e.target.value)}
           onKeyDown={(e) => {
@@ -334,7 +334,7 @@ export function AIChatInput({ className }: { className?: string }) {
           aria-hidden
           className={cn(
             field,
-            "invisible max-h-40 overflow-hidden whitespace-pre-wrap wrap-break-word",
+            "invisible max-h-40 overflow-hidden wrap-break-word whitespace-pre-wrap",
           )}
         >
           {`${input}\n`}
@@ -344,7 +344,7 @@ export function AIChatInput({ className }: { className?: string }) {
         type={busy ? "button" : "submit"}
         aria-label={busy ? t("Stop", { note: "aria-label" }) : t("Send", { note: "aria-label" })}
         disabled={!busy && !text}
-        className="flex size-7 shrink-0 items-center justify-center rounded-md bg-fd-primary text-fd-primary-foreground transition-[background-color,color,scale] duration-200 ease-[cubic-bezier(0.34,1.56,0.64,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fd-ring active:scale-90 disabled:bg-fd-accent disabled:text-fd-muted-foreground motion-reduce:transition-none"
+        className="bg-fd-primary text-fd-primary-foreground focus-visible:ring-fd-ring disabled:bg-fd-accent disabled:text-fd-muted-foreground flex size-7 shrink-0 items-center justify-center rounded-md transition-[background-color,color,scale] duration-200 ease-[cubic-bezier(0.34,1.56,0.64,1)] focus-visible:ring-2 focus-visible:outline-none active:scale-90 motion-reduce:transition-none"
         onClick={
           busy
             ? () => {
@@ -374,7 +374,7 @@ export function AIChatTrigger({ className }: { className?: string }) {
       type="button"
       className={cn(
         buttonVariants({ variant: "secondary" }),
-        "fixed inset-e-[calc(--spacing(4)+var(--removed-body-scroll-bar-size,0px))] bottom-4 z-20 gap-2 rounded-2xl text-fd-muted-foreground shadow-lg transition-[translate,opacity] motion-reduce:transition-none",
+        "text-fd-muted-foreground fixed inset-e-[calc(--spacing(4)+var(--removed-body-scroll-bar-size,0px))] bottom-4 z-20 gap-2 rounded-2xl shadow-lg transition-[translate,opacity] motion-reduce:transition-none",
         open && "translate-y-10 opacity-0",
         className,
       )}
@@ -401,9 +401,9 @@ export function AIChatSources({
         <li key={i} className="motion-safe:animate-fd-roll-in" style={stagger()}>
           <Link
             href={source.url}
-            className="flex h-7 max-w-56 items-center gap-1.5 rounded-lg border bg-fd-card ps-1.5 pe-2 text-xs text-fd-muted-foreground transition-colors hover:bg-fd-accent hover:text-fd-accent-foreground"
+            className="bg-fd-card text-fd-muted-foreground hover:bg-fd-accent hover:text-fd-accent-foreground flex h-7 max-w-56 items-center gap-1.5 rounded-lg border ps-1.5 pe-2 text-xs transition-colors"
           >
-            <span className="flex h-4.5 min-w-4.5 shrink-0 items-center justify-center rounded-md bg-fd-secondary px-1 font-mono text-[10.5px] tabular-nums">
+            <span className="bg-fd-secondary flex h-4.5 min-w-4.5 shrink-0 items-center justify-center rounded-md px-1 font-mono text-[10.5px] tabular-nums">
               {source.label ?? i + 1}
             </span>
             <span className="truncate">{source.title ?? source.url}</span>
@@ -442,7 +442,7 @@ export function AIChatSearch({
         <Link
           key={doc.url}
           href={doc.url}
-          className="truncate transition-colors hover:text-fd-accent-foreground"
+          className="hover:text-fd-accent-foreground truncate transition-colors"
         >
           {doc.title}
         </Link>,
@@ -452,25 +452,25 @@ export function AIChatSearch({
 
   return (
     <Collapsible.Root disabled={links.length === 0} className="motion-safe:animate-fd-fade-in">
-      <Collapsible.Trigger className="group/trigger -ms-1 flex max-w-full items-center gap-2 rounded-md py-0.5 ps-1 pe-1.5 text-start text-sm text-fd-muted-foreground transition-colors not-data-disabled:hover:text-fd-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fd-ring">
+      <Collapsible.Trigger className="group/trigger text-fd-muted-foreground not-data-disabled:hover:text-fd-accent-foreground focus-visible:ring-fd-ring -ms-1 flex max-w-full items-center gap-2 rounded-md py-0.5 ps-1 pe-1.5 text-start text-sm transition-colors focus-visible:ring-2 focus-visible:outline-none">
         <span className="flex w-4 shrink-0 justify-center [&_svg]:size-3.5">
           {running ? <Spinner /> : <SearchIcon />}
         </span>
         <span className={cn("shrink-0", running && "motion-safe:animate-pulse")}>{label}</span>
         {part.input?.query && (
-          <span className="truncate text-fd-muted-foreground/75">“{part.input.query}”</span>
+          <span className="text-fd-muted-foreground/75 truncate">“{part.input.query}”</span>
         )}
         {done && (
-          <span className="shrink-0 text-xs text-fd-muted-foreground/75 tabular-nums">
+          <span className="text-fd-muted-foreground/75 shrink-0 text-xs tabular-nums">
             {links.length === 1
               ? t("1 result")
               : t("{count} results", { variables: { count: String(links.length) } })}
           </span>
         )}
-        <ChevronRightIcon className="size-3.5 shrink-0 opacity-50 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-data-disabled/trigger:hidden group-data-panel-open/trigger:rotate-90 rtl:rotate-180 motion-reduce:transition-none" />
+        <ChevronRightIcon className="size-3.5 shrink-0 opacity-50 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-data-disabled/trigger:hidden group-data-panel-open/trigger:rotate-90 motion-reduce:transition-none rtl:rotate-180" />
       </Collapsible.Trigger>
       <Collapsible.Panel className="h-(--collapsible-panel-height) overflow-hidden transition-[height,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] data-ending-style:h-0 data-ending-style:opacity-0 data-starting-style:h-0 data-starting-style:opacity-0 motion-reduce:transition-none">
-        <div className="ms-[7.5px] mt-1.5 flex flex-col gap-1 border-s ps-4 pb-1 text-xs text-fd-muted-foreground">
+        <div className="text-fd-muted-foreground ms-[7.5px] mt-1.5 flex flex-col gap-1 border-s ps-4 pb-1 text-xs">
           {links}
         </div>
       </Collapsible.Panel>
@@ -497,8 +497,8 @@ const Message = memo(function Message({
 
   if (message.role === "user") {
     return (
-      <div className="flex justify-end motion-safe:animate-fd-roll-in">
-        <p className="max-w-[85%] rounded-xl bg-fd-secondary px-3 py-1.5 text-sm whitespace-pre-wrap wrap-break-word text-fd-secondary-foreground">
+      <div className="motion-safe:animate-fd-roll-in flex justify-end">
+        <p className="bg-fd-secondary text-fd-secondary-foreground max-w-[85%] rounded-xl px-3 py-1.5 text-sm wrap-break-word whitespace-pre-wrap">
           {text}
         </p>
       </div>
@@ -518,7 +518,7 @@ const Message = memo(function Message({
       {!live && text && (
         <div
           className={cn(
-            "-ms-1.25 -mt-1 flex items-center motion-safe:animate-fd-fade-in",
+            "motion-safe:animate-fd-fade-in -ms-1.25 -mt-1 flex items-center",
             !last &&
               "opacity-0 transition-opacity group-focus-within/message:opacity-100 group-hover/message:opacity-100 motion-reduce:transition-none pointer-coarse:opacity-100",
           )}
@@ -552,7 +552,7 @@ function Thinking() {
   return (
     <div
       role="status"
-      className="flex items-center gap-2 text-sm text-fd-muted-foreground motion-safe:animate-fd-fade-in"
+      className="text-fd-muted-foreground motion-safe:animate-fd-fade-in flex items-center gap-2 text-sm"
       style={{ animationDelay: "150ms", animationFillMode: "backwards" }}
     >
       <Spinner />
@@ -567,12 +567,12 @@ function Failure({ reason, onRetry }: { reason: string; onRetry: () => void }) {
   return (
     <div
       role="alert"
-      className="flex items-center gap-3 rounded-lg bg-fd-error/5 py-2 ps-3 pe-2 text-sm ring-1 ring-fd-error/15 motion-safe:animate-fd-roll-in"
+      className="bg-fd-error/5 ring-fd-error/15 motion-safe:animate-fd-roll-in flex items-center gap-3 rounded-lg py-2 ps-3 pe-2 text-sm ring-1"
     >
-      <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-fd-error" />
+      <span aria-hidden className="bg-fd-error size-1.5 shrink-0 rounded-full" />
       <div className="min-w-0 flex-1">
         <p>{t("Something went wrong.")}</p>
-        <p className="line-clamp-2 text-xs wrap-break-word text-fd-muted-foreground">{reason}</p>
+        <p className="text-fd-muted-foreground line-clamp-2 text-xs wrap-break-word">{reason}</p>
       </div>
       <button
         type="button"
@@ -596,14 +596,14 @@ function Action({
         aria-label={label}
         className={cn(
           buttonVariants({ variant: "ghost" }),
-          "size-7 p-0 text-fd-muted-foreground [&_svg]:size-4",
+          "text-fd-muted-foreground size-7 p-0 [&_svg]:size-4",
           className,
         )}
         {...props}
       />
       <Tooltip.Portal>
         <Tooltip.Positioner side="bottom" sideOffset={6} className="z-50">
-          <Tooltip.Popup className="origin-(--transform-origin) rounded-md border bg-fd-popover px-2 py-1 text-xs text-fd-popover-foreground shadow-md transition-[opacity,scale] duration-150 ease-[cubic-bezier(0.22,1,0.36,1)] data-ending-style:opacity-0 data-starting-style:scale-95 data-starting-style:opacity-0 motion-reduce:transition-none">
+          <Tooltip.Popup className="bg-fd-popover text-fd-popover-foreground origin-(--transform-origin) rounded-md border px-2 py-1 text-xs shadow-md transition-[opacity,scale] duration-150 ease-[cubic-bezier(0.22,1,0.36,1)] data-ending-style:opacity-0 data-starting-style:scale-95 data-starting-style:opacity-0 motion-reduce:transition-none">
             {label}
           </Tooltip.Popup>
         </Tooltip.Positioner>
@@ -650,7 +650,7 @@ function Spinner() {
     <svg
       viewBox="0 0 16 16"
       aria-hidden
-      className="size-4 shrink-0 text-fd-primary motion-safe:animate-spin motion-safe:[animation-duration:1.2s]"
+      className="text-fd-primary size-4 shrink-0 motion-safe:animate-spin motion-safe:[animation-duration:1.2s]"
     >
       {orbit.map((dot, i) => (
         <circle key={i} {...dot} fill="currentColor" />
