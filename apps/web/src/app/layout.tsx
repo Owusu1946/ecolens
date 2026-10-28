@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import "../index.css";
 import { Geist, Geist_Mono } from "next/font/google";
 
-import Header from "@/components/header";
 import Providers from "@/components/providers";
 import PwaRegistration from "@/components/pwa-registration";
 
@@ -19,8 +18,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ecolens",
-  description: "ecolens",
+  title: "Ecolens",
+  description:
+    "Environmental intelligence for the Western Region pilot: satellite, sensor, agency and field evidence on one shared map.",
 };
 
 export default function RootLayout({
@@ -33,13 +33,12 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <PwaRegistration />
 
-        <ClerkProvider>
-          <Providers>
-            <div className="grid h-svh grid-rows-[auto_1fr]">
-              <Header />
-              {children}
-            </div>
-          </Providers>
+        <ClerkProvider
+          signInUrl="/sign-in"
+          signInFallbackRedirectUrl="/dashboard"
+          taskUrls={{ "choose-organization": "/sign-in/tasks/choose-organization" }}
+        >
+          <Providers>{children}</Providers>
         </ClerkProvider>
       </body>
     </html>
