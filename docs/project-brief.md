@@ -171,6 +171,8 @@ _Choices made for this build where the concept note is silent. Update as they ar
 | Real-time | Alerts, status changes, field submissions and dashboards **update live** across users without refresh. | 2026-10-28 |
 | Quality bar | **Very fast, butter-smooth, best practices.** Performance and polish are core requirements, not extras. | 2026-10-28 |
 | Audience | **Partner/funder demo** (EPA, Minerals Commission, WRC, funders). Storytelling and polish come first, but the workflow must be real and work end to end, not just a mock-up. | 2026-10-28 |
+| UI standard | **Modern, sleek, uncluttered, smooth.** Government-grade polish: calm layouts, generous whitespace, one primary action per view, motion that clarifies rather than decorates. Built on Tailwind v4 + shadcn/ui + Motion (no new UI libraries). | 2026-10-28 |
+| API versioning | **Every endpoint lives under a version prefix (`/v1/...`).** A published version is frozen; breaking changes ship as a new version (`/v2`) while older versions keep working until formally retired, so a working deployment is never disrupted. | 2026-10-28 |
 
 ## 12. Open questions
 

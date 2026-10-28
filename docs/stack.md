@@ -26,6 +26,7 @@ Rule: **the web app never talks to the database directly.** All data goes throug
 |---|---|---|
 | Web hosting | **Vercel**, function region `fra1` | Full Next.js feature support, preview deploys for demos, simplest DX. Heavy, latency-sensitive traffic (API, tiles, realtime) stays on Cloudflare's Accra edge. |
 | API | **Hono + oRPC on Cloudflare Workers** | Edge-served from Accra; end-to-end types with the web app. |
+| API versioning | **URL prefix per version:** `/v1/rpc/*` (typed RPC for the web app), `/v1/*` (REST via OpenAPI), docs at `/v1`, spec at `/v1/spec.json` | Each version is its own router in `packages/api/src/routers/<version>/`. Additive changes (new procedures, new optional fields) stay in the current version; breaking changes go into a new version. Retired versions get `Deprecation`/`Sunset` headers before removal. |
 | Database | **Neon Postgres + PostGIS**, region **eu-central-1** (move from us-east-2) | Spatial queries (within concession, distance to river, per-basin aggregates). Frankfurt is the closest Neon region to Ghana. |
 | DB connection | **Cloudflare Hyperdrive** | Pooled connections and query caching from Workers. |
 | ORM | **Drizzle** (PostGIS geometry types) | Already in the scaffold; typed schema and migrations. |
