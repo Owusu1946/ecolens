@@ -478,7 +478,13 @@ export default function MapCanvas({
     if (ready.current && mapRef.current) applyAlertFilters(mapRef.current, showRejected, selected);
   }, [showRejected, selected]);
 
-  return <div ref={container} className="absolute inset-0" />;
+  // MapLibre's stylesheet sets `position: relative` on the map element, and
+  // unlayered CSS beats Tailwind utilities, so positioning lives on a wrapper.
+  return (
+    <div className="absolute inset-0">
+      <div ref={container} className="size-full" />
+    </div>
+  );
 }
 
 function applyProjection(map: maplibregl.Map, projection: Props["projection"]) {
