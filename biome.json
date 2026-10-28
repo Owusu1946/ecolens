@@ -32,7 +32,8 @@
       "!**/*.md",
       "!**/*.mdx",
       "!**/*.yaml",
-      "!**/*.yml"
+      "!**/*.yml",
+      "!**/migrations"
     ]
   },
   "formatter": {
