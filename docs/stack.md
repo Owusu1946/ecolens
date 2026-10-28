@@ -97,3 +97,4 @@ A dedicated local-first sync engine (e.g. PowerSync or ElectricSQL) is **not** i
 - [ ] Add the realtime Durable Object binding and migration alongside the Durable Object class
 - [ ] Create the Vercel project (root `apps/web`, region fra1); set `NEXT_PUBLIC_SERVER_URL` and the Clerk keys
 - [ ] Set the production `CORS_ORIGIN` on the Worker to the Vercel domain
+- [ ] Basemap: extract a Western Region PMTiles build (Protomaps), upload to `ecolens-tiles` on R2 and switch the map's default basemap to it (EOX imagery stays as a layer)

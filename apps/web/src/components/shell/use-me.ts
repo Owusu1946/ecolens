@@ -11,9 +11,17 @@ import { orpc } from "@/utils/orpc";
  * knows the role offline; it is refreshed whenever Clerk has a session.
  */
 export function useMe() {
-  const { isLoaded, isSignedIn, orgId } = useAuth();
   return useQuery({
     ...orpc.session.me.queryOptions(),
-    enabled: isLoaded && !!isSignedIn && !!orgId,
+    enabled: useCanCallApi(),
   });
+}
+
+/**
+ * Whether member-only API calls can be made now: Clerk has loaded a session
+ * with an active institution. Until then queries show their saved data.
+ */
+export function useCanCallApi() {
+  const { isLoaded, isSignedIn, orgId } = useAuth();
+  return isLoaded && !!isSignedIn && !!orgId;
 }
