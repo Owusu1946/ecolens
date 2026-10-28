@@ -1,10 +1,5 @@
-import Header from "@/components/header";
+import { AppShell } from "@/components/shell/app-shell";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="grid h-svh grid-rows-[auto_1fr]">
-      <Header />
-      {children}
-    </div>
-  );
+  return <AppShell>{children}</AppShell>;
 }
