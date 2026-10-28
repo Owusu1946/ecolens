@@ -332,8 +332,26 @@ export default function MapCanvas({
   const mapRef = useRef<maplibregl.Map | null>(null);
   const ready = useRef(false);
   // Latest values for handlers created once at load.
-  const latest = useRef({ onSelect, onMove, data, visible, showRejected, selected, basemap });
-  latest.current = { onSelect, onMove, data, visible, showRejected, selected, basemap };
+  const latest = useRef({
+    onSelect,
+    onMove,
+    data,
+    visible,
+    showRejected,
+    selected,
+    basemap,
+    projection,
+  });
+  latest.current = {
+    onSelect,
+    onMove,
+    data,
+    visible,
+    showRejected,
+    selected,
+    basemap,
+    projection,
+  };
 
   useImperativeHandle(ref, () => ({
     flyTo: (center, zoom) => mapRef.current?.flyTo({ center, zoom, essential: true }),
@@ -386,6 +404,7 @@ export default function MapCanvas({
       applyVisibility(map, latest.current.visible);
       applyAlertFilters(map, latest.current.showRejected, latest.current.selected);
       applyBasemap(map, latest.current.basemap);
+      applyProjection(map, latest.current.projection);
     });
 
     const popup = new maplibregl.Popup({
@@ -436,8 +455,11 @@ export default function MapCanvas({
     };
   }, []);
 
+  // MapLibre throws if the projection changes before the style has loaded; the
+  // initial projection is in the style, and a change made while loading is
+  // applied by the load handler.
   useEffect(() => {
-    mapRef.current?.setProjection({ type: projection === "globe" ? "globe" : "mercator" });
+    if (ready.current && mapRef.current) applyProjection(mapRef.current, projection);
   }, [projection]);
 
   useEffect(() => {
@@ -457,6 +479,11 @@ export default function MapCanvas({
   }, [showRejected, selected]);
 
   return <div ref={container} className="absolute inset-0" />;
+}
+
+function applyProjection(map: maplibregl.Map, projection: Props["projection"]) {
+  const type = projection === "globe" ? "globe" : "mercator";
+  if (map.getProjection()?.type !== type) map.setProjection({ type });
 }
 
 function applyBasemap(map: maplibregl.Map, basemap: Basemap) {
