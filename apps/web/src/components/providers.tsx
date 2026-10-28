@@ -4,6 +4,7 @@ import { useAuth } from "@clerk/nextjs";
 import { Toaster } from "@ecolens/ui/components/sonner";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { useEffect } from "react";
 
 import { setClerkAuthTokenGetter } from "@/utils/clerk-auth";
@@ -32,7 +33,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
       <QueryClientProvider client={queryClient}>
         <ClerkApiAuthBridge />
-        {children}
+        <NuqsAdapter>{children}</NuqsAdapter>
         <ReactQueryDevtools />
       </QueryClientProvider>
       <Toaster richColors />
