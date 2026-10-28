@@ -1,0 +1,39 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ecolens-server",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "dev": {
+    "ip": "127.0.0.1",
+    "port": 3000
+  },
+  "hyperdrive": [
+    {
+      "binding": "HYPERDRIVE",
+      // Hyperdrive config "ecolens-db" → Neon direct endpoint (eu-central-1).
+      // Locally, wrangler connects straight to Neon using
+      // CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE from .env.
+      "id": "eb30370c5d834056b1b10aaae393d3da"
+    }
+  ],
+  "r2_buckets": [
+    // Field-report photos (presigned uploads from the device)
+    { "binding": "PHOTOS", "bucket_name": "ecolens-photos" },
+    // PMTiles basemap / region packs and COGs
+    { "binding": "TILES", "bucket_name": "ecolens-tiles" },
+    // Generated PDF reports, archived for audit
+    { "binding": "REPORTS", "bucket_name": "ecolens-reports" }
+  ],
+  "kv_namespaces": [
+    // Hot read caches: boundaries, dashboard aggregates, flags
+    { "binding": "CACHE", "id": "3b21682be221498bb31719720e57edb9" }
+  ],
+  "queues": {
+    // Ingestion fan-out. The consumer (with dead_letter_queue
+    // "ecolens-ingest-dlq") is added together with the queue() handler.
+    "producers": [{ "binding": "INGEST_QUEUE", "queue": "ecolens-ingest" }]
+  }
+  // Local dev: secrets and vars are read from apps/server/.env
+  // Production: set them with `wrangler secret put <NAME>`
+}

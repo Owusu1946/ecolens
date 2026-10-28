@@ -1,0 +1,26 @@
+{
+  "name": "@ecolens/api",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "check-types": "tsc -b"
+  },
+  "dependencies": {
+    "@clerk/backend": "catalog:",
+    "@ecolens/db": "workspace:*",
+    "@orpc/client": "catalog:",
+    "@orpc/openapi": "catalog:",
+    "@orpc/server": "catalog:",
+    "@orpc/zod": "catalog:",
+    "drizzle-orm": "1.0.0-rc.5",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@ecolens/config": "workspace:*",
+    "typescript": "catalog:"
+  }
+}
