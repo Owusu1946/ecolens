@@ -2,13 +2,16 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "ecolens",
-    short_name: "ecolens",
-    description: "my pwa app",
-    start_url: "/",
+    name: "Ecolens",
+    short_name: "Ecolens",
+    description:
+      "Environmental intelligence for the Western Region pilot: satellite, sensor, agency and field evidence on one shared map.",
+    start_url: "/dashboard",
+    scope: "/",
     display: "standalone",
+    orientation: "any",
     background_color: "#ffffff",
-    theme_color: "#000000",
+    theme_color: "#08120f",
     icons: [
       {
         src: "/favicon/web-app-manifest-192x192.png",

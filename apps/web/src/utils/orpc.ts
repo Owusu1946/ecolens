@@ -5,19 +5,27 @@ import { createTanstackQueryUtils } from "@orpc/tanstack-query";
 import { environmentManager, QueryCache, QueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
+import { MAX_AGE } from "@/lib/offline/query-cache";
 import { getClerkAuthToken } from "@/utils/clerk-auth";
 
 export function createQueryClient() {
   return new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 30_000,
+        // Kept at least as long as the saved copy, or restored data would be dropped.
+        gcTime: MAX_AGE,
+      },
+    },
     queryCache: new QueryCache({
       onError: (error, query) => {
-        toast.error(`Error: ${error.message}`, {
-          action: {
-            label: "retry",
-            onClick: () => {
-              query.invalidate();
-            },
-          },
+        // Losing the connection is expected; the shell already shows it and the
+        // cached data stays on screen.
+        if (!navigator.onLine || error instanceof TypeError) return;
+        // Only shout when there is nothing on screen to fall back on.
+        if (query.state.data !== undefined) return;
+        toast.error(error.message, {
+          action: { label: "Retry", onClick: () => void query.invalidate() },
         });
       },
     }),
