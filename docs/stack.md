@@ -88,8 +88,10 @@ A dedicated local-first sync engine (e.g. PowerSync or ElectricSQL) is **not** i
 - [x] Create the Hyperdrive config `ecolens-db` (`eb30370c5d834056b1b10aaae393d3da`, Neon direct endpoint) and bind it as `HYPERDRIVE` in `apps/server/wrangler.jsonc`, done 2026-10-28
 - [x] Create R2 buckets (`ecolens-photos`, `ecolens-tiles`, `ecolens-reports`, WEUR), KV `ecolens-cache`, Queues `ecolens-ingest` + `ecolens-ingest-dlq`, and bind them in `apps/server/wrangler.jsonc` (queue producer only), done 2026-10-28
 - [x] Data model (Drizzle + PostGIS, GeoJSON geometry columns) and migrations in `packages/db/src/migrations`; verified on a temporary Neon branch, done 2026-10-28
-- [ ] Apply the migrations to the main Neon branch (after the data-model PR is merged)
-- [ ] Clerk: enable Organizations, turn on "force organization selection", and create the role keys `org:admin`, `org:leadership`, `org:regulator`, `org:data_steward`, `org:analyst`, `org:field_officer`, `org:responder`, `org:viewer` (dashboard → Roles & Permissions); raise the per-organization membership limit
+- [x] Apply the migrations to the main Neon branch, done 2026-10-28
+- [x] Clerk: Organizations enabled, organization selection forced, membership limit 50, the eight `org:<role>` keys created, default domain role `org:viewer`, done 2026-10-28
+- [x] Seed Clerk institutions, demo users and prototype data (`pnpm db:seed`), done 2026-10-28
+- [ ] Rotate the Neon `neondb_owner` password (exposed in a dev session) and update Hyperdrive and `DATABASE_URL` before real pilot data or users
 - [ ] Clerk: switch sign-up from public to restricted/invite-only for the pilot
 - [ ] Add the ingest queue consumer (with the DLQ) alongside the Worker's `queue()` handler
 - [ ] Add the realtime Durable Object binding and migration alongside the Durable Object class
