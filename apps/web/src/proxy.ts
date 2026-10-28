@@ -1,9 +1,9 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-// Everything except the sign-in flow requires a signed-in member of an
+// Everything except the sign-in flow, the offline page and the service worker requires a signed-in member of an
 // institution. Pending sessions (no institution chosen yet) count as signed
 // out, so they are sent back through sign-in to finish the institution step.
-const isPublicRoute = createRouteMatcher(["/sign-in(.*)"]);
+const isPublicRoute = createRouteMatcher(["/sign-in(.*)", "/offline", "/serwist/(.*)"]);
 
 export default clerkMiddleware(
   async (auth, req) => {

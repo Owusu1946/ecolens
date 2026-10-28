@@ -1,11 +1,11 @@
 import { ClerkProvider } from "@clerk/nextjs";
-import type { Metadata } from "next";
+import { SerwistProvider } from "@serwist/turbopack/react";
+import type { Metadata, Viewport } from "next";
 
 import "../index.css";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import Providers from "@/components/providers";
-import PwaRegistration from "@/components/pwa-registration";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,6 +21,14 @@ export const metadata: Metadata = {
   title: "Ecolens",
   description:
     "Environmental intelligence for the Western Region pilot: satellite, sensor, agency and field evidence on one shared map.",
+  applicationName: "Ecolens",
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
 };
 
 export default function RootLayout({
@@ -31,15 +39,16 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <PwaRegistration />
-
-        <ClerkProvider
-          signInUrl="/sign-in"
-          signInFallbackRedirectUrl="/dashboard"
-          taskUrls={{ "choose-organization": "/sign-in/tasks/choose-organization" }}
-        >
-          <Providers>{children}</Providers>
-        </ClerkProvider>
+        {/* Off in development so stale cached pages never mask code changes. */}
+        <SerwistProvider swUrl="/serwist/sw.js" disable={process.env.NODE_ENV === "development"}>
+          <ClerkProvider
+            signInUrl="/sign-in"
+            signInFallbackRedirectUrl="/dashboard"
+            taskUrls={{ "choose-organization": "/sign-in/tasks/choose-organization" }}
+          >
+            <Providers>{children}</Providers>
+          </ClerkProvider>
+        </SerwistProvider>
       </body>
     </html>
   );

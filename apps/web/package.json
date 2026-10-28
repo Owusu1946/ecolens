@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --port 3001",
     "build": "tsc -b ../../packages/api && next build",
-    "check-types": "tsc -b ../../packages/api && tsc --noEmit",
+    "check-types": "tsc -b ../../packages/api && tsc --noEmit && tsc -p src/sw",
     "start": "next start",
     "env:generate": "varlock codegen"
   },
@@ -16,8 +16,11 @@
     "@orpc/client": "catalog:",
     "@orpc/server": "catalog:",
     "@orpc/tanstack-query": "^1.15.6",
+    "@serwist/turbopack": "9.5.13",
     "@swc/helpers": "^0.5.23",
-    "@tanstack/react-query": "^5.104.2",
+    "@tanstack/query-async-storage-persister": "^5.105.0",
+    "@tanstack/react-query": "^5.105.0",
+    "@tanstack/react-query-persist-client": "^5.105.0",
     "@varlock/nextjs-integration": "1.2.5",
     "babel-plugin-react-compiler": "^1.0.0",
     "evlog": "catalog:",
@@ -26,6 +29,7 @@
     "next-themes": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
+    "serwist": "9.5.13",
     "sonner": "catalog:",
     "varlock": "catalog:",
     "zod": "catalog:"
@@ -33,10 +37,11 @@
   "devDependencies": {
     "@ecolens/config": "workspace:*",
     "@tailwindcss/postcss": "catalog:",
-    "@tanstack/react-query-devtools": "^5.104.2",
+    "@tanstack/react-query-devtools": "^5.105.0",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "esbuild": "^0.28.2",
     "tailwindcss": "catalog:",
     "typescript": "catalog:"
   }
