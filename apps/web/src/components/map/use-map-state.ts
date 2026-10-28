@@ -21,6 +21,7 @@ export const mapStateParsers = {
   basemap: parseAsStringLiteral(BASEMAP_KEYS),
   layers: parseAsArrayOf(parseAsStringLiteral(LAYER_KEYS)).withDefault(DEFAULT_LAYERS),
   rejected: parseAsBoolean.withDefault(false),
+  panels: parseAsBoolean.withDefault(true),
   alert: parseAsString,
   lng: parseAsFloat.withDefault(PILOT_VIEW.center[0]),
   lat: parseAsFloat.withDefault(PILOT_VIEW.center[1]),

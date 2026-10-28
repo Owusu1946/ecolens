@@ -9,7 +9,7 @@ export const WORLD_VIEW = { center: [-1.95, 7] as [number, number], zoom: 1.6 };
 export const BASEMAPS = {
   imagery: {
     label: "Satellite",
-    detail: "Sentinel-2 cloudless 2024",
+    detail: "2024 cloud-free mosaic, not current",
     tiles: "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2024_3857/default/g/{z}/{y}/{x}.jpg",
     maxzoom: 15,
     attribution:

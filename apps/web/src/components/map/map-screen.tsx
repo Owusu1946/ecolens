@@ -3,9 +3,22 @@
 import { Button } from "@ecolens/ui/components/button";
 import { cn } from "@ecolens/ui/lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import { Crosshair, Globe2, Layers, Map as MapIcon, Minus, Plus, WifiOff } from "lucide-react";
+import {
+  Crosshair,
+  Eye,
+  EyeOff,
+  Globe2,
+  Layers,
+  Map as MapIcon,
+  Maximize,
+  Minimize,
+  Minus,
+  PanelLeftClose,
+  Plus,
+  WifiOff,
+} from "lucide-react";
 import dynamic from "next/dynamic";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 
 import { useCanCallApi } from "@/components/shell/use-me";
 import { useLiteMode, useOnline } from "@/hooks/use-network";
@@ -38,6 +51,8 @@ export function MapScreen() {
   const mapRef = useRef<MapHandle>(null);
   const [initial] = useState(() => ({ lng: state.lng, lat: state.lat, z: state.z }));
   const [layersOpen, setLayersOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const { fullscreen, canFullscreen } = useFullscreen();
 
   const layers = useQuery({
     ...orpc.map.layers.queryOptions(),
@@ -113,7 +128,7 @@ export function MapScreen() {
   );
 
   return (
-    <div className="relative h-full min-h-[24rem] overflow-hidden bg-[#0b1514]">
+    <div ref={rootRef} className="relative h-full min-h-[24rem] overflow-hidden bg-[#0b1514]">
       <MapCanvas
         ref={mapRef}
         initial={initial}
@@ -127,16 +142,29 @@ export function MapScreen() {
         onMove={(v) => void setState(v)}
       />
 
-      {/* Layers: a card on desktop, a sheet on phones. */}
-      <div className="pointer-events-none absolute inset-y-3 left-3 hidden w-72 flex-col lg:flex">
-        <div className="pointer-events-auto max-h-full overflow-y-auto">{panel}</div>
-      </div>
+      {/* Layers: a card on desktop (can be hidden to see the whole map), a sheet on phones. */}
+      {state.panels && (
+        <div className="pointer-events-none absolute inset-y-3 left-3 hidden w-72 flex-col lg:flex">
+          <div className="pointer-events-auto flex max-h-full flex-col overflow-hidden">
+            <div className="bg-background/95 flex items-center justify-end border border-b-0 px-1 py-0.5">
+              <Button variant="ghost" size="xs" onClick={() => void setState({ panels: false })}>
+                <PanelLeftClose /> Hide
+              </Button>
+            </div>
+            <div className="min-h-0 overflow-y-auto">{panel}</div>
+          </div>
+        </div>
+      )}
       <Button
         variant="outline"
         size="sm"
-        className="bg-background/95 absolute top-3 left-3 lg:hidden"
+        className={cn("bg-background/95 absolute top-3 left-3", state.panels && "lg:hidden")}
         aria-expanded={layersOpen}
-        onClick={() => setLayersOpen((o) => !o)}
+        onClick={() =>
+          window.matchMedia("(min-width: 64rem)").matches
+            ? void setState({ panels: true })
+            : setLayersOpen((o) => !o)
+        }
       >
         <Layers /> Layers
       </Button>
@@ -204,6 +232,26 @@ export function MapScreen() {
             </MapButton>
           )}
         </div>
+        <div className="bg-background/95 flex flex-col border">
+          <MapButton
+            label={state.panels ? "Hide panels" : "Show panels"}
+            onClick={() => void setState({ panels: !state.panels })}
+          >
+            {state.panels ? <EyeOff /> : <Eye />}
+          </MapButton>
+          {canFullscreen && (
+            <MapButton
+              label={fullscreen ? "Exit full screen" : "Full screen"}
+              onClick={() =>
+                fullscreen
+                  ? void document.exitFullscreen()
+                  : void rootRef.current?.requestFullscreen()
+              }
+            >
+              {fullscreen ? <Minimize /> : <Maximize />}
+            </MapButton>
+          )}
+        </div>
       </div>
 
       {selected && (
@@ -214,8 +262,14 @@ export function MapScreen() {
         />
       )}
 
-      {/* Status: freshness, offline, and what's missing. */}
-      <div className="pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1.5 lg:left-[calc(50%+9rem)]">
+      {/* Status: freshness, offline, and what's missing. Kept even with panels
+          hidden: connection state must always be visible (principle 7). */}
+      <div
+        className={cn(
+          "pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1.5",
+          state.panels && "lg:left-[calc(50%+9rem)]",
+        )}
+      >
         {!online && (
           <p className="bg-background/95 flex items-center gap-1.5 border border-amber-500/40 px-2 py-1 text-[11px] text-amber-800 dark:text-amber-200">
             <WifiOff className="size-3" />
@@ -239,6 +293,27 @@ export function MapScreen() {
       </div>
     </div>
   );
+}
+
+function subscribeFullscreen(onChange: () => void) {
+  document.addEventListener("fullscreenchange", onChange);
+  return () => document.removeEventListener("fullscreenchange", onChange);
+}
+
+// Full screen for monitoring screens. Hidden where the browser can't do it
+// for an element (e.g. iPhone Safari).
+function useFullscreen() {
+  const fullscreen = useSyncExternalStore(
+    subscribeFullscreen,
+    () => document.fullscreenElement !== null,
+    () => false,
+  );
+  const canFullscreen = useSyncExternalStore(
+    subscribeFullscreen,
+    () => document.fullscreenEnabled,
+    () => false,
+  );
+  return { fullscreen, canFullscreen };
 }
 
 function MapButton({
