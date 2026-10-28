@@ -33,11 +33,38 @@ This project uses PostgreSQL with Drizzle ORM.
 1. Make sure you have a PostgreSQL database set up.
 2. Update your `apps/server/.env` file with your PostgreSQL connection details.
 
-3. Apply the schema to your database:
+3. Apply the migrations (PostGIS must be enabled):
 
 ```bash
-pnpm run db:push
+pnpm run db:migrate
 ```
+
+4. Seed the prototype data (Clerk institutions, demo users and the Western Region dataset):
+
+```bash
+pnpm run db:seed          # empty database
+pnpm run db:seed --reset  # wipe Ecolens tables and reseed (development only)
+```
+
+All seeded data is simulated and labelled as such. Concession and forest-reserve outlines are illustrative, not authoritative.
+
+### Demo accounts (development)
+
+Sign in with the email below; enter the Clerk test code **424242** (no email is sent). Names are fictional.
+
+| Dashboard | Person | Institution | Role | Email |
+|---|---|---|---|---|
+| Admin | Kofi Asante | Ecolens Platform Team | admin | `ecolens.admin+clerk_test@example.com` |
+| Leadership | Abena Owusu | Pilot Steering Group | leadership | `ecolens.leadership+clerk_test@example.com` |
+| EPA | Yaw Boateng | EPA Western Region | regulator | `ecolens.epa.regulator+clerk_test@example.com` |
+| Analyst | Efua Mensah | EPA Western Region | analyst | `ecolens.epa.analyst+clerk_test@example.com` |
+| Field | Kwame Ansah | EPA Western Region | field_officer | `ecolens.epa.field+clerk_test@example.com` |
+| EPA | Akosua Darko | EPA Western Region | data_steward | `ecolens.epa.steward+clerk_test@example.com` |
+| Minerals Commission | Kojo Appiah | Minerals Commission | regulator | `ecolens.mincom.regulator+clerk_test@example.com` |
+| WRC | Esi Quaye | Water Resources Commission | regulator | `ecolens.wrc.regulator+clerk_test@example.com` |
+| Responder | Nana Agyeman | Prestea-Huni Valley MA | responder | `ecolens.phvma.responder+clerk_test@example.com` |
+| Responder | Adwoa Frimpong | Tarkwa-Nsuaem MA | responder | `ecolens.tnma.responder+clerk_test@example.com` |
+| Leadership | Kwesi Arthur | Western Regional Coordinating Council | viewer | `ecolens.wrcc.viewer+clerk_test@example.com` |
 
 ## Clerk Authentication Setup
 
@@ -135,6 +162,7 @@ ecolens/
 - `pnpm run db:push`: Push schema changes to database
 - `pnpm run db:generate`: Generate database client/types
 - `pnpm run db:migrate`: Run database migrations
+- `pnpm run db:seed`: Seed Clerk institutions, demo users and prototype data (`--reset` to reseed)
 - `pnpm run db:studio`: Open database studio UI
 - `pnpm run check`: Run Biome formatting and linting
 - `cd apps/web && pnpm run generate-pwa-assets`: Generate PWA assets

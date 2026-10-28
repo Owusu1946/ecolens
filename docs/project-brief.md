@@ -176,6 +176,7 @@ _Choices made for this build where the concept note is silent. Update as they ar
 | Roles & permissions | **Defined in code** (`packages/api/src/auth/roles.ts`), not in the Clerk dashboard, so every change to access rules is reviewed and versioned. Clerk supplies the user, the active organization (= institution) and a role key `org:<role>`. Roles: admin, leadership, regulator, data_steward, analyst, field_officer, responder, viewer. | 2026-10-28 |
 | Dashboard selection | A user's dashboard is picked from **(institution, role)**: e.g. a regulator at EPA, the Minerals Commission or the WRC each gets their institution's dashboard. | 2026-10-28 |
 | Audit trail | `audit_events` is **append-only, enforced by the database** (a trigger rejects UPDATE, DELETE and TRUNCATE). Corrections are new events. | 2026-10-28 |
+| Seed data | Fictional demo people (one per role); **real institution names** (the pilot partners) for the demo; concession and reserve outlines **illustrative and labelled non-authoritative**, with invented holders, so no real operator is implicated. Every seeded row has `is_simulated = true`. | 2026-10-28 |
 
 ## 12. Open questions
 

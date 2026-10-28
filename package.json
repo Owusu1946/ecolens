@@ -16,6 +16,7 @@
     "db:studio": "turbo run db:studio -F @ecolens/db --",
     "db:generate": "turbo run db:generate -F @ecolens/db --",
     "db:migrate": "turbo run db:migrate -F @ecolens/db --",
+    "db:seed": "pnpm -F @ecolens/db db:seed",
     "deploy": "turbo run deploy -F server --",
     "env:generate": "varlock codegen --path ./apps/web/ && varlock codegen --path ./apps/server/ && varlock codegen --path ./packages/db/",
     "postinstall": "varlock codegen --path ./apps/web/ && varlock codegen --path ./apps/server/ && varlock codegen --path ./packages/db/",
