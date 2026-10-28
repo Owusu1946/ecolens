@@ -177,6 +177,8 @@ _Choices made for this build where the concept note is silent. Update as they ar
 | Dashboard selection | A user's dashboard is picked from **(institution, role)**: e.g. a regulator at EPA, the Minerals Commission or the WRC each gets their institution's dashboard. | 2026-10-28 |
 | Audit trail | `audit_events` is **append-only, enforced by the database** (a trigger rejects UPDATE, DELETE and TRUNCATE). Corrections are new events. | 2026-10-28 |
 | Seed data | Fictional demo people (one per role); **real institution names** (the pilot partners) for the demo; concession and reserve outlines **illustrative and labelled non-authoritative**, with invented holders, so no real operator is implicated. Every seeded row has `is_simulated = true`. | 2026-10-28 |
+| Sign-in UI | **Custom Clerk flow, split screen:** the form on one side, an interactive globe of the pilot area on the other (a short band above the form on phones). Email code is the primary method, with Microsoft and Google as alternatives and a password only for accounts that have one. **No public sign-up page:** access is by institutional invitation. After sign-in the user chooses an institution; if they belong to only one, it is selected automatically. Users cannot create institutions from the app. | 2026-10-28 |
+| Sign-in globe | A **dependency-free canvas globe with bundled data** (Natural Earth land dots + Ghana border, about 6 KB gzipped), not MapLibre, so it renders with no network and no tiles. It shows only public, approximate geography (Ghana, Pra/Ankobra basins and rivers); **no monitoring sites, alerts or field reports before sign-in** (principle 6). Low-bandwidth mode (reduced motion, Data Saver, 2G) turns off its animation. | 2026-10-28 |
 
 ## 12. Open questions
 
