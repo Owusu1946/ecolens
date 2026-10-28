@@ -41,7 +41,7 @@ Rule: **the web app never talks to the database directly.** All data goes throug
 | Ingestion | Workers **Cron Triggers + Queues** | NASA FIRMS (thermal), OpenAQ (PM2.5), GFW RADD (forest loss), NASA GIBS (AOD). |
 | Heavy geoprocessing | **Google Earth Engine** via a scheduled Python job (e.g. GitHub Actions) | Sentinel-2 turbidity and land change → results to R2 and Postgres. |
 | Seeded data | Postgres seed scripts | Realistic Western Region / Pra / Ankobra data, **always labelled simulated**. |
-| Offline field reporting | **Serwist** + **IndexedDB** queue + Background Sync | Works with no connectivity; submits when back online. |
+| Offline field reporting | **Serwist** (`@serwist/turbopack`) + **IndexedDB** outbox (`apps/web/src/lib/offline`); replay on reconnect/focus/interval, Background Sync later | Works with no connectivity; submits when back online. |
 | Photos | Compressed on device → **presigned upload to R2** | Fast uploads; the API never proxies large bodies. |
 | Reports | **Cloudflare Browser Rendering** (HTML → PDF), stored in R2 | PDF matches the web report exactly, including a map snapshot; archived for audit. |
 | Frontend | React 19 + React Compiler, App Router, RSC for shells | |
