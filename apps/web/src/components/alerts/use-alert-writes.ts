@@ -20,6 +20,9 @@ export const DECIDABLE: readonly AlertStatus[] = ["new", "in_review", "unresolve
 
 const isAlertWrite = (i: OutboxItem) => i.path[0] === "alerts";
 
+// Writes that move an alert's status (a field-check request doesn't).
+const isStatusWrite = (i: OutboxItem) => i.path[1] === "validate" || i.path[1] === "startReview";
+
 /** The status a queued write moves its alert to. */
 function targetStatus(item: OutboxItem): AlertStatus {
   return item.path[1] === "validate" ? (item.input.outcome as Outcome) : "in_review";
@@ -38,7 +41,7 @@ export function useAlertWrites() {
 
   /** Waiting writes for an alert, and the status the latest of them sets. */
   function pending(alertId: string) {
-    const queued = forAlert(alertId).filter((i) => i.status !== "failed");
+    const queued = forAlert(alertId).filter((i) => i.status !== "failed" && isStatusWrite(i));
     const last = queued.at(-1);
     return { queued, status: last ? targetStatus(last) : null };
   }
@@ -74,5 +77,18 @@ export function useAlertWrites() {
     );
   }
 
-  return { forAlert, pending, startReview, validate };
+  async function requestVerification(
+    alert: { id: string; number: number },
+    input: { institutionId: string; instructions: string; dueAt?: string },
+  ) {
+    if (!userId) return;
+    await outbox.enqueue(
+      userId,
+      ["alerts", "requestVerification"],
+      { alertId: alert.id, ...input },
+      `Ask for a field check of ${alertRef(alert.number)}`,
+    );
+  }
+
+  return { forAlert, pending, startReview, validate, requestVerification };
 }
