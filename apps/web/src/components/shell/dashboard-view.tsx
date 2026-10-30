@@ -4,6 +4,7 @@ import { useUser } from "@clerk/nextjs";
 import type { Dashboard, Permission } from "@ecolens/api/auth/roles";
 import { Button } from "@ecolens/ui/components/button";
 import { Skeleton } from "@ecolens/ui/components/skeleton";
+import { LiveFeedPanel } from "@/components/admin/admin-screen";
 import {
   ActivityPanel,
   AlertsPanel,
@@ -120,6 +121,7 @@ function Widgets({
             <IncidentsPanel title="Incidents EPA leads or acts on" mine />
             <BasinsPanel />
             <ConcessionsPanel />
+            <LiveFeedPanel />
           </div>
           {can("metrics:read") && <MeasuresPanel />}
         </>
@@ -175,6 +177,7 @@ function Widgets({
       return (
         <>
           <div className={grid}>
+            <LiveFeedPanel />
             <SourcesPanel />
             {can("audit:read") && <ActivityPanel />}
             <RulesPanel />

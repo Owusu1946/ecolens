@@ -50,6 +50,60 @@ function pdfRenderer(): ApiContext["renderPdf"] {
   };
 }
 
+// Institution membership through Clerk Organizations (org = institution).
+const directory: ApiContext["directory"] = {
+  async members(organizationId) {
+    const { data } = await clerkClient.organizations.getOrganizationMembershipList({
+      organizationId,
+      limit: 200,
+    });
+    return data.map((m) => ({
+      userId: m.publicUserData?.userId ?? "",
+      name:
+        [m.publicUserData?.firstName, m.publicUserData?.lastName].filter(Boolean).join(" ") || null,
+      email: m.publicUserData?.identifier ?? null,
+      role: m.role,
+      joinedAt: new Date(m.createdAt).toISOString(),
+    }));
+  },
+  async invitations(organizationId) {
+    const { data } = await clerkClient.organizations.getOrganizationInvitationList({
+      organizationId,
+      status: ["pending"],
+      limit: 100,
+    });
+    return data.map((i) => ({
+      id: i.id,
+      email: i.emailAddress,
+      role: i.role,
+      createdAt: new Date(i.createdAt).toISOString(),
+    }));
+  },
+  async invite(organizationId, emailAddress, role, inviterUserId) {
+    const invitation = await clerkClient.organizations.createOrganizationInvitation({
+      organizationId,
+      emailAddress,
+      role,
+      inviterUserId,
+      redirectUrl: `${ENV.CORS_ORIGIN}/sign-in`,
+    });
+    return { id: invitation.id };
+  },
+  async revokeInvitation(organizationId, invitationId, requestingUserId) {
+    await clerkClient.organizations.revokeOrganizationInvitation({
+      organizationId,
+      invitationId,
+      requestingUserId,
+    });
+  },
+  async setRole(organizationId, userId, role) {
+    await clerkClient.organizations.updateOrganizationMembership({ organizationId, userId, role });
+  },
+  async remove(organizationId, userId) {
+    await clerkClient.organizations.deleteOrganizationMembership({ organizationId, userId });
+  },
+};
+
 export type CreateContextOptions = {
   context: HonoContext;
 };
@@ -64,6 +118,7 @@ export async function createContext({ context }: CreateContextOptions): Promise<
     reports: ENV.REPORTS,
     renderPdf: pdfRenderer(),
     firmsMapKey: ENV.FIRMS_MAP_KEY || null,
+    directory,
   };
 }
 
