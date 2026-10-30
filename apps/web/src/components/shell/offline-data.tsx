@@ -14,7 +14,10 @@ import {
   readLastUser,
   rememberUser,
 } from "@/lib/offline/query-cache";
+import { useRealtime } from "@/lib/realtime";
 import { client, getQueryClient } from "@/utils/orpc";
+
+import { useCanCallApi } from "./use-me";
 
 // Bump when a change to cached data shapes means old saved data must be dropped.
 const CACHE_VERSION = "v1";
@@ -49,6 +52,9 @@ export function OfflineData({ children }: { children: React.ReactNode }) {
   const queryClient = getQueryClient();
   const { isLoaded, userId } = useAuth();
   const dataUser = useDataUser();
+  const online = useOnline();
+  // Live updates while signed in with an institution and online.
+  useRealtime(useCanCallApi() && online);
   const persister = useMemo(() => (dataUser ? createPersister(dataUser) : null), [dataUser]);
 
   // A different person signed in on this device: drop the previous user's saved data.

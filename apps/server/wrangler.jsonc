@@ -42,6 +42,11 @@
       }
     ]
   },
+  // Real-time channel (WebSocket hibernation), one instance for the pilot.
+  "durable_objects": {
+    "bindings": [{ "name": "REALTIME", "class_name": "RealtimeChannel" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["RealtimeChannel"] }],
   // Live ingestion: hourly (FIRMS near-real-time data updates every few hours).
   "triggers": { "crons": ["15 * * * *"] }
   // Local dev: secrets and vars are read from apps/server/.env

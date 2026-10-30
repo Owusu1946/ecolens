@@ -17,7 +17,7 @@ const clerkClient = createClerkClient({
   publishableKey: ENV.CLERK_PUBLISHABLE_KEY,
 });
 
-async function authenticateClerkRequest(request: Request): Promise<ClerkContextAuth> {
+export async function authenticateClerkRequest(request: Request): Promise<ClerkContextAuth> {
   const requestState = await clerkClient.authenticateRequest(request, {
     authorizedParties: [ENV.CORS_ORIGIN],
   });
