@@ -8,6 +8,7 @@ export type CloudflareEnv = {
   REPORTS: R2Bucket;
   CACHE: KVNamespace;
   INGEST_QUEUE: Queue;
+  REALTIME: DurableObjectNamespace;
   CORS_ORIGIN: string;
   CLERK_SECRET_KEY: string;
   CLERK_PUBLISHABLE_KEY: string;

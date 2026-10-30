@@ -10,8 +10,9 @@ import { type EvlogVariables, evlog } from "evlog/hono";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 
-import { createContext } from "./context";
+import { authenticateClerkRequest, createContext } from "./context";
 import { ENV } from "./env.server";
+import { connect, publish, topicsForPath } from "./realtime";
 import { getDb } from "./services";
 
 initLogger({
@@ -54,6 +55,18 @@ const versions = Object.entries(routers).map(([version, router]) => ({
   }),
 }));
 
+// Real-time channel. Browsers can't set headers on a WebSocket, so the Clerk
+// session token comes as a query parameter and is checked like a bearer token.
+app.get("/v1/realtime", async (c) => {
+  const token = c.req.query("token");
+  if (!token) return c.text("Unauthorized", 401);
+  const auth = await authenticateClerkRequest(
+    new Request(c.req.url, { headers: { Authorization: `Bearer ${token}` } }),
+  );
+  if (!auth?.userId) return c.text("Unauthorized", 401);
+  return connect(ENV, c.req.raw);
+});
+
 app.use("/*", async (c, next) => {
   const version = versions.find(
     ({ prefix }) => c.req.path === prefix || c.req.path.startsWith(`${prefix}/`),
@@ -71,6 +84,10 @@ app.use("/*", async (c, next) => {
     });
 
     if (rpcResult.matched) {
+      // A successful write: tell connected clients what to refresh.
+      if (rpcResult.response.ok) {
+        c.executionCtx.waitUntil(publish(ENV, topicsForPath(c.req.path)));
+      }
       return c.newResponse(rpcResult.response.body, rpcResult.response);
     }
 
@@ -111,6 +128,8 @@ export default {
         if (message.body.source === "firms" && env.FIRMS_MAP_KEY) {
           const result = await runFirms(db, env.FIRMS_MAP_KEY);
           console.log("ingest firms", result);
+          if (result.opened || result.extended)
+            await publish(env, ["alerts", "dashboard", "audit"]);
         }
         message.ack();
       } catch (error) {
@@ -122,3 +141,5 @@ export default {
     }
   },
 } satisfies ExportedHandler<Env, IngestJob>;
+
+export { RealtimeChannel } from "./realtime";

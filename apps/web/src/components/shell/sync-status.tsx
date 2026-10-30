@@ -14,6 +14,7 @@ import { CloudOff, Loader2, RotateCw, Trash2 } from "lucide-react";
 
 import { useOnline } from "@/hooks/use-network";
 import { type OutboxItem, outbox, useOutbox } from "@/lib/offline/outbox";
+import { useRealtimeConnected } from "@/lib/realtime";
 
 import { useDataUser } from "./offline-data";
 
@@ -28,6 +29,7 @@ export function SyncStatus({ className }: { className?: string }) {
   const failed = items.filter((i) => i.status === "failed").length;
   const syncing = items.some((i) => i.status === "syncing");
   const waiting = items.length - failed;
+  const live = useRealtimeConnected();
 
   const tone = !online ? "offline" : failed ? "failed" : "ok";
   const label = !online
@@ -40,7 +42,9 @@ export function SyncStatus({ className }: { className?: string }) {
         ? `Syncing ${waiting}…`
         : waiting
           ? `${waiting} to sync`
-          : "Online";
+          : live
+            ? "Live"
+            : "Online";
 
   return (
     <DropdownMenu>
@@ -79,7 +83,9 @@ export function SyncStatus({ className }: { className?: string }) {
           {online
             ? items.length
               ? "Changes saved on this device are sent in the order you made them."
-              : "Everything you've done is synced."
+              : live
+                ? "Everything you've done is synced. Changes by others appear as they happen."
+                : "Everything you've done is synced."
             : "You can keep working. Screens show the data last saved on this device, and your changes are sent when you're back online."}
         </p>
         {items.length > 0 && <DropdownMenuSeparator />}
