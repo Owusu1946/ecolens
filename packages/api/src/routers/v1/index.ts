@@ -5,6 +5,7 @@ import { alertsRouter } from "./alerts";
 import { fieldReportsRouter } from "./field-reports";
 import { incidentsRouter } from "./incidents";
 import { mapRouter } from "./map";
+import { reportsRouter } from "./reports";
 import { sessionRouter } from "./session";
 
 export const v1Router = {
@@ -22,6 +23,7 @@ export const v1Router = {
   alerts: alertsRouter,
   incidents: incidentsRouter,
   fieldReports: fieldReportsRouter,
+  reports: reportsRouter,
 };
 export type V1Router = typeof v1Router;
 export type V1RouterClient = RouterClient<typeof v1Router>;

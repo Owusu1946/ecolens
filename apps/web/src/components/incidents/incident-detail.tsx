@@ -13,13 +13,13 @@ import { StatusBadge } from "@/components/alerts/status-badge";
 import { alertRef } from "@/components/alerts/use-alert-writes";
 import { CONFIDENCE, LENS_LABEL } from "@/components/map/config";
 import { ModeBadge } from "@/components/map/provenance";
+import { CaseReports } from "@/components/reports/case-reports";
 import { useCanCallApi, useMe } from "@/components/shell/use-me";
 import { CloseBar, Section } from "@/components/shell/workflow";
 import { useOnline } from "@/hooks/use-network";
 import { formatDate, formatDateTime } from "@/lib/format";
 import { outbox } from "@/lib/offline/outbox";
 import { orpc } from "@/utils/orpc";
-
 import {
   ACTION_KIND,
   ACTIVE,
@@ -276,6 +276,12 @@ function Loaded({ incident, onClose }: { incident: Incident; onClose: () => void
           <p className="text-pretty whitespace-pre-line">{incident.closureSummary}</p>
         </Section>
       )}
+
+      <CaseReports
+        target={{ incidentId: incident.id }}
+        caseRef={ref}
+        generateLabel="Generate assessment report"
+      />
 
       <Section title="From alert">
         <div className="space-y-1.5 border p-2.5">

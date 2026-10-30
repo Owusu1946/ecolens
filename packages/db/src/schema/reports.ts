@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { boolean, date, index, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { boolean, date, index, jsonb, text, timestamp, uuid } from "drizzle-orm/pg-core";
 import { reportKind } from "./enums";
 import { pgTable } from "./table";
 import { alerts, incidents } from "./workflow";
@@ -16,7 +16,15 @@ export const reports = pgTable(
     incidentId: uuid().references(() => incidents.id),
     periodStart: date(),
     periodEnd: date(),
+    // The record as it stood when the report was generated, so an archived
+    // report never changes when the incident does (principle 5).
+    snapshot: jsonb(),
+    // R2 keys in ecolens-reports: the rendered HTML and, once made, the PDF.
+    htmlKey: text(),
     objectKey: text(),
+    // Same visibility as the alert it describes (principle 6).
+    isSensitive: boolean().notNull().default(false),
+    isSimulated: boolean().notNull().default(false),
     generatedByUserId: text().notNull(),
     generatedByOrgId: text().notNull(),
     generatedAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
