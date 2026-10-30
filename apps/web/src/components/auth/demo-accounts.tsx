@@ -20,6 +20,11 @@ const DEMO_ACCOUNTS = [
     detail: "Western Regional Coordinating Council",
     email: "ecolens.wrcc.viewer",
   },
+  {
+    label: "Independent evaluator",
+    detail: "Independent Evaluation Team",
+    email: "ecolens.evaluator",
+  },
 ].map((a) => ({ ...a, email: `${a.email}+clerk_test@example.com` }));
 
 export const isDevelopmentInstance =
