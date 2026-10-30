@@ -1,5 +1,12 @@
 import type { Database } from "@ecolens/db";
-import { alerts, auditEvents, sites, validations } from "@ecolens/db/schema/index";
+import {
+  alerts,
+  auditEvents,
+  institutions,
+  sites,
+  validations,
+  verificationRequests,
+} from "@ecolens/db/schema/index";
 import { ORPCError } from "@orpc/server";
 import { and, asc, count, desc, eq, inArray, type SQL, sql } from "drizzle-orm";
 import { z } from "zod";
@@ -167,6 +174,7 @@ export const alertsRouter = {
               },
               fieldReport: {
                 columns: {
+                  id: true,
                   observation: true,
                   assessment: true,
                   activityTypes: true,
@@ -191,6 +199,19 @@ export const alertsRouter = {
             },
           },
           incident: { columns: { id: true, number: true, status: true } },
+          verificationRequests: {
+            orderBy: { requestedAt: "desc" },
+            columns: {
+              id: true,
+              instructions: true,
+              dueAt: true,
+              status: true,
+              requestedAt: true,
+              requestedByOrgId: true,
+              fulfilledByReportId: true,
+            },
+            with: { institution: { columns: { name: true, shortName: true } } },
+          },
         },
       });
       // Missing and withheld look the same, so a sensitive alert's existence isn't revealed.
@@ -217,10 +238,17 @@ export const alertsRouter = {
         ...alert.validations.map((v) => v.decidedByOrgId),
         ...alert.evidence.flatMap((e) => (e.fieldReport ? [e.fieldReport.authorOrgId] : [])),
         ...(history ?? []).map((h) => h.actorOrgId),
+        ...alert.verificationRequests.map((r) => r.requestedByOrgId),
       ]);
       const institution = (orgId: string) => names.get(orgId) ?? null;
 
-      const { validations: decided, evidence, location, ...rest } = alert;
+      const {
+        validations: decided,
+        evidence,
+        location,
+        verificationRequests: requests,
+        ...rest
+      } = alert;
       return {
         ...rest,
         location: location as unknown,
@@ -243,6 +271,12 @@ export const alertsRouter = {
             ...h,
             institution: institution(actorOrgId),
           })) ?? null,
+        verificationRequests: requests.map(({ requestedByOrgId, ...r }) => ({
+          ...r,
+          requestedBy: institution(requestedByOrgId),
+        })),
+        canRequestVerification:
+          hasPermission(actor.role, "alert:triage") && DECIDABLE.includes(alert.status),
         canDecide: hasPermission(actor.role, "alert:validate") && DECIDABLE.includes(alert.status),
         canStartReview: hasPermission(actor.role, "alert:triage") && alert.status === "new",
         canEscalate:
@@ -289,6 +323,74 @@ export const alertsRouter = {
         action: "alert.validate",
         reason: input.rationale,
         validation: { outcome: input.outcome, confidence: input.confidence },
+      }),
+    ),
+
+  // Ask an institution's field team to check the alert on the ground. The
+  // alert's status does not change; the request is answered by a field report.
+  requestVerification: authorizedProcedure("alert:triage")
+    .input(
+      z.object({
+        alertId: z.uuid(),
+        institutionId: z.uuid(),
+        instructions: z.string().trim().min(10, "Give at least 10 characters.").max(4000),
+        dueAt: z.iso.datetime({ offset: true }).optional(),
+        ...mutation,
+      }),
+    )
+    .handler(({ input, context: { db, actor } }) =>
+      db.transaction(async (tx) => {
+        const [replayed] = await tx
+          .select({ id: verificationRequests.id })
+          .from(verificationRequests)
+          .where(eq(verificationRequests.id, input.clientMutationId));
+        if (replayed) return { id: replayed.id, replayed: true };
+
+        const [alert] = await tx
+          .select({ status: alerts.status, isSensitive: alerts.isSensitive })
+          .from(alerts)
+          .where(eq(alerts.id, input.alertId));
+        if (
+          !alert ||
+          (alert.isSensitive && !hasPermission(actor.role, "sensitive_location:read"))
+        ) {
+          throw new ORPCError("NOT_FOUND", { message: "Alert not found." });
+        }
+        if (!DECIDABLE.includes(alert.status)) {
+          throw new ORPCError("CONFLICT", {
+            message: `This alert has already been ${alert.status}; a field check is no longer needed.`,
+          });
+        }
+        const [team] = await tx
+          .select({ shortName: institutions.shortName })
+          .from(institutions)
+          .where(eq(institutions.id, input.institutionId));
+        if (!team) throw new ORPCError("BAD_REQUEST", { message: "Choose an institution." });
+
+        const now = new Date();
+        await tx.insert(verificationRequests).values({
+          id: input.clientMutationId,
+          alertId: input.alertId,
+          institutionId: input.institutionId,
+          instructions: input.instructions,
+          dueAt: input.dueAt ? new Date(input.dueAt) : null,
+          requestedByUserId: actor.userId,
+          requestedByOrgId: actor.orgId,
+          requestedAt: now,
+        });
+        await tx.insert(auditEvents).values({
+          occurredAt: now,
+          actorUserId: actor.userId,
+          actorOrgId: actor.orgId,
+          actorRole: actor.role,
+          action: "alert.request_verification",
+          entityType: "alert",
+          entityId: input.alertId,
+          reason: input.instructions,
+          clientMutationId: input.clientMutationId,
+          data: { institution: team.shortName, dueAt: input.dueAt ?? null },
+        });
+        return { id: input.clientMutationId, replayed: false };
       }),
     ),
 };
@@ -371,6 +473,16 @@ async function transition(db: Database, actor: Actor, t: Transition) {
         ...(t.validation ? { validatedAt: now } : {}),
       })
       .where(eq(alerts.id, t.alertId));
+
+    // A final decision makes outstanding field checks unnecessary.
+    if (t.to === "confirmed" || t.to === "rejected") {
+      await tx
+        .update(verificationRequests)
+        .set({ status: "withdrawn", closedAt: now })
+        .where(
+          and(eq(verificationRequests.alertId, t.alertId), eq(verificationRequests.status, "open")),
+        );
+    }
 
     if (t.validation) {
       await tx.insert(validations).values({
