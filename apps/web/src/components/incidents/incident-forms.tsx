@@ -24,7 +24,7 @@ function useInstitutions() {
   return useQuery({ ...orpc.incidents.institutions.queryOptions(), enabled: useCanCallApi() });
 }
 
-function Form({
+export function Form({
   submitLabel,
   missing,
   onSubmit,
@@ -65,7 +65,7 @@ function Form({
   );
 }
 
-function Field({
+export function Field({
   label,
   hint,
   children,
@@ -86,7 +86,7 @@ function Field({
   );
 }
 
-function Reason({
+export function Reason({
   label,
   value,
   onChange,
@@ -116,7 +116,13 @@ function Reason({
   );
 }
 
-function InstitutionSelect({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+export function InstitutionSelect({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+}) {
   const institutions = useInstitutions();
   return (
     <Field label="Institution">

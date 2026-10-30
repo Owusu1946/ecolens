@@ -36,6 +36,7 @@ export async function createContext({ context }: CreateContextOptions): Promise<
   return {
     db,
     auth: clerkAuth,
+    photos: ENV.PHOTOS,
   };
 }
 

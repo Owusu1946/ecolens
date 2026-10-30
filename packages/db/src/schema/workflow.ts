@@ -22,6 +22,7 @@ import {
   lens,
   severity,
   validationOutcome,
+  verificationStatus,
 } from "./enums";
 import { observations } from "./observations";
 import { anomalyRules, institutions, sites } from "./reference";
@@ -108,6 +109,31 @@ export const validations = pgTable(
     decidedAt: ts().notNull().defaultNow(),
   },
   (t) => [index().on(t.alertId, t.decidedAt)],
+);
+
+// Validate ← field confirmation: an analyst or regulator asks an institution's
+// field team to check an alert on the ground. Fulfilled by the field report
+// that answers it; withdrawn if the alert is decided without a visit.
+export const verificationRequests = pgTable(
+  "verification_requests",
+  {
+    id: id(),
+    alertId: uuid()
+      .notNull()
+      .references(() => alerts.id),
+    institutionId: uuid()
+      .notNull()
+      .references(() => institutions.id),
+    instructions: text().notNull(),
+    dueAt: ts(),
+    status: verificationStatus().notNull().default("open"),
+    requestedByUserId: text().notNull(),
+    requestedByOrgId: text().notNull(),
+    requestedAt: ts().notNull().defaultNow(),
+    fulfilledByReportId: uuid().references(() => fieldReports.id),
+    closedAt: ts(),
+  },
+  (t) => [index().on(t.institutionId, t.status), index().on(t.alertId)],
 );
 
 // Observe (field): GPS-tagged observations from authorised field officers

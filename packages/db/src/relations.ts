@@ -48,6 +48,7 @@ export const relations = defineRelations(schema, (r) => ({
     validations: r.many.validations(),
     fieldReports: r.many.fieldReports(),
     incident: r.one.incidents({ from: r.alerts.id, to: r.incidents.alertId }),
+    verificationRequests: r.many.verificationRequests(),
   },
   alertEvidence: {
     alert: r.one.alerts({ from: r.alertEvidence.alertId, to: r.alerts.id, optional: false }),
@@ -89,6 +90,22 @@ export const relations = defineRelations(schema, (r) => ({
       from: r.incidentAssignments.institutionId,
       to: r.institutions.id,
       optional: false,
+    }),
+  },
+  verificationRequests: {
+    alert: r.one.alerts({
+      from: r.verificationRequests.alertId,
+      to: r.alerts.id,
+      optional: false,
+    }),
+    institution: r.one.institutions({
+      from: r.verificationRequests.institutionId,
+      to: r.institutions.id,
+      optional: false,
+    }),
+    fulfilledBy: r.one.fieldReports({
+      from: r.verificationRequests.fulfilledByReportId,
+      to: r.fieldReports.id,
     }),
   },
   incidentActions: {

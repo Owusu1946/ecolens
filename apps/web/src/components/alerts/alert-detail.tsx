@@ -5,11 +5,12 @@ import { Button, buttonVariants } from "@ecolens/ui/components/button";
 import { Skeleton } from "@ecolens/ui/components/skeleton";
 import { cn } from "@ecolens/ui/lib/utils";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { CloudOff, MapPin, RotateCw, Trash2 } from "lucide-react";
+import { Camera, CloudOff, MapPin, RotateCw, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { activityLabel } from "@/components/field/config";
 import { incidentRef } from "@/components/incidents/config";
 import { IncidentStatusBadge } from "@/components/incidents/incident-detail";
 import { EscalateForm } from "@/components/incidents/incident-forms";
@@ -32,6 +33,7 @@ import {
   DECIDABLE,
   useAlertWrites,
 } from "./use-alert-writes";
+import { VerificationForm } from "./verification-form";
 
 // Interpret and Validate: one alert with everything it rests on (evidence,
 // sources, rule, limitations), the decisions made on it and the audit trail,
@@ -87,7 +89,7 @@ function Loaded({ alert, onClose }: { alert: Alert; onClose: () => void }) {
   const router = useRouter();
   const writes = useAlertWrites();
   const incidentWrites = useIncidentWrites();
-  const [panel, setPanel] = useState<"decide" | "escalate" | null>(null);
+  const [panel, setPanel] = useState<"decide" | "escalate" | "verify" | null>(null);
 
   const permissions = me.data?.permissions ?? [];
   const pending = writes.pending(alert.id);
@@ -102,6 +104,10 @@ function Loaded({ alert, onClose }: { alert: Alert; onClose: () => void }) {
     status === "confirmed" &&
     !alert.incident &&
     (!escalation || escalation.status === "failed");
+
+  const canRequestCheck = permissions.includes("alert:triage") && DECIDABLE.includes(status);
+  const canFileReport = permissions.includes("field_report:create") && DECIDABLE.includes(status);
+  const queuedChecks = writes.forAlert(alert.id).filter((i) => i.path[1] === "requestVerification");
 
   const savedNote = online ? "Sending now." : "It will be sent when you're back online.";
 
@@ -126,6 +132,12 @@ function Loaded({ alert, onClose }: { alert: Alert; onClose: () => void }) {
         ? { label: "Open", onClick: () => router.push(`/incidents?incident=${id}`) }
         : undefined,
     });
+  }
+
+  async function requestCheck(input: Parameters<typeof writes.requestVerification>[1]) {
+    await writes.requestVerification(alert, input);
+    setPanel(null);
+    toast.success(`Field check of ${alertRef(alert.number)} requested`, { description: savedNote });
   }
 
   async function reviewAgain(itemId: string) {
@@ -187,7 +199,7 @@ function Loaded({ alert, onClose }: { alert: Alert; onClose: () => void }) {
         </div>
       ))}
 
-      {(canTriage || canDecide || canEscalate) && !panel && (
+      {(canTriage || canDecide || canEscalate || canRequestCheck || canFileReport) && !panel && (
         <div className="flex flex-wrap gap-2">
           {canEscalate && (
             <Button onClick={() => setPanel("escalate")}>Escalate to an incident</Button>
@@ -198,7 +210,23 @@ function Loaded({ alert, onClose }: { alert: Alert; onClose: () => void }) {
               Start review
             </Button>
           )}
+          {canRequestCheck && (
+            <Button variant="outline" onClick={() => setPanel("verify")}>
+              Ask for a field check
+            </Button>
+          )}
+          {canFileReport && (
+            <Link
+              href={`/field-reports?new=true&alert=${alert.id}`}
+              className={buttonVariants({ variant: canDecide ? "outline" : "default" })}
+            >
+              <Camera /> File a field report
+            </Link>
+          )}
         </div>
+      )}
+      {panel === "verify" && (
+        <VerificationForm onSubmit={(v) => void requestCheck(v)} onCancel={() => setPanel(null)} />
       )}
       {panel === "decide" && (
         <DecisionForm onSubmit={(d) => void decide(d)} onCancel={() => setPanel(null)} />
@@ -270,6 +298,53 @@ function Loaded({ alert, onClose }: { alert: Alert; onClose: () => void }) {
           </ol>
         )}
       </Section>
+
+      {(alert.verificationRequests.length > 0 || queuedChecks.length > 0) && (
+        <Section title="Field checks">
+          <ol className="space-y-2">
+            {queuedChecks.map((q) => (
+              <li key={q.id} className="space-y-1 border p-2.5">
+                <p className="text-pretty">{String(q.input.instructions)}</p>
+                <p
+                  className={cn(
+                    "inline-flex items-center gap-1",
+                    q.status === "failed" ? "text-destructive" : "text-muted-foreground",
+                  )}
+                >
+                  <CloudOff className="size-3" />
+                  {q.status === "failed" ? `Not sent: ${q.error}` : "Saved on this device"}
+                </p>
+              </li>
+            ))}
+            {alert.verificationRequests.map((r) => (
+              <li key={r.id} className="space-y-1 border p-2.5">
+                <p className="font-medium">
+                  {r.institution.name} ·{" "}
+                  {r.status === "open"
+                    ? "waiting for a field report"
+                    : r.status === "fulfilled"
+                      ? "answered"
+                      : "withdrawn after a decision"}
+                </p>
+                <p className="text-pretty">{r.instructions}</p>
+                <p className="text-muted-foreground">
+                  Asked {formatDateTime(r.requestedAt)}
+                  {r.requestedBy && ` by ${r.requestedBy}`}
+                  {r.dueAt && ` · due ${formatDateTime(r.dueAt)}`}
+                </p>
+                {r.fulfilledByReportId && permissions.includes("field_report:read") && (
+                  <Link
+                    href={`/field-reports?tab=all&report=${r.fulfilledByReportId}`}
+                    className="underline-offset-4 hover:underline"
+                  >
+                    Open the field report
+                  </Link>
+                )}
+              </li>
+            ))}
+          </ol>
+        </Section>
+      )}
 
       <Section title="Decisions">
         {alert.validations.length === 0 ? (
@@ -387,9 +462,15 @@ function Evidence({ item }: { item: Alert["evidence"][number] }) {
         <p className="text-pretty whitespace-pre-line">{f.observation}</p>
         {f.activityTypes.length > 0 && (
           <p className="text-muted-foreground">
-            Observed: {f.activityTypes.join(", ").replaceAll("_", " ")}
+            Observed: {f.activityTypes.map(activityLabel).join(", ")}
           </p>
         )}
+        <Link
+          href={`/field-reports?tab=all&report=${f.id}`}
+          className="inline-block underline-offset-4 hover:underline"
+        >
+          Photos and location
+        </Link>
       </>
     );
   }

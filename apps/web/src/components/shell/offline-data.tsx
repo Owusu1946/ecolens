@@ -1,6 +1,7 @@
 "use client";
 
 import { useAuth } from "@clerk/nextjs";
+import { defaultShouldDehydrateQuery } from "@tanstack/react-query";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { useEffect, useMemo, useState } from "react";
 
@@ -86,7 +87,15 @@ export function OfflineData({ children }: { children: React.ReactNode }) {
     <PersistQueryClientProvider
       key={dataUser}
       client={queryClient}
-      persistOptions={{ persister, maxAge: MAX_AGE, buster: CACHE_VERSION }}
+      persistOptions={{
+        persister,
+        maxAge: MAX_AGE,
+        buster: CACHE_VERSION,
+        // Binary results (photos) can't be saved as JSON; they reload when needed.
+        dehydrateOptions: {
+          shouldDehydrateQuery: (q) => defaultShouldDehydrateQuery(q) && q.meta?.persist !== false,
+        },
+      }}
     >
       {children}
     </PersistQueryClientProvider>

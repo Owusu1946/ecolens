@@ -109,7 +109,7 @@ async function wipe(db: Db) {
     await tx.execute(sql`alter table audit_events disable trigger audit_events_append_only`);
     await tx.execute(sql`alter table audit_events disable trigger audit_events_no_truncate`);
     await tx.execute(sql`
-      truncate audit_events, reports, incident_actions, incident_assignments, incidents,
+      truncate audit_events, reports, verification_requests, incident_actions, incident_assignments, incidents,
         validations, alert_evidence, field_report_photos, field_reports, alerts, observations,
         anomaly_rules, river_reaches, boundaries, sites, data_sources, institutions
       restart identity cascade`);
@@ -438,6 +438,34 @@ async function seedDatabase(db: Db, clerk: ClerkIds) {
           entityType: "field_report",
           entityId: report.id,
           data: { alertId, assessment: fr.assessment },
+        });
+      }
+
+      // Validate ← field confirmation requested but not yet answered.
+      if (!sc.fieldReport && !sc.validation) {
+        const a = actor("epaAnalyst");
+        const t = (sc.review?.afterHours ?? 1) + 1;
+        const instructions =
+          "Visit the flagged location, photograph what you find and record whether it supports the alert.";
+        await tx.insert(s.verificationRequests).values({
+          alertId,
+          institutionId: institutionIds.epa,
+          instructions,
+          dueAt: new Date(after(t).getTime() + 3 * DAY),
+          requestedByUserId: a.userId,
+          requestedByOrgId: a.orgId,
+          requestedAt: after(t),
+        });
+        audit.push({
+          occurredAt: after(t),
+          actorUserId: a.userId,
+          actorOrgId: a.orgId,
+          actorRole: a.role,
+          action: "alert.request_verification",
+          entityType: "alert",
+          entityId: alertId,
+          reason: instructions,
+          data: { institution: INSTITUTIONS.epa.shortName },
         });
       }
 
