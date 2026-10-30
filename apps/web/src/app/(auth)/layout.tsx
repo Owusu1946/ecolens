@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { GlobePanel } from "@/components/auth/globe-panel";
 import { Wordmark } from "@/components/auth/wordmark";
 import { ConnectionStatus } from "@/components/connection-status";
@@ -17,7 +19,13 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         </div>
         <footer className="text-muted-foreground mx-auto w-full max-w-sm text-[11px] leading-relaxed">
           Ecolens prototype. Access is limited to pilot partner institutions; data is labelled where
-          it is simulated.
+          it is simulated.{" "}
+          <Link
+            href="/how-alerts-work"
+            className="hover:text-foreground underline underline-offset-2"
+          >
+            How alerts are reviewed
+          </Link>
         </footer>
       </main>
       <div className="order-1 grid lg:order-2">

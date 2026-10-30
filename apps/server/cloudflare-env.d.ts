@@ -8,9 +8,13 @@ export type CloudflareEnv = {
   REPORTS: R2Bucket;
   CACHE: KVNamespace;
   INGEST_QUEUE: Queue;
+  REALTIME: DurableObjectNamespace;
   CORS_ORIGIN: string;
   CLERK_SECRET_KEY: string;
   CLERK_PUBLISHABLE_KEY: string;
+  CLOUDFLARE_ACCOUNT_ID?: string;
+  BROWSER_RENDERING_TOKEN?: string;
+  FIRMS_MAP_KEY?: string;
 };
 
 declare global {

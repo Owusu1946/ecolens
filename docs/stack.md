@@ -93,8 +93,11 @@ A dedicated local-first sync engine (e.g. PowerSync or ElectricSQL) is **not** i
 - [x] Seed Clerk institutions, demo users and prototype data (`pnpm db:seed`), done 2026-10-28
 - [ ] Rotate the Neon `neondb_owner` password (exposed in a dev session) and update Hyperdrive and `DATABASE_URL` before real pilot data or users
 - [ ] Clerk: switch sign-up from public to restricted/invite-only for the pilot
-- [ ] Add the ingest queue consumer (with the DLQ) alongside the Worker's `queue()` handler
-- [ ] Add the realtime Durable Object binding and migration alongside the Durable Object class
+- [x] Add the ingest queue consumer (with the DLQ) alongside the Worker's `queue()` handler, and an hourly cron, done 2026-10-30
+- [ ] Live thermal data: request a free NASA FIRMS MAP_KEY (https://firms.modaps.eosdis.nasa.gov/api/map_key/) and set it with `wrangler secret put FIRMS_MAP_KEY` (and in `apps/server/.env` for local runs)
+- [x] Add the realtime Durable Object binding and migration alongside the Durable Object class (`RealtimeChannel`, migration tag `v1`), done 2026-10-30
 - [ ] Create the Vercel project (root `apps/web`, region fra1); set `NEXT_PUBLIC_SERVER_URL` and the Clerk keys
 - [ ] Set the production `CORS_ORIGIN` on the Worker to the Vercel domain
+- [ ] Report PDFs: create a Cloudflare API token with **Browser Run: Edit** (Browser Run is the new name for Browser Rendering) and set `CLOUDFLARE_ACCOUNT_ID` and `BROWSER_RENDERING_TOKEN` (secret) on the Worker (`wrangler secret put BROWSER_RENDERING_TOKEN`). Until then reports print to PDF from the browser.
+- [ ] Field photos: provision R2 S3 API credentials if presigned uploads are wanted (photos currently go through the Worker; see the brief, section 11)
 - [ ] Basemap: extract a Western Region PMTiles build (Protomaps), upload to `ecolens-tiles` on R2 and switch the map's default basemap to it (EOX imagery stays as a layer)

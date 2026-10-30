@@ -30,10 +30,25 @@
     { "binding": "CACHE", "id": "3b21682be221498bb31719720e57edb9" }
   ],
   "queues": {
-    // Ingestion fan-out. The consumer (with dead_letter_queue
-    // "ecolens-ingest-dlq") is added together with the queue() handler.
-    "producers": [{ "binding": "INGEST_QUEUE", "queue": "ecolens-ingest" }]
-  }
+    // Ingestion fan-out: the cron enqueues one job per live source; the
+    // consumer runs it, retrying and then parking failures in the DLQ.
+    "producers": [{ "binding": "INGEST_QUEUE", "queue": "ecolens-ingest" }],
+    "consumers": [
+      {
+        "queue": "ecolens-ingest",
+        "max_batch_size": 1,
+        "max_retries": 3,
+        "dead_letter_queue": "ecolens-ingest-dlq"
+      }
+    ]
+  },
+  // Real-time channel (WebSocket hibernation), one instance for the pilot.
+  "durable_objects": {
+    "bindings": [{ "name": "REALTIME", "class_name": "RealtimeChannel" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["RealtimeChannel"] }],
+  // Live ingestion: hourly (FIRMS near-real-time data updates every few hours).
+  "triggers": { "crons": ["15 * * * *"] }
   // Local dev: secrets and vars are read from apps/server/.env
   // Production: set them with `wrangler secret put <NAME>`
 }

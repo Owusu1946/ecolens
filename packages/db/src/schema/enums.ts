@@ -87,6 +87,9 @@ export const incidentActionKind = pgEnum("incident_action_kind", [
   "other",
 ]);
 
+// A request for a field team to check an alert on the ground (Validate).
+export const verificationStatus = pgEnum("verification_status", ["open", "fulfilled", "withdrawn"]);
+
 // What a field officer concluded about the alert they were sent to check.
 export const fieldAssessment = pgEnum("field_assessment", [
   "supports_alert",

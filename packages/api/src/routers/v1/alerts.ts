@@ -5,6 +5,7 @@ import {
   institutions,
   sites,
   validations,
+  verificationRequests,
 } from "@ecolens/db/schema/index";
 import { ORPCError } from "@orpc/server";
 import { and, asc, count, desc, eq, inArray, type SQL, sql } from "drizzle-orm";
@@ -12,6 +13,7 @@ import { z } from "zod";
 
 import { hasPermission } from "../../auth/roles";
 import { type Actor, authorizedProcedure } from "../../index";
+import { institutionNames, mutation } from "./shared";
 
 // Interpret and Validate (brief section 4). The queue lists alerts with their
 // review state; the detail carries the full evidence trail; a validation is a
@@ -36,18 +38,6 @@ function visibleTo(actor: Actor): SQL | undefined {
     ? undefined
     : eq(alerts.isSensitive, false);
 }
-
-// Decisions record the Clerk organization; show the institution's name.
-async function institutionNames(db: Pick<Database, "select">, orgIds: string[]) {
-  if (orgIds.length === 0) return new Map<string, string>();
-  const rows = await db
-    .select({ clerkOrgId: institutions.clerkOrgId, name: institutions.name })
-    .from(institutions)
-    .where(inArray(institutions.clerkOrgId, [...new Set(orgIds)]));
-  return new Map(rows.map((r) => [r.clerkOrgId ?? "", r.name]));
-}
-
-const mutation = { clientMutationId: z.uuid() };
 
 export const alertsRouter = {
   // The alert queue.
@@ -107,7 +97,11 @@ export const alertsRouter = {
           .from(alerts)
           .leftJoin(sites, eq(sites.id, alerts.siteId))
           .where(filters),
-        db.select({ status: alerts.status, n: count() }).from(alerts).where(base).groupBy(alerts.status),
+        db
+          .select({ status: alerts.status, n: count() })
+          .from(alerts)
+          .where(base)
+          .groupBy(alerts.status),
         db
           .selectDistinct({ basin: sites.basin })
           .from(alerts)
@@ -167,13 +161,20 @@ export const alertsRouter = {
                 },
                 with: {
                   source: {
-                    columns: { key: true, name: true, kind: true, mode: true, knownLimitations: true },
+                    columns: {
+                      key: true,
+                      name: true,
+                      kind: true,
+                      mode: true,
+                      knownLimitations: true,
+                    },
                     with: { steward: { columns: { name: true } } },
                   },
                 },
               },
               fieldReport: {
                 columns: {
+                  id: true,
                   observation: true,
                   assessment: true,
                   activityTypes: true,
@@ -198,6 +199,19 @@ export const alertsRouter = {
             },
           },
           incident: { columns: { id: true, number: true, status: true } },
+          verificationRequests: {
+            orderBy: { requestedAt: "desc" },
+            columns: {
+              id: true,
+              instructions: true,
+              dueAt: true,
+              status: true,
+              requestedAt: true,
+              requestedByOrgId: true,
+              fulfilledByReportId: true,
+            },
+            with: { institution: { columns: { name: true, shortName: true } } },
+          },
         },
       });
       // Missing and withheld look the same, so a sensitive alert's existence isn't revealed.
@@ -224,10 +238,17 @@ export const alertsRouter = {
         ...alert.validations.map((v) => v.decidedByOrgId),
         ...alert.evidence.flatMap((e) => (e.fieldReport ? [e.fieldReport.authorOrgId] : [])),
         ...(history ?? []).map((h) => h.actorOrgId),
+        ...alert.verificationRequests.map((r) => r.requestedByOrgId),
       ]);
       const institution = (orgId: string) => names.get(orgId) ?? null;
 
-      const { validations: decided, evidence, location, ...rest } = alert;
+      const {
+        validations: decided,
+        evidence,
+        location,
+        verificationRequests: requests,
+        ...rest
+      } = alert;
       return {
         ...rest,
         location: location as unknown,
@@ -245,9 +266,23 @@ export const alertsRouter = {
           ...v,
           institution: institution(decidedByOrgId),
         })),
-        history: history?.map(({ actorOrgId, ...h }) => ({ ...h, institution: institution(actorOrgId) })) ?? null,
+        history:
+          history?.map(({ actorOrgId, ...h }) => ({
+            ...h,
+            institution: institution(actorOrgId),
+          })) ?? null,
+        verificationRequests: requests.map(({ requestedByOrgId, ...r }) => ({
+          ...r,
+          requestedBy: institution(requestedByOrgId),
+        })),
+        canRequestVerification:
+          hasPermission(actor.role, "alert:triage") && DECIDABLE.includes(alert.status),
         canDecide: hasPermission(actor.role, "alert:validate") && DECIDABLE.includes(alert.status),
         canStartReview: hasPermission(actor.role, "alert:triage") && alert.status === "new",
+        canEscalate:
+          hasPermission(actor.role, "incident:escalate") &&
+          alert.status === "confirmed" &&
+          !alert.incident,
       };
     }),
 
@@ -290,6 +325,74 @@ export const alertsRouter = {
         validation: { outcome: input.outcome, confidence: input.confidence },
       }),
     ),
+
+  // Ask an institution's field team to check the alert on the ground. The
+  // alert's status does not change; the request is answered by a field report.
+  requestVerification: authorizedProcedure("alert:triage")
+    .input(
+      z.object({
+        alertId: z.uuid(),
+        institutionId: z.uuid(),
+        instructions: z.string().trim().min(10, "Give at least 10 characters.").max(4000),
+        dueAt: z.iso.datetime({ offset: true }).optional(),
+        ...mutation,
+      }),
+    )
+    .handler(({ input, context: { db, actor } }) =>
+      db.transaction(async (tx) => {
+        const [replayed] = await tx
+          .select({ id: verificationRequests.id })
+          .from(verificationRequests)
+          .where(eq(verificationRequests.id, input.clientMutationId));
+        if (replayed) return { id: replayed.id, replayed: true };
+
+        const [alert] = await tx
+          .select({ status: alerts.status, isSensitive: alerts.isSensitive })
+          .from(alerts)
+          .where(eq(alerts.id, input.alertId));
+        if (
+          !alert ||
+          (alert.isSensitive && !hasPermission(actor.role, "sensitive_location:read"))
+        ) {
+          throw new ORPCError("NOT_FOUND", { message: "Alert not found." });
+        }
+        if (!DECIDABLE.includes(alert.status)) {
+          throw new ORPCError("CONFLICT", {
+            message: `This alert has already been ${alert.status}; a field check is no longer needed.`,
+          });
+        }
+        const [team] = await tx
+          .select({ shortName: institutions.shortName })
+          .from(institutions)
+          .where(eq(institutions.id, input.institutionId));
+        if (!team) throw new ORPCError("BAD_REQUEST", { message: "Choose an institution." });
+
+        const now = new Date();
+        await tx.insert(verificationRequests).values({
+          id: input.clientMutationId,
+          alertId: input.alertId,
+          institutionId: input.institutionId,
+          instructions: input.instructions,
+          dueAt: input.dueAt ? new Date(input.dueAt) : null,
+          requestedByUserId: actor.userId,
+          requestedByOrgId: actor.orgId,
+          requestedAt: now,
+        });
+        await tx.insert(auditEvents).values({
+          occurredAt: now,
+          actorUserId: actor.userId,
+          actorOrgId: actor.orgId,
+          actorRole: actor.role,
+          action: "alert.request_verification",
+          entityType: "alert",
+          entityId: input.alertId,
+          reason: input.instructions,
+          clientMutationId: input.clientMutationId,
+          data: { institution: team.shortName, dueAt: input.dueAt ?? null },
+        });
+        return { id: input.clientMutationId, replayed: false };
+      }),
+    ),
 };
 
 type Transition = {
@@ -300,7 +403,10 @@ type Transition = {
   to: Status;
   action: string;
   reason: string | null;
-  validation?: { outcome: "confirmed" | "rejected" | "unresolved"; confidence: (typeof CONFIDENCES)[number] };
+  validation?: {
+    outcome: "confirmed" | "rejected" | "unresolved";
+    confidence: (typeof CONFIDENCES)[number];
+  };
 };
 
 // One audited, versioned status change. Runs in a transaction holding a row
@@ -341,12 +447,18 @@ async function transition(db: Database, actor: Actor, t: Transition) {
         .where(and(eq(auditEvents.entityType, "alert"), eq(auditEvents.entityId, t.alertId)))
         .orderBy(desc(auditEvents.occurredAt))
         .limit(1);
-      const by = latest ? (await institutionNames(tx, [latest.actorOrgId])).get(latest.actorOrgId) : null;
+      const by = latest
+        ? (await institutionNames(tx, [latest.actorOrgId])).get(latest.actorOrgId)
+        : null;
       throw new ORPCError("CONFLICT", {
         message: `This alert changed before your update arrived: it is now "${alert.status.replace("_", " ")}"${
           by ? `, set by ${by}` : ""
         }. Review it again before deciding.`,
-        data: { status: alert.status, version: alert.version, at: latest?.occurredAt.toISOString() ?? null },
+        data: {
+          status: alert.status,
+          version: alert.version,
+          at: latest?.occurredAt.toISOString() ?? null,
+        },
       });
     }
 
@@ -361,6 +473,16 @@ async function transition(db: Database, actor: Actor, t: Transition) {
         ...(t.validation ? { validatedAt: now } : {}),
       })
       .where(eq(alerts.id, t.alertId));
+
+    // A final decision makes outstanding field checks unnecessary.
+    if (t.to === "confirmed" || t.to === "rejected") {
+      await tx
+        .update(verificationRequests)
+        .set({ status: "withdrawn", closedAt: now })
+        .where(
+          and(eq(verificationRequests.alertId, t.alertId), eq(verificationRequests.status, "open")),
+        );
+    }
 
     if (t.validation) {
       await tx.insert(validations).values({
