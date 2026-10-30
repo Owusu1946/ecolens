@@ -26,7 +26,7 @@ export async function authenticateClerkRequest(request: Request): Promise<ClerkC
 
 import type { Context as HonoContext } from "hono";
 
-// Report PDFs through the Browser Rendering REST API, when an account and
+// Report PDFs through the Browser Run (formerly Browser Rendering) REST API, when an account and
 // token are configured. Without them reports are still generated as HTML.
 function pdfRenderer(): ApiContext["renderPdf"] {
   const account = ENV.CLOUDFLARE_ACCOUNT_ID;
@@ -34,7 +34,7 @@ function pdfRenderer(): ApiContext["renderPdf"] {
   if (!account || !token) return null;
   return async (html) => {
     const res = await fetch(
-      `https://api.cloudflare.com/client/v4/accounts/${account}/browser-rendering/pdf`,
+      `https://api.cloudflare.com/client/v4/accounts/${account}/browser-run/pdf`,
       {
         method: "POST",
         headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
