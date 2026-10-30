@@ -1,9 +1,10 @@
 "use client";
 
 import type { AlertProps } from "@ecolens/api/routers/v1/map";
-import { Button } from "@ecolens/ui/components/button";
+import { Button, buttonVariants } from "@ecolens/ui/components/button";
 import { cn } from "@ecolens/ui/lib/utils";
-import { X } from "lucide-react";
+import { ListChecks, X } from "lucide-react";
+import Link from "next/link";
 
 import { ALERT_STATUS, CONFIDENCE, LENS_LABEL } from "./config";
 import { ModeBadge } from "./provenance";
@@ -79,6 +80,12 @@ export function AlertPanel({
           <p className="text-muted-foreground">Known limitations</p>
           <p className="mt-0.5 text-pretty">{alert.limitations}</p>
         </div>
+        <Link
+          href={`/alerts?alert=${alert.id}`}
+          className={cn(buttonVariants({ variant: "outline", size: "sm" }), "w-full")}
+        >
+          <ListChecks /> Open in the alert queue
+        </Link>
         <p className="text-muted-foreground border-t pt-3 text-[11px] leading-relaxed">
           {alert.status === "new" || alert.status === "in_review"
             ? "An alert is a prompt for review, not proof of wrongdoing. It becomes an incident only after a person validates it."
