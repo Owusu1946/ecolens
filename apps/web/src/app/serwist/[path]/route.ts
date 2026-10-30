@@ -9,7 +9,10 @@ const revision = process.env.VERCEL_GIT_COMMIT_SHA ?? randomUUID();
 export const { dynamic, dynamicParams, revalidate, generateStaticParams, GET } = createSerwistRoute(
   {
     swSrc: "src/sw/sw.ts",
-    additionalPrecacheEntries: [{ url: "/offline", revision }],
+    additionalPrecacheEntries: [
+      { url: "/offline", revision },
+      { url: "/how-alerts-work", revision },
+    ],
     useNativeEsbuild: true,
   },
 );
