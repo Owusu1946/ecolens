@@ -2,6 +2,7 @@ import type { RouterClient } from "@orpc/server";
 
 import { protectedProcedure, publicProcedure } from "../../index";
 import { alertsRouter } from "./alerts";
+import { dashboardRouter } from "./dashboard";
 import { fieldReportsRouter } from "./field-reports";
 import { incidentsRouter } from "./incidents";
 import { mapRouter } from "./map";
@@ -24,6 +25,7 @@ export const v1Router = {
   incidents: incidentsRouter,
   fieldReports: fieldReportsRouter,
   reports: reportsRouter,
+  dashboard: dashboardRouter,
 };
 export type V1Router = typeof v1Router;
 export type V1RouterClient = RouterClient<typeof v1Router>;

@@ -91,7 +91,7 @@ export function navFor(permissions: readonly Permission[]) {
 }
 
 // What each role dashboard is for (brief sections 8 and 11). Shown on the
-// overview until its widgets are built.
+// overview above its widgets.
 export const DASHBOARDS: Record<Dashboard, { title: string; purpose: string; focus: string[] }> = {
   leadership: {
     title: "Leadership overview",
