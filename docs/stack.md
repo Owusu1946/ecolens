@@ -93,7 +93,8 @@ A dedicated local-first sync engine (e.g. PowerSync or ElectricSQL) is **not** i
 - [x] Seed Clerk institutions, demo users and prototype data (`pnpm db:seed`), done 2026-10-28
 - [ ] Rotate the Neon `neondb_owner` password (exposed in a dev session) and update Hyperdrive and `DATABASE_URL` before real pilot data or users
 - [ ] Clerk: switch sign-up from public to restricted/invite-only for the pilot
-- [ ] Add the ingest queue consumer (with the DLQ) alongside the Worker's `queue()` handler
+- [x] Add the ingest queue consumer (with the DLQ) alongside the Worker's `queue()` handler, and an hourly cron, done 2026-10-30
+- [ ] Live thermal data: request a free NASA FIRMS MAP_KEY (https://firms.modaps.eosdis.nasa.gov/api/map_key/) and set it with `wrangler secret put FIRMS_MAP_KEY` (and in `apps/server/.env` for local runs)
 - [ ] Add the realtime Durable Object binding and migration alongside the Durable Object class
 - [ ] Create the Vercel project (root `apps/web`, region fra1); set `NEXT_PUBLIC_SERVER_URL` and the Clerk keys
 - [ ] Set the production `CORS_ORIGIN` on the Worker to the Vercel domain

@@ -63,6 +63,7 @@ export async function createContext({ context }: CreateContextOptions): Promise<
     photos: ENV.PHOTOS,
     reports: ENV.REPORTS,
     renderPdf: pdfRenderer(),
+    firmsMapKey: ENV.FIRMS_MAP_KEY || null,
   };
 }
 
