@@ -5,6 +5,7 @@ import { alertsRouter } from "./alerts";
 import { dashboardRouter } from "./dashboard";
 import { fieldReportsRouter } from "./field-reports";
 import { incidentsRouter } from "./incidents";
+import { ingestRouter } from "./ingest";
 import { mapRouter } from "./map";
 import { reportsRouter } from "./reports";
 import { sessionRouter } from "./session";
@@ -26,6 +27,7 @@ export const v1Router = {
   fieldReports: fieldReportsRouter,
   reports: reportsRouter,
   dashboard: dashboardRouter,
+  ingest: ingestRouter,
 };
 export type V1Router = typeof v1Router;
 export type V1RouterClient = RouterClient<typeof v1Router>;

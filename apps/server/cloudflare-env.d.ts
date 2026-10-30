@@ -13,6 +13,7 @@ export type CloudflareEnv = {
   CLERK_PUBLISHABLE_KEY: string;
   CLOUDFLARE_ACCOUNT_ID?: string;
   BROWSER_RENDERING_TOKEN?: string;
+  FIRMS_MAP_KEY?: string;
 };
 
 declare global {

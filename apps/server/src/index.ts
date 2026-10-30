@@ -1,3 +1,4 @@
+import { runFirms } from "@ecolens/api/ingest/firms";
 import { routers } from "@ecolens/api/routers/index";
 import { OpenAPIHandler } from "@orpc/openapi/fetch";
 import { OpenAPIReferencePlugin } from "@orpc/openapi/plugins";
@@ -11,6 +12,7 @@ import { cors } from "hono/cors";
 
 import { createContext } from "./context";
 import { ENV } from "./env.server";
+import { getDb } from "./services";
 
 initLogger({
   env: { service: "ecolens-server" },
@@ -91,4 +93,32 @@ app.get("/", (c) => {
   return c.text("OK");
 });
 
-export default app;
+// Observe → Analyse: the cron enqueues a job per live source; the queue
+// consumer runs it, so a failed run is retried and then kept in the DLQ.
+type IngestJob = { source: "firms" };
+
+export default {
+  fetch: app.fetch,
+
+  async scheduled(_controller: ScheduledController, env: Env) {
+    if (env.FIRMS_MAP_KEY) await env.INGEST_QUEUE.send({ source: "firms" } satisfies IngestJob);
+  },
+
+  async queue(batch: MessageBatch<IngestJob>, env: Env) {
+    for (const message of batch.messages) {
+      const db = getDb();
+      try {
+        if (message.body.source === "firms" && env.FIRMS_MAP_KEY) {
+          const result = await runFirms(db, env.FIRMS_MAP_KEY);
+          console.log("ingest firms", result);
+        }
+        message.ack();
+      } catch (error) {
+        console.error("ingest failed", message.body, error);
+        message.retry({ delaySeconds: 300 });
+      } finally {
+        await db.$client.end();
+      }
+    }
+  },
+} satisfies ExportedHandler<Env, IngestJob>;

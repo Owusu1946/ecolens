@@ -24,6 +24,8 @@ export type Context = {
   photos: ObjectStore | null;
   /** Generated reports, HTML and PDF (R2 `ecolens-reports`). */
   reports: ObjectStore | null;
+  /** NASA FIRMS MAP_KEY for live thermal detections; null when not configured. */
+  firmsMapKey: string | null;
   /** HTML → PDF (Cloudflare Browser Rendering); null when not configured. */
   renderPdf: ((html: string) => Promise<ArrayBuffer>) | null;
 };
