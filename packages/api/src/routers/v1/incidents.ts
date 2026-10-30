@@ -291,6 +291,8 @@ export const incidentsRouter = {
             ...h,
             institution: institution(actorOrgId),
           })) ?? null,
+        // The caller's institution leads or is assigned to this incident.
+        involved,
         canAssign: hasPermission(actor.role, "incident:assign") && open,
         canAcknowledge:
           hasPermission(actor.role, "incident:act") && involved && incident.status === "assigned",

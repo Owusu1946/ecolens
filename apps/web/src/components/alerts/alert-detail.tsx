@@ -5,19 +5,26 @@ import { Button, buttonVariants } from "@ecolens/ui/components/button";
 import { Skeleton } from "@ecolens/ui/components/skeleton";
 import { cn } from "@ecolens/ui/lib/utils";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { ArrowLeft, CloudOff, MapPin, RotateCw, Trash2, X } from "lucide-react";
+import { CloudOff, MapPin, RotateCw, Trash2 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
-
+import { incidentRef } from "@/components/incidents/config";
+import { IncidentStatusBadge } from "@/components/incidents/incident-detail";
+import { EscalateForm } from "@/components/incidents/incident-forms";
+import { useIncidentWrites } from "@/components/incidents/use-incident-writes";
 import { ALERT_STATUS, CONFIDENCE, LENS_LABEL } from "@/components/map/config";
 import { ModeBadge } from "@/components/map/provenance";
 import { useCanCallApi, useMe } from "@/components/shell/use-me";
+import { CloseBar, Section } from "@/components/shell/workflow";
 import { useOnline } from "@/hooks/use-network";
+import { formatDateTime } from "@/lib/format";
 import { outbox } from "@/lib/offline/outbox";
 import { orpc } from "@/utils/orpc";
 
 import { DecisionForm } from "./decision-form";
+import { StatusBadge } from "./status-badge";
 import {
   type AlertDetail as Alert,
   type AlertStatus,
@@ -29,9 +36,6 @@ import {
 // Interpret and Validate: one alert with everything it rests on (evidence,
 // sources, rule, limitations), the decisions made on it and the audit trail,
 // and the review actions the caller's role allows.
-
-const when = new Intl.DateTimeFormat(undefined, { dateStyle: "medium", timeStyle: "short" });
-const fmt = (iso: string | Date) => when.format(new Date(iso));
 
 const ACTION_LABEL: Record<string, string> = {
   "alert.start_review": "Started review",
@@ -58,7 +62,7 @@ export function AlertDetail({ id, onClose }: { id: string; onClose: () => void }
 
   return (
     <div className="space-y-3 p-4">
-      <CloseBar label="Alert" onClose={onClose} />
+      <CloseBar label="Alert" back="Queue" onClose={onClose} />
       {query.isError ? (
         <p className="text-muted-foreground text-sm">
           {query.error.message === "Alert not found."
@@ -76,32 +80,14 @@ export function AlertDetail({ id, onClose }: { id: string; onClose: () => void }
   );
 }
 
-function CloseBar({ label, onClose }: { label: string; onClose: () => void }) {
-  return (
-    <div className="flex items-center justify-between gap-2">
-      <Button variant="ghost" size="sm" onClick={onClose} className="-ml-2 lg:hidden">
-        <ArrowLeft /> Queue
-      </Button>
-      <span className="text-muted-foreground hidden font-mono text-[11px] lg:inline">{label}</span>
-      <Button
-        variant="ghost"
-        size="icon-sm"
-        aria-label="Close"
-        onClick={onClose}
-        className="hidden lg:inline-flex"
-      >
-        <X />
-      </Button>
-    </div>
-  );
-}
-
 function Loaded({ alert, onClose }: { alert: Alert; onClose: () => void }) {
   const me = useMe();
   const online = useOnline();
   const queryClient = useQueryClient();
+  const router = useRouter();
   const writes = useAlertWrites();
-  const [deciding, setDeciding] = useState(false);
+  const incidentWrites = useIncidentWrites();
+  const [panel, setPanel] = useState<"decide" | "escalate" | null>(null);
 
   const permissions = me.data?.permissions ?? [];
   const pending = writes.pending(alert.id);
@@ -109,6 +95,13 @@ function Loaded({ alert, onClose }: { alert: Alert; onClose: () => void }) {
   const status = pending.status ?? alert.status;
   const canTriage = permissions.includes("alert:triage") && status === "new";
   const canDecide = permissions.includes("alert:validate") && DECIDABLE.includes(status);
+  // Escalation is only offered once a person has confirmed the alert (principle 1).
+  const escalation = incidentWrites.escalation(alert.id);
+  const canEscalate =
+    permissions.includes("incident:escalate") &&
+    status === "confirmed" &&
+    !alert.incident &&
+    (!escalation || escalation.status === "failed");
 
   const savedNote = online ? "Sending now." : "It will be sent when you're back online.";
 
@@ -119,8 +112,20 @@ function Loaded({ alert, onClose }: { alert: Alert; onClose: () => void }) {
 
   async function decide(decision: Parameters<typeof writes.validate>[1]) {
     await writes.validate(alert, decision);
-    setDeciding(false);
+    setPanel(null);
     toast.success(`Decision on ${alertRef(alert.number)} saved`, { description: savedNote });
+  }
+
+  async function escalate(input: Parameters<typeof incidentWrites.escalate>[1]) {
+    if (escalation) await outbox.discard(escalation.id);
+    const id = await incidentWrites.escalate({ id: alert.id, ref: alertRef(alert.number) }, input);
+    setPanel(null);
+    toast.success(`Incident opened from ${alertRef(alert.number)}`, {
+      description: savedNote,
+      action: id
+        ? { label: "Open", onClick: () => router.push(`/incidents?incident=${id}`) }
+        : undefined,
+    });
   }
 
   async function reviewAgain(itemId: string) {
@@ -138,14 +143,14 @@ function Loaded({ alert, onClose }: { alert: Alert; onClose: () => void }) {
   const facts: [string, string][] = [
     ["Lens", LENS_LABEL[alert.lens]],
     ["Location", location || "—"],
-    ["First observed", fmt(alert.firstObservedAt)],
-    ["Flagged", fmt(alert.detectedAt)],
+    ["First observed", formatDateTime(alert.firstObservedAt)],
+    ["Flagged", formatDateTime(alert.detectedAt)],
     ["Coverage", alert.coverage],
   ];
 
   return (
     <article aria-labelledby="alert-title" className="space-y-6 p-4 text-xs sm:p-5">
-      <CloseBar label={alertRef(alert.number)} onClose={onClose} />
+      <CloseBar label={alertRef(alert.number)} back="Queue" onClose={onClose} />
 
       <header className="space-y-2">
         <p className="text-muted-foreground font-mono text-[11px] lg:hidden">
@@ -182,9 +187,12 @@ function Loaded({ alert, onClose }: { alert: Alert; onClose: () => void }) {
         </div>
       ))}
 
-      {(canTriage || canDecide) && !deciding && (
+      {(canTriage || canDecide || canEscalate) && !panel && (
         <div className="flex flex-wrap gap-2">
-          {canDecide && <Button onClick={() => setDeciding(true)}>Record a decision</Button>}
+          {canEscalate && (
+            <Button onClick={() => setPanel("escalate")}>Escalate to an incident</Button>
+          )}
+          {canDecide && <Button onClick={() => setPanel("decide")}>Record a decision</Button>}
           {canTriage && (
             <Button variant="outline" onClick={() => void startReview()}>
               Start review
@@ -192,8 +200,15 @@ function Loaded({ alert, onClose }: { alert: Alert; onClose: () => void }) {
           )}
         </div>
       )}
-      {deciding && (
-        <DecisionForm onSubmit={(d) => void decide(d)} onCancel={() => setDeciding(false)} />
+      {panel === "decide" && (
+        <DecisionForm onSubmit={(d) => void decide(d)} onCancel={() => setPanel(null)} />
+      )}
+      {panel === "escalate" && (
+        <EscalateForm
+          defaultTitle={alert.title}
+          onSubmit={(v) => void escalate(v)}
+          onCancel={() => setPanel(null)}
+        />
       )}
 
       <p className="text-muted-foreground border-l-2 pl-2.5 leading-relaxed text-pretty">
@@ -236,7 +251,7 @@ function Loaded({ alert, onClose }: { alert: Alert; onClose: () => void }) {
           <p className="text-muted-foreground mt-1 text-pretty">{alert.rule.description}</p>
           {alert.rule.reviewedAt && (
             <p className="text-muted-foreground mt-1">
-              Rule last reviewed {fmt(alert.rule.reviewedAt)}
+              Rule last reviewed {formatDateTime(alert.rule.reviewedAt)}
             </p>
           )}
         </Section>
@@ -270,7 +285,7 @@ function Loaded({ alert, onClose }: { alert: Alert; onClose: () => void }) {
                 <p className="text-pretty whitespace-pre-line">{v.rationale}</p>
                 <p className="text-muted-foreground">
                   {roleLabel(v.decidedByRole)}
-                  {v.institution && `, ${v.institution}`} · {fmt(v.decidedAt)}
+                  {v.institution && `, ${v.institution}`} · {formatDateTime(v.decidedAt)}
                 </p>
               </li>
             ))}
@@ -278,13 +293,24 @@ function Loaded({ alert, onClose }: { alert: Alert; onClose: () => void }) {
         )}
       </Section>
 
-      {alert.incident && (
+      {(alert.incident || escalation) && (
         <Section title="Incident">
-          <p>
-            Escalated as{" "}
-            <span className="font-mono">INC-{String(alert.incident.number).padStart(4, "0")}</span>{" "}
-            ({alert.incident.status.replaceAll("_", " ")}).
-          </p>
+          {alert.incident ? (
+            <Link
+              href={`/incidents?view=all&incident=${alert.incident.id}`}
+              className="hover:bg-muted/50 flex flex-wrap items-center gap-2 border p-2.5"
+            >
+              <span className="font-mono">{incidentRef(alert.incident.number)}</span>
+              <IncidentStatusBadge status={alert.incident.status} />
+            </Link>
+          ) : escalation?.status === "failed" ? (
+            <p className="text-destructive text-pretty">Escalation not saved: {escalation.error}</p>
+          ) : (
+            <p className="text-muted-foreground inline-flex items-center gap-1">
+              <CloudOff className="size-3" /> Escalation saved on this device. The incident opens
+              when it syncs.
+            </p>
+          )}
         </Section>
       )}
 
@@ -305,7 +331,7 @@ function Loaded({ alert, onClose }: { alert: Alert; onClose: () => void }) {
                 </p>
                 <p className="text-muted-foreground">
                   {roleLabel(h.actorRole)}
-                  {h.institution && `, ${h.institution}`} · {fmt(h.occurredAt)}
+                  {h.institution && `, ${h.institution}`} · {formatDateTime(h.occurredAt)}
                 </p>
                 {h.reason && <p className="mt-0.5 text-pretty whitespace-pre-line">{h.reason}</p>}
               </li>
@@ -314,30 +340,6 @@ function Loaded({ alert, onClose }: { alert: Alert; onClose: () => void }) {
         </Section>
       )}
     </article>
-  );
-}
-
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section>
-      <h3 className="text-muted-foreground mb-2 text-[11px] font-medium tracking-wide uppercase">
-        {title}
-      </h3>
-      {children}
-    </section>
-  );
-}
-
-export function StatusBadge({ status }: { status: AlertStatus }) {
-  return (
-    <span className="inline-flex items-center gap-1.5 border px-1.5 py-0.5">
-      <span
-        aria-hidden
-        className="size-2 rounded-full"
-        style={{ backgroundColor: ALERT_STATUS[status].color }}
-      />
-      {ALERT_STATUS[status].label}
-    </span>
   );
 }
 
@@ -356,7 +358,8 @@ function Evidence({ item }: { item: Alert["evidence"][number] }) {
         </div>
         <p className="text-muted-foreground">
           {o.source.name}
-          {o.source.steward && ` · ${o.source.steward.name}`} · observed {fmt(o.observedAt)}
+          {o.source.steward && ` · ${o.source.steward.name}`} · observed{" "}
+          {formatDateTime(o.observedAt)}
           {o.confidence && ` · ${CONFIDENCE[o.confidence].label.toLowerCase()}`}
         </p>
         {item.caption && <p className="text-pretty">{item.caption}</p>}
@@ -378,7 +381,7 @@ function Evidence({ item }: { item: Alert["evidence"][number] }) {
           {f.isSimulated && <ModeBadge mode="simulated" />}
         </div>
         <p className="text-muted-foreground">
-          {f.authorInstitution ?? "Field team"} · {fmt(f.clientCreatedAt)}
+          {f.authorInstitution ?? "Field team"} · {formatDateTime(f.clientCreatedAt)}
           {f.gpsAccuracyM != null && ` · GPS ±${Math.round(f.gpsAccuracyM)} m`}
         </p>
         <p className="text-pretty whitespace-pre-line">{f.observation}</p>
@@ -395,7 +398,7 @@ function Evidence({ item }: { item: Alert["evidence"][number] }) {
     <>
       <p className="font-medium capitalize">{item.kind.replaceAll("_", " ")}</p>
       {item.caption && <p className="text-pretty">{item.caption}</p>}
-      <p className="text-muted-foreground">Added {fmt(item.addedAt)}</p>
+      <p className="text-muted-foreground">Added {formatDateTime(item.addedAt)}</p>
     </>
   );
 }
