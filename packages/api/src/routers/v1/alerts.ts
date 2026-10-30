@@ -1,17 +1,12 @@
 import type { Database } from "@ecolens/db";
-import {
-  alerts,
-  auditEvents,
-  institutions,
-  sites,
-  validations,
-} from "@ecolens/db/schema/index";
+import { alerts, auditEvents, sites, validations } from "@ecolens/db/schema/index";
 import { ORPCError } from "@orpc/server";
 import { and, asc, count, desc, eq, inArray, type SQL, sql } from "drizzle-orm";
 import { z } from "zod";
 
 import { hasPermission } from "../../auth/roles";
 import { type Actor, authorizedProcedure } from "../../index";
+import { institutionNames, mutation } from "./shared";
 
 // Interpret and Validate (brief section 4). The queue lists alerts with their
 // review state; the detail carries the full evidence trail; a validation is a
@@ -36,18 +31,6 @@ function visibleTo(actor: Actor): SQL | undefined {
     ? undefined
     : eq(alerts.isSensitive, false);
 }
-
-// Decisions record the Clerk organization; show the institution's name.
-async function institutionNames(db: Pick<Database, "select">, orgIds: string[]) {
-  if (orgIds.length === 0) return new Map<string, string>();
-  const rows = await db
-    .select({ clerkOrgId: institutions.clerkOrgId, name: institutions.name })
-    .from(institutions)
-    .where(inArray(institutions.clerkOrgId, [...new Set(orgIds)]));
-  return new Map(rows.map((r) => [r.clerkOrgId ?? "", r.name]));
-}
-
-const mutation = { clientMutationId: z.uuid() };
 
 export const alertsRouter = {
   // The alert queue.
@@ -107,7 +90,11 @@ export const alertsRouter = {
           .from(alerts)
           .leftJoin(sites, eq(sites.id, alerts.siteId))
           .where(filters),
-        db.select({ status: alerts.status, n: count() }).from(alerts).where(base).groupBy(alerts.status),
+        db
+          .select({ status: alerts.status, n: count() })
+          .from(alerts)
+          .where(base)
+          .groupBy(alerts.status),
         db
           .selectDistinct({ basin: sites.basin })
           .from(alerts)
@@ -167,7 +154,13 @@ export const alertsRouter = {
                 },
                 with: {
                   source: {
-                    columns: { key: true, name: true, kind: true, mode: true, knownLimitations: true },
+                    columns: {
+                      key: true,
+                      name: true,
+                      kind: true,
+                      mode: true,
+                      knownLimitations: true,
+                    },
                     with: { steward: { columns: { name: true } } },
                   },
                 },
@@ -245,9 +238,17 @@ export const alertsRouter = {
           ...v,
           institution: institution(decidedByOrgId),
         })),
-        history: history?.map(({ actorOrgId, ...h }) => ({ ...h, institution: institution(actorOrgId) })) ?? null,
+        history:
+          history?.map(({ actorOrgId, ...h }) => ({
+            ...h,
+            institution: institution(actorOrgId),
+          })) ?? null,
         canDecide: hasPermission(actor.role, "alert:validate") && DECIDABLE.includes(alert.status),
         canStartReview: hasPermission(actor.role, "alert:triage") && alert.status === "new",
+        canEscalate:
+          hasPermission(actor.role, "incident:escalate") &&
+          alert.status === "confirmed" &&
+          !alert.incident,
       };
     }),
 
@@ -300,7 +301,10 @@ type Transition = {
   to: Status;
   action: string;
   reason: string | null;
-  validation?: { outcome: "confirmed" | "rejected" | "unresolved"; confidence: (typeof CONFIDENCES)[number] };
+  validation?: {
+    outcome: "confirmed" | "rejected" | "unresolved";
+    confidence: (typeof CONFIDENCES)[number];
+  };
 };
 
 // One audited, versioned status change. Runs in a transaction holding a row
@@ -341,12 +345,18 @@ async function transition(db: Database, actor: Actor, t: Transition) {
         .where(and(eq(auditEvents.entityType, "alert"), eq(auditEvents.entityId, t.alertId)))
         .orderBy(desc(auditEvents.occurredAt))
         .limit(1);
-      const by = latest ? (await institutionNames(tx, [latest.actorOrgId])).get(latest.actorOrgId) : null;
+      const by = latest
+        ? (await institutionNames(tx, [latest.actorOrgId])).get(latest.actorOrgId)
+        : null;
       throw new ORPCError("CONFLICT", {
         message: `This alert changed before your update arrived: it is now "${alert.status.replace("_", " ")}"${
           by ? `, set by ${by}` : ""
         }. Review it again before deciding.`,
-        data: { status: alert.status, version: alert.version, at: latest?.occurredAt.toISOString() ?? null },
+        data: {
+          status: alert.status,
+          version: alert.version,
+          at: latest?.occurredAt.toISOString() ?? null,
+        },
       });
     }
 

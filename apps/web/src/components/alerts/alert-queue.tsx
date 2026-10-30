@@ -12,9 +12,12 @@ import { CONFIDENCE, LENS_LABEL } from "@/components/map/config";
 import { ModeBadge } from "@/components/map/provenance";
 import { PageHeader } from "@/components/shell/page";
 import { useCanCallApi } from "@/components/shell/use-me";
+import { FilterSelect } from "@/components/shell/workflow";
+import { ago, formatDateTime } from "@/lib/format";
 import { orpc } from "@/utils/orpc";
 
-import { AlertDetail, StatusBadge } from "./alert-detail";
+import { AlertDetail } from "./alert-detail";
+import { StatusBadge } from "./status-badge";
 import { type AlertListItem, type AlertStatus, alertRef, useAlertWrites } from "./use-alert-writes";
 
 // The alert queue (Interpret → Validate). Grouped by where an alert is in the
@@ -48,16 +51,6 @@ const queueParsers = {
   page: parseAsInteger.withDefault(0),
   alert: parseAsString,
 };
-
-const relative = new Intl.RelativeTimeFormat(undefined, { numeric: "auto" });
-function ago(iso: string) {
-  const minutes = Math.round((new Date(iso).getTime() - Date.now()) / 60_000);
-  if (Math.abs(minutes) < 60) return relative.format(minutes, "minute");
-  const hours = Math.round(minutes / 60);
-  if (Math.abs(hours) < 48) return relative.format(hours, "hour");
-  return relative.format(Math.round(hours / 24), "day");
-}
-const clock = new Intl.DateTimeFormat(undefined, { dateStyle: "medium", timeStyle: "short" });
 
 export function AlertQueue() {
   const [state, setState] = useQueryStates(queueParsers, { history: "replace" });
@@ -128,21 +121,21 @@ export function AlertQueue() {
             ))}
           </div>
           <div className="flex flex-wrap gap-2">
-            <Select
+            <FilterSelect
               label="Lens"
               value={state.lens}
               onChange={(lens) => filter({ lens })}
               options={LENSES.map((l) => [l, LENS_LABEL[l]])}
               all="All lenses"
             />
-            <Select
+            <FilterSelect
               label="Confidence"
               value={state.confidence}
               onChange={(confidence) => filter({ confidence })}
               options={CONFIDENCES.map((c) => [c, CONFIDENCE[c].label])}
               all="Any confidence"
             />
-            <Select
+            <FilterSelect
               label="Basin"
               value={state.basin}
               onChange={(basin) => filter({ basin })}
@@ -152,7 +145,7 @@ export function AlertQueue() {
               ])}
               all="All basins"
             />
-            <Select
+            <FilterSelect
               label="Sort"
               value={state.sort}
               onChange={(sort) => filter({ sort: sort ?? "newest" })}
@@ -208,7 +201,7 @@ export function AlertQueue() {
               <span>
                 {state.page * PAGE_SIZE + 1}–{state.page * PAGE_SIZE + data.items.length} of{" "}
                 {data.total}
-                {query.dataUpdatedAt > 0 && ` · updated ${clock.format(query.dataUpdatedAt)}`}
+                {query.dataUpdatedAt > 0 && ` · updated ${formatDateTime(query.dataUpdatedAt)}`}
               </span>
               {(state.page > 0 || data.hasMore) && (
                 <div className="flex gap-1">
@@ -281,10 +274,7 @@ function Row({
             <p className="text-muted-foreground font-mono text-[11px]">{alertRef(alert.number)}</p>
             <p className="mt-0.5 text-sm font-medium text-pretty">{alert.title}</p>
           </div>
-          <span
-            className="text-muted-foreground shrink-0"
-            title={clock.format(new Date(alert.detectedAt))}
-          >
+          <span className="text-muted-foreground shrink-0" title={formatDateTime(alert.detectedAt)}>
             {ago(alert.detectedAt)}
           </span>
         </div>
@@ -308,40 +298,5 @@ function Row({
         </div>
       </button>
     </li>
-  );
-}
-
-function Select<T extends string>({
-  label,
-  value,
-  onChange,
-  options,
-  all,
-}: {
-  label: string;
-  value: T | null;
-  onChange: (value: T | null) => void;
-  options: [T, string][];
-  all?: string;
-}) {
-  return (
-    <label className="relative">
-      <span className="sr-only">{label}</span>
-      <select
-        value={value ?? ""}
-        onChange={(e) => onChange((e.target.value || null) as T | null)}
-        className={cn(
-          "bg-background hover:bg-muted h-7 border px-2 pr-6 text-xs outline-none focus-visible:ring-1",
-          value && all && "border-foreground/40",
-        )}
-      >
-        {all && <option value="">{all}</option>}
-        {options.map(([v, text]) => (
-          <option key={v} value={v}>
-            {text}
-          </option>
-        ))}
-      </select>
-    </label>
   );
 }
