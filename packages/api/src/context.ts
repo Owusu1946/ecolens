@@ -22,4 +22,8 @@ export type Context = {
   db: Database;
   /** Field-report photos (R2 `ecolens-photos`). */
   photos: ObjectStore | null;
+  /** Generated reports, HTML and PDF (R2 `ecolens-reports`). */
+  reports: ObjectStore | null;
+  /** HTML → PDF (Cloudflare Browser Rendering); null when not configured. */
+  renderPdf: ((html: string) => Promise<ArrayBuffer>) | null;
 };

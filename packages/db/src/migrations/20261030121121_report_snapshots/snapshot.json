@@ -1,0 +1,149 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "86f291f1-d731-4f3f-bd4f-116a07f29900",
+  "prevIds": [
+    "3d227d7a-c502-4243-8ecc-4018afd87f2f"
+  ],
+  "footprints": [
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "reports",
+        "snapshot"
+      ],
+      "writes": [
+        "s|col|public.reports.snapshot",
+        "n|col|public.reports.snapshot",
+        "e|col|public.reports.snapshot"
+      ],
+      "reads": [
+        "n|tbl|public.reports",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "reports",
+        "html_key"
+      ],
+      "writes": [
+        "s|col|public.reports.html_key",
+        "n|col|public.reports.html_key",
+        "e|col|public.reports.html_key"
+      ],
+      "reads": [
+        "n|tbl|public.reports",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "reports",
+        "is_sensitive"
+      ],
+      "writes": [
+        "s|col|public.reports.is_sensitive",
+        "n|col|public.reports.is_sensitive",
+        "e|col|public.reports.is_sensitive"
+      ],
+      "reads": [
+        "n|tbl|public.reports",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "reports",
+        "is_simulated"
+      ],
+      "writes": [
+        "s|col|public.reports.is_simulated",
+        "n|col|public.reports.is_simulated",
+        "e|col|public.reports.is_simulated"
+      ],
+      "reads": [
+        "n|tbl|public.reports",
+        "n|sch|public"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "reports",
+        "name": "snapshot",
+        "type": "jsonb",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "reports",
+        "name": "html_key",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "reports",
+        "name": "is_sensitive",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "false",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "reports",
+        "name": "is_simulated",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "false",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    }
+  ]
+}

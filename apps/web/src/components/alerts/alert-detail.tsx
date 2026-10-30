@@ -17,6 +17,7 @@ import { EscalateForm } from "@/components/incidents/incident-forms";
 import { useIncidentWrites } from "@/components/incidents/use-incident-writes";
 import { ALERT_STATUS, CONFIDENCE, LENS_LABEL } from "@/components/map/config";
 import { ModeBadge } from "@/components/map/provenance";
+import { CaseReports } from "@/components/reports/case-reports";
 import { useCanCallApi, useMe } from "@/components/shell/use-me";
 import { CloseBar, Section } from "@/components/shell/workflow";
 import { useOnline } from "@/hooks/use-network";
@@ -387,6 +388,14 @@ function Loaded({ alert, onClose }: { alert: Alert; onClose: () => void }) {
             </p>
           )}
         </Section>
+      )}
+
+      {!alert.incident && (
+        <CaseReports
+          target={{ alertId: alert.id }}
+          caseRef={alertRef(alert.number)}
+          generateLabel="Generate alert summary"
+        />
       )}
 
       {alert.history && (

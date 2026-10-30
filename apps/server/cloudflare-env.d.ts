@@ -11,6 +11,8 @@ export type CloudflareEnv = {
   CORS_ORIGIN: string;
   CLERK_SECRET_KEY: string;
   CLERK_PUBLISHABLE_KEY: string;
+  CLOUDFLARE_ACCOUNT_ID?: string;
+  BROWSER_RENDERING_TOKEN?: string;
 };
 
 declare global {
