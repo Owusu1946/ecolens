@@ -109,7 +109,7 @@ async function wipe(db: Db) {
     await tx.execute(sql`alter table audit_events disable trigger audit_events_append_only`);
     await tx.execute(sql`alter table audit_events disable trigger audit_events_no_truncate`);
     await tx.execute(sql`
-      truncate audit_events, reports, verification_requests, incident_actions, incident_assignments, incidents,
+      truncate audit_events, feedback, reports, verification_requests, incident_actions, incident_assignments, incidents,
         validations, alert_evidence, field_report_photos, field_reports, alerts, observations,
         anomaly_rules, river_reaches, boundaries, sites, data_sources, institutions
       restart identity cascade`);

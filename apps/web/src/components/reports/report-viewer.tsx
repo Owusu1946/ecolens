@@ -15,6 +15,7 @@ import { useOnline } from "@/hooks/use-network";
 import { formatDateTime } from "@/lib/format";
 import { client, orpc } from "@/utils/orpc";
 
+import { ReportFeedback } from "./report-feedback";
 import { REPORT_KIND, type Report, useReportWrites } from "./use-report-writes";
 
 // Report: the archived report exactly as filed. The HTML is shown in a
@@ -154,6 +155,7 @@ function Loaded({ report, onClose }: { report: Report; onClose: () => void }) {
             }}
           />
         )}
+        {!approving && <ReportFeedback reportId={report.id} reportRef={report.ref} />}
         {pendingApproval?.status === "failed" && (
           <p className="text-destructive">Approval not saved: {pendingApproval.error}</p>
         )}

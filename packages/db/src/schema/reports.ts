@@ -1,5 +1,15 @@
 import { sql } from "drizzle-orm";
-import { boolean, date, index, jsonb, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import {
+  boolean,
+  check,
+  date,
+  index,
+  jsonb,
+  text,
+  timestamp,
+  unique,
+  uuid,
+} from "drizzle-orm/pg-core";
 import { reportKind } from "./enums";
 import { pgTable } from "./table";
 import { alerts, incidents } from "./workflow";
@@ -33,4 +43,27 @@ export const reports = pgTable(
     publishedAt: timestamp({ withTimezone: true }),
   },
   (t) => [index().on(t.incidentId), index().on(t.generatedAt)],
+);
+
+// MEL "decision usefulness" (brief section 9): whether a report or alert
+// helped the person who used it. One answer per person per item; a later
+// answer replaces theirs.
+export const feedback = pgTable(
+  "feedback",
+  {
+    id: uuid().primaryKey().default(sql`uuidv7()`),
+    targetType: text().notNull(),
+    targetId: uuid().notNull(),
+    useful: boolean().notNull(),
+    comment: text(),
+    userId: text().notNull(),
+    orgId: text().notNull(),
+    role: text().notNull(),
+    createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    unique().on(t.targetType, t.targetId, t.userId),
+    index().on(t.targetType, t.createdAt),
+    check("feedback_target_type", sql`${t.targetType} in ('report', 'alert')`),
+  ],
 );
