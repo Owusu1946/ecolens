@@ -5,6 +5,7 @@ import {
   LayoutDashboard,
   type LucideIcon,
   Map as MapIcon,
+  ScrollText,
   Settings,
   ShieldAlert,
   Siren,
@@ -75,6 +76,14 @@ export const NAV_ITEMS: readonly NavItem[] = [
     icon: FileText,
     stage: "Report",
     permission: "report:read",
+  },
+  {
+    href: "/audit",
+    label: "Audit trail",
+    short: "Audit",
+    icon: ScrollText,
+    stage: null,
+    permission: "audit:read",
   },
   {
     href: "/admin",
