@@ -18,6 +18,13 @@ export type ChatUIMessage = UIMessage<
   { search: InferUITool<SearchTool> }
 >;
 
+const SUGGESTIONS = [
+  "How do I record a decision on an alert?",
+  "How do I file a field report without signal?",
+  "What does “couldn't sync” mean?",
+  "What is the difference between an alert and an incident?",
+];
+
 export function AIChat({ children }: { children: ReactNode }) {
   const chat = useChat<ChatUIMessage>({
     id: "search",
@@ -28,7 +35,12 @@ export function AIChat({ children }: { children: ReactNode }) {
   });
 
   return (
-    <AIChatProvider chat={chat} renderPart={renderPart}>
+    <AIChatProvider
+      chat={chat}
+      renderPart={renderPart}
+      suggestions={SUGGESTIONS}
+      description="Answers come from these help pages, and AI can make mistakes. Don't type names, phone numbers or locations: questions are processed by an external AI service."
+    >
       {children}
     </AIChatProvider>
   );

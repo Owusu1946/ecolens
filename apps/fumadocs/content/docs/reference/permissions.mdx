@@ -1,0 +1,28 @@
+---
+title: Roles and permissions
+description: What each role can see and do.
+---
+
+✓ = can do. Every action is also checked by the server.
+
+| | Admin | Leadership | Regulator | Analyst | Field officer | Responder | Data steward | Evaluator | Viewer |
+|---|---|---|---|---|---|---|---|---|---|
+| Read alerts, incidents | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Start review, decide | ✓ | | ✓ | ✓ | | | | | |
+| Ask for a field check | ✓ | | ✓ | ✓ | | | | | |
+| Escalate | ✓ | | ✓ | ✓ | | | | | |
+| Assign, close incidents | ✓ | | ✓ | | | | | | |
+| Record action (own cases) | ✓ | | | | | ✓ | | | |
+| File field reports | ✓ | | | | ✓ | | | | |
+| Read field reports | ✓ | ✓ | ✓ | ✓ | ✓ | ✓¹ | | ✓¹ | |
+| Generate reports | ✓ | | ✓ | ✓ | | | | | |
+| Approve reports | ✓ | ✓ | | | | | | | |
+| Success measures | ✓ | ✓ | ✓ | ✓ | | | ✓ | ✓ | ✓ |
+| Audit trail | ✓ | ✓ | ✓ | | | | | ✓ | |
+| Sensitive locations | ✓ | ✓ | ✓ | ✓ | ✓ | | | | |
+| Data sources, live feed | ✓ | | | | | | ✓ | | |
+| Members and roles | ✓ | | | | | | | | |
+
+¹ Field reports are sensitive by default, so roles without sensitive-location access see none in practice.
+
+Responders see only incidents their institution leads or is assigned to.

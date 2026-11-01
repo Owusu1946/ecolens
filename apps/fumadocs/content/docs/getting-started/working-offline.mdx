@@ -1,0 +1,35 @@
+---
+title: Working offline
+description: What's saved on your device, and what “to sync” means.
+---
+
+Networks in the pilot area can be slow or absent. Ecolens is built to keep working without them.
+
+## What works offline
+
+- **Every screen you've opened before** opens with the data last saved on your device. Lists show when they were last updated.
+- **Every action** (a decision, a field report and its photos, an escalation, an assignment, an action taken, a report request) is **saved on your device first** and sent when there's a connection.
+- **Map imagery** you've already looked at is kept for a while, so the map works where you've been.
+
+## The connection indicator
+
+| It says | Meaning |
+|---|---|
+| **Live** | Connected, and changes by others appear as they happen |
+| **Online** | Connected |
+| **Offline** | No connection; you're seeing saved data |
+| **Offline · 2 to sync** | Two of your changes are saved on the device, waiting |
+| **Syncing 2…** | Sending them now |
+| **1 couldn't sync** | The server refused one change. Open the indicator to see why |
+
+Changes are sent **in the order you made them**, as soon as you're back online, when you return to the app, and every 30 seconds while it's open.
+
+## On the screen
+
+Things saved on your device but not yet sent are marked **Saved on this device** or **Not synced yet**. They show the result you asked for (for example the new status) until the server confirms it.
+
+<Callout type="warn">
+Don't sign out while changes are waiting to sync, unless you mean to discard them. Ecolens asks you first.
+</Callout>
+
+If something couldn't sync, see [sync problems](/docs/troubleshooting/sync).

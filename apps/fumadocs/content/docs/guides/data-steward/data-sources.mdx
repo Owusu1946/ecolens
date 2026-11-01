@@ -1,0 +1,20 @@
+---
+title: Data sources and the live feed
+description: Freshness, provenance and the NASA thermal feed.
+---
+
+<Task stage="Observe" roles="Data steward · Admin" />
+
+Each institution keeps authority over its own data. Every source in Ecolens records its **steward**, whether it's **live**, **prepared** or **simulated**, how often it updates, its resolution, its licence and its **known limitations**.
+
+## Data sources
+
+The list of sources (on the analyst dashboard, and under **Administration → Data sources** for admins) shows each source's steward, update frequency, mode and when its latest reading was.
+
+## Live thermal feed (NASA FIRMS)
+
+Ecolens fetches VIIRS thermal detections for the pilot area **every hour**, and runs the agreed rule *Thermal anomaly near a river* on them. The **Live thermal feed** card on your dashboard shows whether the feed is **on**, how many detections are stored, and when it last fetched. **Fetch now** runs it immediately.
+
+Alerts it opens start at **low confidence**: VIIRS can't tell machinery or mining from farm or charcoal fires.
+
+If the card says **Off**, the feed hasn't been configured yet. Ask your Ecolens administrator.

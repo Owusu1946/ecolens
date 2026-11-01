@@ -4,6 +4,7 @@ import { useCopyButton } from "@fumadocs/base-ui/utils/use-copy-button";
 import { Check, Clipboard } from "lucide-react";
 import {
   type ComponentProps,
+  type CSSProperties,
   createContext,
   type HTMLAttributes,
   type ReactNode,
@@ -140,7 +141,7 @@ export function CodeBlock({
             ? `line ${Number(props["data-line-numbers-start"] ?? 1) - 1}`
             : undefined,
           ...viewportProps.style,
-        }}
+        } as CSSProperties}
       >
         {children}
       </div>

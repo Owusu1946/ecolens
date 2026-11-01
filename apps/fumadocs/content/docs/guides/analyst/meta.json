@@ -1,0 +1,11 @@
+{
+  "title": "Analyst / Reviewer",
+  "icon": "Search",
+  "pages": [
+    "review-an-alert",
+    "ask-for-a-field-check",
+    "record-a-decision",
+    "escalate-an-alert",
+    "generate-a-report"
+  ]
+}

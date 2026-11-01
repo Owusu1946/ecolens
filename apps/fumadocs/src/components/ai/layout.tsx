@@ -3,7 +3,9 @@ import { type DocsLayoutProps, DocsLayout as Layout } from "fumadocs-ui/layouts/
 
 import { AIChat, AIChatPanel, AIChatTrigger, useAIChat } from "./search";
 
-export function DocsLayout(props: DocsLayoutProps) {
+// Ask AI is shown only when the site has an OpenRouter key.
+export function DocsLayout({ aiEnabled, ...props }: DocsLayoutProps & { aiEnabled: boolean }) {
+  if (!aiEnabled) return <Layout {...props} />;
   return (
     <AIChat>
       <ChatLayout {...props} />

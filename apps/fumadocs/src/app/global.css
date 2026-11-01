@@ -2,6 +2,19 @@
 @import "fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
 
+/* Closer to the Ecolens app: tighter corners, the same amber accent. */
+@theme {
+  --radius-sm: 0.125rem;
+  --radius-md: 0.1875rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.375rem;
+  --radius-2xl: 0.5rem;
+}
+
+:root {
+  --ecolens-amber: #f59e0b;
+}
+
 html {
   scrollbar-gutter: stable;
 }

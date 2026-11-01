@@ -1,0 +1,5 @@
+{
+  "title": "Regulator",
+  "icon": "Scale",
+  "pages": ["escalate-and-assign", "close-an-incident", "reports"]
+}
