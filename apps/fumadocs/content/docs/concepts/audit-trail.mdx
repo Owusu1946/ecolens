@@ -1,0 +1,15 @@
+---
+title: The audit trail
+description: Why every change is recorded, and how.
+---
+
+Every status change in Ecolens (start review, decision, field-check request, escalation, assignment, acknowledgement, action, closure, report, approval, membership change) is recorded with:
+
+- **who**: role and institution,
+- **when**,
+- **why**: the reason given,
+- what it changed **from** and **to**.
+
+The record is **append-only**: the database itself refuses edits and deletions. Mistakes are corrected with a new entry, so the history stays complete.
+
+Roles with access can read it under **Audit trail**, and an independent evaluator can export it. See [the audit trail guide](/docs/guides/leadership/audit-trail).

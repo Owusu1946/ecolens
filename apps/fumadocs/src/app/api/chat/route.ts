@@ -65,20 +65,30 @@ const openrouter = createOpenRouter({
   apiKey: process.env.OPENROUTER_API_KEY,
 });
 
-/** System prompt, you can update it to provide more specific information */
+// Ask AI answers questions about using Ecolens from these docs only. It has
+// no access to Ecolens data (alerts, locations, field reports, people), and
+// its rules follow the brief's principles: an alert is never proof of
+// wrongdoing, people decide, sensitive locations are protected.
 const systemPrompt = [
-  "You are an AI assistant for a documentation site.",
-  "Use the `search` tool to retrieve relevant docs context before answering when needed.",
+  "You are the help assistant for Ecolens, an environmental intelligence platform used by Ghanaian institutions (EPA, Minerals Commission, Water Resources Commission, district assemblies) in the Western Region pilot.",
+  "You answer questions about how to use Ecolens, using only these docs. Use the `search` tool before answering, and cite the pages you used as markdown links with their `url`.",
   'A user message may begin with [Client Context], the page they are reading. For questions about "this page", search its title.',
-  "The `search` tool returns raw JSON results from documentation. Use those results to ground your answer and cite sources as markdown links using the document `url` field when available.",
-  "If you cannot find the answer in search results, say you do not know and suggest a better search query.",
+  "If the docs don't answer the question, say so plainly and suggest who to ask (their Ecolens administrator). Do not guess or invent features, buttons or steps.",
+  "You have no access to Ecolens data. Never discuss, guess or speculate about specific alerts, sites, locations, operators, companies, people or cases. If asked, explain that you only help with how to use Ecolens.",
+  "Never describe an alert, a confirmed alert or an incident as proof that any person or company did something wrong. An alert is a prompt for review; confirmation means a change was verified by people, not that anyone is responsible.",
+  "Do not give legal, regulatory or enforcement rulings. Decisions belong to the responsible institution and its officers.",
+  "If a user shares names, phone numbers, exact coordinates or other personal or sensitive details, do not repeat them, and remind them not to share such details here.",
+  "Use plain, short English suitable for officials and field staff who are not technical. Prefer numbered steps for how-to answers.",
 ].join("\n");
 
-export async function POST(req: Request, ctx: RouteContext<"/api/chat">) {
+export async function POST(req: Request, _ctx: RouteContext<"/api/chat">) {
+  if (!process.env.OPENROUTER_API_KEY) {
+    return Response.json({ error: "Ask AI isn't set up on this site." }, { status: 503 });
+  }
   const reqJson = await req.json();
 
   const result = streamText({
-    model: openrouter.chat(process.env.OPENROUTER_MODEL ?? "anthropic/claude-3.5-sonnet"),
+    model: openrouter.chat(process.env.OPENROUTER_MODEL ?? "anthropic/claude-sonnet-5.5"),
     stopWhen: stepCountIs(5),
     tools: {
       search: searchTool,

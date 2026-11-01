@@ -51,6 +51,7 @@ Rule: **the web app never talks to the database directly.** All data goes throug
 | Tables | **TanStack Table** + virtualization | Large alert queues stay smooth. |
 | Charts | **uPlot** (time series), shadcn charts / Recharts (dashboards) | |
 | Auth & roles | **Clerk Organizations**: org = institution, role = job | Eight role dashboards (see brief section 11). Permissions enforced in oRPC middleware; every status change is audited. |
+| Help docs | **Fumadocs** (`apps/fumadocs`, Next.js + MDX) with Ask AI (AI SDK + OpenRouter, docs-only) and `llms.txt` | Public, role-based user guides; chat grounded in the docs only. See the brief, section 11. |
 | Observability | evlog, Workers Logs, Sentry, real-user Web Vitals | |
 
 ## Offline-first (whole app, not only field reporting)

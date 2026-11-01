@@ -1,0 +1,29 @@
+---
+title: Sync problems
+description: “to sync”, “Not sent” and “couldn't sync”.
+---
+
+## "2 to sync" and it doesn't go down
+
+- Check you're **online** (the indicator says *Offline* otherwise).
+- Bring Ecolens to the front: it retries when you return, and every 30 seconds.
+- Photos send after their report; on a slow connection they take longer.
+
+## "1 couldn't sync" or "Not sent: …"
+
+The server **refused** that change, and gives the reason. Open the connection indicator (top right) to see each one:
+
+- **Try again**: after fixing the cause (for example, getting the right role).
+- **Discard this change**: if it's no longer needed.
+
+Common reasons:
+
+| Reason | What to do |
+|---|---|
+| *This alert changed before your update arrived* | Someone else acted first. See [conflicts](/docs/troubleshooting/conflicts) |
+| *Your role does not allow this action* | Ask your administrator about your role |
+| *… not found* | It was removed or isn't available to your role |
+
+## Signing out with changes waiting
+
+Ecolens warns you. Signing out anyway **discards** them.

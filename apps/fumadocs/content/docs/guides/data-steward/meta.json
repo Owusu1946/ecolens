@@ -1,0 +1,5 @@
+{
+  "title": "Data steward",
+  "icon": "Database",
+  "pages": ["data-sources"]
+}

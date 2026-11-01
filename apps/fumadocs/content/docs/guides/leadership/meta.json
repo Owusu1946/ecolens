@@ -1,0 +1,5 @@
+{
+  "title": "Leadership & evaluator",
+  "icon": "LayoutDashboard",
+  "pages": ["success-measures", "approve-a-report", "audit-trail"]
+}

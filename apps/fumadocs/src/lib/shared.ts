@@ -1,14 +1,18 @@
 import { createGetUrl } from "fumadocs-core/source";
 
-export const appName = "My App";
+export const appName = "Ecolens";
+// The Ecolens app, for "open this screen" links from the guides.
+export const appUrl = (process.env.NEXT_PUBLIC_APP_URL ?? "https://ecolensgh.vercel.app").replace(
+  /\/$/,
+  "",
+);
 export const docsRoute = "/docs";
 export const docsImageRoute = "/og/docs";
 export const docsContentRoute = "/llms.mdx/docs";
 
-// fill this with your actual GitHub info, for example:
 export const gitConfig = {
-  user: "fuma-nama",
-  repo: "fumadocs",
+  user: "Owusu1946",
+  repo: "ecolens",
   branch: "main",
 };
 

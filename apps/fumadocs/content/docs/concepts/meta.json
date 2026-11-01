@@ -1,0 +1,12 @@
+{
+  "title": "Concepts",
+  "pages": [
+    "how-it-works",
+    "alerts-and-incidents",
+    "statuses",
+    "sources-and-limitations",
+    "roles",
+    "sensitive-locations",
+    "audit-trail"
+  ]
+}
